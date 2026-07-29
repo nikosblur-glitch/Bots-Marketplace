@@ -1,850 +1,263 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hosting | Discord Board Marketplace</title>
+<title>☁️ Hosting | Discord Board Marketplace</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    margin: 0;
+    font-family: Arial;
     background: #03040a;
-    overflow-x: hidden;
+    color: white;
 }
 
-/* BACKGROUND */
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background:
-        radial-gradient(
-            circle at 20% 10%,
-            rgba(88,101,242,0.20),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(139,92,246,0.15),
-            transparent 30%
-        ),
-        #03040a;
-}
-
-/* NAVBAR */
-.navbar {
-    position: sticky;
-    top: 15px;
-    z-index: 1000;
-
-    width: 92%;
-    max-width: 1200px;
-
-    margin: 15px auto;
-
-    padding: 15px 20px;
-
+nav {
+    padding: 20px;
+    background: #0d0f19;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    border-radius: 18px;
-
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-
-    backdrop-filter: blur(20px);
-}
-
-.logo {
-    font-size: 19px;
-    font-weight: 900;
-}
-
-.logo span {
-    color: #7280ff;
-}
-
-.nav-links {
-    display: flex;
-    gap: 8px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.nav-links a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-
-    padding: 9px 13px;
-    border-radius: 10px;
-
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
+nav a {
     color: white;
-    background: rgba(255,255,255,0.1);
+    text-decoration: none;
 }
 
-.cart-button {
-    background: linear-gradient(
-        135deg,
-        #5865f2,
-        #8b5cf6
-    );
-
-    color: white !important;
-}
-
-/* HEADER */
-.header {
-    width: 92%;
+.container {
     max-width: 1100px;
-
-    margin: 80px auto 40px;
-
-    text-align: center;
+    margin: auto;
+    padding: 50px 20px;
 }
 
-.header h1 {
-    font-size: clamp(40px, 7vw, 75px);
-    margin-bottom: 20px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-.header h1 span {
+.card {
+    background: #111421;
+    border: 1px solid #252a40;
+    padding: 20px;
+    border-radius: 18px;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #5865f2;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 22px;
     color: #7280ff;
 }
 
-.header p {
-    color: rgba(255,255,255,0.55);
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-/* HOSTING GRID */
-.hosting-container {
-    width: 92%;
-    max-width: 1200px;
-
-    margin: auto;
-    padding: 30px 0 100px;
-}
-
-.hosting-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(260px, 1fr)
-        );
-
-    gap: 25px;
-}
-
-/* CARD */
-.hosting-card {
-    overflow: hidden;
-
-    border-radius: 24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.08),
-            rgba(255,255,255,0.025)
-        );
-
-    border: 1px solid rgba(255,255,255,0.12);
-
-    backdrop-filter: blur(20px);
-
-    transition: 0.4s;
-
-    box-shadow:
-        0 20px 60px
-        rgba(0,0,0,0.25);
-}
-
-.hosting-card:hover {
-    transform: translateY(-8px);
-
-    border-color:
-        rgba(114,128,255,0.5);
-
-    box-shadow:
-        0 25px 80px
-        rgba(88,101,242,0.2);
-}
-
-/* IMAGE */
-.hosting-image {
-    width: 100%;
-    height: 190px;
-
-    object-fit: cover;
-
-    display: block;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5865f2,
-            #8b5cf6
-        );
-}
-
-/* CONTENT */
-.hosting-content {
-    padding: 25px;
-}
-
-.hosting-content h2 {
-    margin-bottom: 10px;
-    font-size: 23px;
-}
-
-.hosting-description {
-    color: rgba(255,255,255,0.55);
-
-    line-height: 1.6;
-
-    min-height: 70px;
-
-    margin-bottom: 20px;
-}
-
-/* PRICE */
-.hosting-price {
-    font-size: 28px;
-    font-weight: bold;
-
-    color: #8f9aff;
-
-    margin-bottom: 8px;
-}
-
-.hosting-stock {
-    font-size: 14px;
-
-    color: rgba(255,255,255,0.5);
-
-    margin-bottom: 20px;
-}
-
-/* BUTTON */
-.add-cart {
-    width: 100%;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5865f2,
-            #8b5cf6
-        );
-
-    transition: 0.3s;
-}
-
-.add-cart:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 10px 30px
-        rgba(88,101,242,0.4);
-}
-
-.add-cart:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-    transform: none;
-}
-
-/* EMPTY */
-.empty {
-    text-align: center;
-
-    padding: 70px 20px;
-
-    color: rgba(255,255,255,0.5);
-
-    display: none;
-}
-
-.empty h2 {
-    color: white;
-    margin-bottom: 10px;
-}
-
-/* TOAST */
-.toast {
-    position: fixed;
-
-    right: 20px;
-    bottom: 20px;
-
-    z-index: 5000;
-
-    padding: 15px 20px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(30,35,55,0.95);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.12);
-
-    box-shadow:
-        0 15px 50px
-        rgba(0,0,0,0.4);
-
-    transform:
-        translateY(100px);
-
-    opacity: 0;
-
-    transition: 0.3s;
-}
-
-.toast.show {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-/* FOOTER */
-footer {
-    padding: 50px 20px;
-
-    text-align: center;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.08);
-
-    color:
-        rgba(255,255,255,0.4);
-}
-
-/* MOBILE */
-@media(max-width:700px) {
-
-    .navbar {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .header {
-        margin-top: 60px;
-    }
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="background"></div>
+<nav>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<a href="index.html">🏠 Home</a>
 
-    <div class="logo">
-        Discord
-        <span>Board</span>
-        Marketplace
-    </div>
+<a href="bots.html">🤖 Bots</a>
 
-    <div class="nav-links">
+<a href="hosting.html">☁️ Hosting</a>
 
-        <a href="index.html">
-            Home
-        </a>
+<a href="support.html">🎧 Support</a>
 
-        <a href="bots.html">
-            Bots
-        </a>
-
-        <a href="hosting.html">
-            Hosting
-        </a>
-
-        <a href="support.html">
-            Support
-        </a>
-
-        <a
-            href="cart.html"
-            class="cart-button"
-        >
-            🛒 Cart
-        </a>
-
-    </div>
+<a href="cart.html">🛒 Cart</a>
 
 </nav>
 
 
-<!-- HEADER -->
-<section class="header">
+<div class="container">
 
-    <h1>
-        Premium
-        <span>Hosting</span>
-    </h1>
+<h1>☁️ Bot Hosting</h1>
 
-    <p>
-        Reliable hosting solutions
-        for your Discord bots and projects.
-    </p>
+<p>Reliable hosting for your Discord bots.</p>
 
-</section>
-
-
-<!-- HOSTING -->
-<section class="hosting-container">
-
-    <div
-        class="hosting-grid"
-        id="hostingGrid"
-    ></div>
-
-
-    <div
-        class="empty"
-        id="emptyMessage"
-    >
-
-        <h2>
-            No Hosting Available
-        </h2>
-
-        <p>
-            Hosting products will appear here
-            when they are added from the Owner Panel.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- TOAST -->
 <div
-    class="toast"
-    id="toast"
+id="hostingContainer"
+class="grid"
 >
-    Added to cart!
 </div>
 
-
-<!-- FOOTER -->
-<footer>
-
-    <p>
-        © 2026 Discord Board Marketplace.
-        All rights reserved.
-    </p>
-
-</footer>
+</div>
 
 
 <script>
 
-/* =========================================
-   LOAD HOSTING FROM OWNER PANEL
-========================================= */
-
-let hostingProducts = JSON.parse(
-    localStorage.getItem(
-        "DBM_HOSTING"
-    )
+const hosting =
+JSON.parse(
+localStorage.getItem("DBM_HOSTING")
 ) || [];
 
 
-/* =========================================
-   LOAD CART
-========================================= */
+const container =
+document.getElementById(
+"hostingContainer"
+);
 
-let cart = JSON.parse(
-    localStorage.getItem(
-        "DBM_CART"
-    )
+
+if (hosting.length === 0) {
+
+container.innerHTML =
+"<p>No Hosting products available yet.</p>";
+
+}
+
+
+hosting.forEach(item => {
+
+const card =
+document.createElement("div");
+
+card.className = "card";
+
+
+card.innerHTML = `
+
+${
+item.image
+?
+`<img src="${item.image}" alt="Hosting">`
+:
+""
+}
+
+<h2>☁️ ${escapeHTML(item.name)}</h2>
+
+<p>
+${escapeHTML(item.description || "Premium Bot Hosting")}
+</p>
+
+<p>
+RAM: ${escapeHTML(item.ram || "Not specified")}
+</p>
+
+<p class="price">
+€${Number(item.price).toFixed(2)}
+</p>
+
+<p>
+Stock: ${item.stock}
+</p>
+
+<button
+onclick="addToCart(${item.id})"
+>
+🛒 Add to Cart
+</button>
+
+`;
+
+
+container.appendChild(card);
+
+});
+
+
+function addToCart(id) {
+
+const item =
+hosting.find(
+product => product.id === id
+);
+
+
+if (!item) return;
+
+
+let cart =
+JSON.parse(
+localStorage.getItem("DBM_CART")
 ) || [];
 
 
-/* =========================================
-   DISPLAY HOSTING
-========================================= */
-
-function renderHosting() {
-
-    const grid =
-        document.getElementById(
-            "hostingGrid"
-        );
-
-    const empty =
-        document.getElementById(
-            "emptyMessage"
-        );
+const existing =
+cart.find(
+product =>
+product.productId === item.id &&
+product.type === "hosting"
+);
 
 
-    grid.innerHTML = "";
+if (existing) {
 
+existing.quantity++;
 
-    if (
-        hostingProducts.length === 0
-    ) {
+} else {
 
-        empty.style.display =
-            "block";
+cart.push({
 
-        return;
+productId: item.id,
 
-    }
+type: "hosting",
 
+name: item.name,
 
-    empty.style.display =
-        "none";
+price: item.price,
 
+quantity: 1
 
-    hostingProducts.forEach(
-        product => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "hosting-card";
-
-
-            const image =
-                product.image ||
-                "https://placehold.co/800x500/5865f2/ffffff?text=Hosting";
-
-
-            const stock =
-                Number(
-                    product.stock
-                ) || 0;
-
-
-            card.innerHTML = `
-
-                <img
-                    class="hosting-image"
-                    src="${escapeHTML(image)}"
-                    alt="${escapeHTML(product.name)}"
-                    onerror="
-                        this.src='https://placehold.co/800x500/5865f2/ffffff?text=Hosting'
-                    "
-                >
-
-                <div class="hosting-content">
-
-                    <h2>
-                        ${escapeHTML(
-                            product.name
-                        )}
-                    </h2>
-
-                    <p class="hosting-description">
-
-                        ${escapeHTML(
-                            product.description ||
-                            "Premium hosting service."
-                        )}
-
-                    </p>
-
-                    <div class="hosting-price">
-
-                        €${Number(
-                            product.price
-                        ).toFixed(2)}
-
-                    </div>
-
-                    <div class="hosting-stock">
-
-                        ${
-                            stock > 0
-                            ? "🟢 In Stock: " + stock
-                            : "🔴 Out of Stock"
-                        }
-
-                    </div>
-
-                    <button
-                        class="add-cart"
-                        onclick="
-                            addToCart(
-                                ${product.id}
-                            )
-                        "
-                        ${stock <= 0 ? "disabled" : ""}
-                    >
-
-                        🛒 Add to Cart
-
-                    </button>
-
-                </div>
-
-            `;
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
+});
 
 }
 
 
-/* =========================================
-   ADD TO CART
-========================================= */
-
-function addToCart(
-    productId
-) {
-
-    const product =
-        hostingProducts.find(
-            item =>
-                item.id === productId
-        );
+localStorage.setItem(
+"DBM_CART",
+JSON.stringify(cart)
+);
 
 
-    if (!product) {
-
-        alert(
-            "Hosting product not found."
-        );
-
-        return;
-
-    }
-
-
-    const stock =
-        Number(
-            product.stock
-        ) || 0;
-
-
-    if (stock <= 0) {
-
-        alert(
-            "This hosting product is out of stock."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       IMPORTANT
-
-       We save the product type as "hosting"
-       so cart.html knows that this is
-       a hosting product.
-    */
-
-
-    const existing =
-        cart.find(
-            item =>
-                item.id === product.id &&
-                item.type === "hosting"
-        );
-
-
-    if (existing) {
-
-        if (
-            existing.quantity >=
-            stock
-        ) {
-
-            alert(
-                "You cannot add more than the available stock."
-            );
-
-            return;
-
-        }
-
-
-        existing.quantity++;
-
-    } else {
-
-        cart.push({
-
-            id:
-                product.id,
-
-            type:
-                "hosting",
-
-            name:
-                product.name,
-
-            price:
-                Number(
-                    product.price
-                ),
-
-            image:
-                product.image || "",
-
-            description:
-                product.description || "",
-
-            quantity:
-                1
-
-        });
-
-    }
-
-
-    localStorage.setItem(
-
-        "DBM_CART",
-
-        JSON.stringify(
-            cart
-        )
-
-    );
-
-
-    showToast(
-        "✅ Hosting added to cart!"
-    );
+alert("☁️ Hosting added to cart!");
 
 }
 
 
-/* =========================================
-   TOAST
-========================================= */
+function escapeHTML(text) {
 
-function showToast(
-    message
-) {
+return String(text)
 
-    const toast =
-        document.getElementById(
-            "toast"
-        );
+.replace(/&/g, "&amp;")
 
+.replace(/</g, "&lt;")
 
-    toast.textContent =
-        message;
+.replace(/>/g, "&gt;")
 
+.replace(/"/g, "&quot;")
 
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        () => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },
-        2500
-    );
+.replace(/'/g, "&#039;");
 
 }
-
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
-
-function escapeHTML(
-    text
-) {
-
-    return String(
-        text
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-renderHosting();
 
 </script>
 
 </body>
+
 </html>
-```
