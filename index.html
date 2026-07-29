@@ -919,3 +919,314 @@ footer p {
 </body>
 </html>
 ```
+<script>
+
+let products =
+JSON.parse(
+    localStorage.getItem("DBM_PRODUCTS")
+) || [];
+
+
+// ================================
+// ADD PRODUCT
+// ================================
+
+function addProduct() {
+
+    const type =
+        document
+        .getElementById("productType")
+        .value;
+
+    const name =
+        document
+        .getElementById("productName")
+        .value
+        .trim();
+
+    const price =
+        Number(
+            document
+            .getElementById("productPrice")
+            .value
+        );
+
+    const stock =
+        Number(
+            document
+            .getElementById("productStock")
+            .value
+        );
+
+    const image =
+        document
+        .getElementById("productImage")
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById("productDescription")
+        .value
+        .trim();
+
+
+    if (
+        !name ||
+        price <= 0 ||
+        stock < 0
+    ) {
+
+        alert(
+            "Please complete all required fields."
+        );
+
+        return;
+    }
+
+
+    const product = {
+
+        id: Date.now(),
+
+        type: type,
+
+        name: name,
+
+        price: price,
+
+        stock: stock,
+
+        image: image,
+
+        description: description
+
+    };
+
+
+    products.push(product);
+
+
+    localStorage.setItem(
+        "DBM_PRODUCTS",
+        JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+
+    clearProductForm();
+
+
+    alert(
+        "Product added successfully!"
+    );
+
+}
+
+
+// ================================
+// RENDER PRODUCTS
+// ================================
+
+function renderProducts() {
+
+    const list =
+        document
+        .getElementById("productList");
+
+
+    if (!list) return;
+
+
+    list.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+        list.innerHTML =
+        "<p>No products yet.</p>";
+
+        return;
+
+    }
+
+
+    products.forEach(
+        product => {
+
+            const item =
+                document
+                .createElement("div");
+
+
+            item.className =
+                "inventory-item";
+
+
+            item.innerHTML = `
+
+                <div class="inventory-info">
+
+                    <strong>
+                        ${escapeHTML(product.name)}
+                    </strong>
+
+                    <span>
+
+                        ${product.type === "bot"
+                            ? "🤖 Bot"
+                            : "☁️ Hosting"
+                        }
+
+                        • €${product.price.toFixed(2)}
+
+                        • Stock:
+                        ${product.stock}
+
+                    </span>
+
+                </div>
+
+
+                <div class="inventory-actions">
+
+                    <button
+                        class="small-button"
+                        onclick="deleteProduct(${product.id})"
+                    >
+                        🗑️ Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(item);
+
+        }
+    );
+
+}
+
+
+// ================================
+// DELETE PRODUCT
+// ================================
+
+function deleteProduct(id) {
+
+    if (
+        !confirm(
+            "Delete this product?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    products =
+        products.filter(
+            product =>
+                product.id !== id
+        );
+
+
+    localStorage.setItem(
+        "DBM_PRODUCTS",
+        JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+}
+
+
+// ================================
+// CLEAR FORM
+// ================================
+
+function clearProductForm() {
+
+    document
+    .getElementById("productName")
+    .value = "";
+
+
+    document
+    .getElementById("productPrice")
+    .value = "";
+
+
+    document
+    .getElementById("productStock")
+    .value = "";
+
+
+    document
+    .getElementById("productImage")
+    .value = "";
+
+
+    document
+    .getElementById("productDescription")
+    .value = "";
+
+}
+
+
+// ================================
+// ESCAPE HTML
+// ================================
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ================================
+// LOAD
+// ================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        renderProducts();
+
+    }
+);
+
+</script>
