@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💳 Payment</title>
+
+<style>
+
+body {
+    font-family: Arial;
+    background: #03040a;
+    color: white;
+    padding: 30px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.payment {
+    background: #111421;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid #252a40;
+}
+
+.payment:hover {
+    border-color: #5865f2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💳 Choose Payment Method</h1>
+
+<div
+class="payment"
+onclick="payPal()"
+>
+🅿️ PayPal
+</div>
+
+<div
+class="payment"
+onclick="revolut()"
+>
+💙 Revolut
+</div>
+
+<div
+class="payment"
+onclick="card()"
+>
+💳 Credit / Debit Card
+</div>
+
+</div>
+
+
+<script>
+
+function payPal() {
+
+alert(
+"PayPal checkout will be connected here."
+);
+
+}
+
+
+function revolut() {
+
+alert(
+"Revolut payment will be connected here."
+);
+
+}
+
+
+function card() {
+
+alert(
+"Secure card checkout will be connected here."
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
