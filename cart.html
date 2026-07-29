@@ -1,319 +1,520 @@
-```html
-<!DOCTYPE html>
-<html lang="el">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+```javascript
+/* =====================================================
+   DISCORD BOT MARKETPLACE
+   PRODUCTS DATABASE
+   50 DIFFERENT DISCORD BOTS
+===================================================== */
 
-  <title>Cart | Discord Bot Marketplace</title>
+const DBM_BOTS = [
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
+    {
+        id: "bot-001",
+        name: "MusicWave",
+        category: "Music",
+        price: 2.99,
+        description: "Music bot με queue, playlists και volume control."
+    },
+
+    {
+        id: "bot-002",
+        name: "DJ Pro",
+        category: "Music",
+        price: 4.99,
+        description: "Advanced DJ music system για Discord servers."
+    },
+
+    {
+        id: "bot-003",
+        name: "BeatBox",
+        category: "Music",
+        price: 3.49,
+        description: "Απλό και γρήγορο music bot."
+    },
+
+    {
+        id: "bot-004",
+        name: "ModeratorX",
+        category: "Moderation",
+        price: 5.99,
+        description: "Πλήρες moderation system για το Discord server σου."
+    },
+
+    {
+        id: "bot-005",
+        name: "AutoMod Pro",
+        category: "Moderation",
+        price: 7.99,
+        description: "Automatic moderation, warnings και punishments."
+    },
+
+    {
+        id: "bot-006",
+        name: "Guardian",
+        category: "Security",
+        price: 9.99,
+        description: "Προστασία από raids και ύποπτη δραστηριότητα."
+    },
+
+    {
+        id: "bot-007",
+        name: "AntiRaid X",
+        category: "Security",
+        price: 12.99,
+        description: "Advanced anti-raid protection."
+    },
+
+    {
+        id: "bot-008",
+        name: "ShieldBot",
+        category: "Security",
+        price: 8.49,
+        description: "Security tools για Discord communities."
+    },
+
+    {
+        id: "bot-009",
+        name: "WelcomeMaster",
+        category: "Community",
+        price: 2.49,
+        description: "Custom welcome και goodbye messages."
+    },
+
+    {
+        id: "bot-010",
+        name: "CommunityPro",
+        category: "Community",
+        price: 5.49,
+        description: "Community management tools."
+    },
+
+    {
+        id: "bot-011",
+        name: "TicketMaster",
+        category: "Support",
+        price: 6.99,
+        description: "Advanced ticket support system."
+    },
+
+    {
+        id: "bot-012",
+        name: "SupportDesk",
+        category: "Support",
+        price: 4.99,
+        description: "Professional support ticket system."
+    },
+
+    {
+        id: "bot-013",
+        name: "GiveawayX",
+        category: "Giveaways",
+        price: 3.99,
+        description: "Giveaways με winners και automatic rewards."
+    },
+
+    {
+        id: "bot-014",
+        name: "GiveawayPro",
+        category: "Giveaways",
+        price: 5.99,
+        description: "Advanced giveaway management."
+    },
+
+    {
+        id: "bot-015",
+        name: "LevelUp",
+        category: "Levels",
+        price: 4.99,
+        description: "XP και level system για members."
+    },
+
+    {
+        id: "bot-016",
+        name: "XP Master",
+        category: "Levels",
+        price: 6.49,
+        description: "Advanced XP, levels και rewards."
+    },
+
+    {
+        id: "bot-017",
+        name: "CoinWorld",
+        category: "Economy",
+        price: 5.99,
+        description: "Virtual economy με coins και rewards."
+    },
+
+    {
+        id: "bot-018",
+        name: "EconomyPro",
+        category: "Economy",
+        price: 8.99,
+        description: "Πλήρες Discord economy system."
+    },
+
+    {
+        id: "bot-019",
+        name: "FunBox",
+        category: "Fun",
+        price: 2.99,
+        description: "Fun commands και entertainment."
+    },
+
+    {
+        id: "bot-020",
+        name: "MemeFactory",
+        category: "Fun",
+        price: 3.99,
+        description: "Meme commands για το Discord server."
+    },
+
+    {
+        id: "bot-021",
+        name: "GameStats",
+        category: "Gaming",
+        price: 5.99,
+        description: "Gaming statistics και player profiles."
+    },
+
+    {
+        id: "bot-022",
+        name: "Minecraft Tracker",
+        category: "Gaming",
+        price: 7.99,
+        description: "Minecraft server status και player tracking."
+    },
+
+    {
+        id: "bot-023",
+        name: "Fortnite Stats",
+        category: "Gaming",
+        price: 6.99,
+        description: "Fortnite statistics και player information."
+    },
+
+    {
+        id: "bot-024",
+        name: "Valorant Tracker",
+        category: "Gaming",
+        price: 8.99,
+        description: "Valorant statistics και player tracking."
+    },
+
+    {
+        id: "bot-025",
+        name: "LoggerX",
+        category: "Logging",
+        price: 4.99,
+        description: "Server logs για messages, joins και moderation."
+    },
+
+    {
+        id: "bot-026",
+        name: "LogMaster",
+        category: "Logging",
+        price: 7.49,
+        description: "Advanced Discord audit logging."
+    },
+
+    {
+        id: "bot-027",
+        name: "AutoRole",
+        category: "Utility",
+        price: 2.99,
+        description: "Automatic role assignment."
+    },
+
+    {
+        id: "bot-028",
+        name: "ReactionRoles",
+        category: "Utility",
+        price: 4.49,
+        description: "Reaction και button roles."
+    },
+
+    {
+        id: "bot-029",
+        name: "VerifyPro",
+        category: "Verification",
+        price: 5.99,
+        description: "Discord verification system."
+    },
+
+    {
+        id: "bot-030",
+        name: "CaptchaGuard",
+        category: "Verification",
+        price: 7.99,
+        description: "Captcha verification για νέα μέλη."
+    },
+
+    {
+        id: "bot-031",
+        name: "StaffManager",
+        category: "Management",
+        price: 6.99,
+        description: "Staff management και staff tools."
+    },
+
+    {
+        id: "bot-032",
+        name: "ApplicationBot",
+        category: "Management",
+        price: 5.49,
+        description: "Staff applications και custom forms."
+    },
+
+    {
+        id: "bot-033",
+        name: "PartnerBot",
+        category: "Partnerships",
+        price: 4.99,
+        description: "Discord partnership management."
+    },
+
+    {
+        id: "bot-034",
+        name: "ServerStats",
+        category: "Statistics",
+        price: 3.99,
+        description: "Live Discord server statistics."
+    },
+
+    {
+        id: "bot-035",
+        name: "PollMaster",
+        category: "Utility",
+        price: 2.49,
+        description: "Polls και voting system."
+    },
+
+    {
+        id: "bot-036",
+        name: "SuggestionPro",
+        category: "Community",
+        price: 3.99,
+        description: "Suggestion system με voting."
+    },
+
+    {
+        id: "bot-037",
+        name: "EventManager",
+        category: "Events",
+        price: 5.99,
+        description: "Create και manage Discord events."
+    },
+
+    {
+        id: "bot-038",
+        name: "NewsFeed",
+        category: "News",
+        price: 4.99,
+        description: "Automatic news notifications."
+    },
+
+    {
+        id: "bot-039",
+        name: "WeatherNow",
+        category: "Information",
+        price: 3.49,
+        description: "Weather information μέσω Discord."
+    },
+
+    {
+        id: "bot-040",
+        name: "TranslateX",
+        category: "Utility",
+        price: 4.99,
+        description: "Translation tools για Discord."
+    },
+
+    {
+        id: "bot-041",
+        name: "AI Assistant",
+        category: "AI",
+        price: 9.99,
+        description: "AI assistant για Discord communities."
+    },
+
+    {
+        id: "bot-042",
+        name: "AI Moderator",
+        category: "AI",
+        price: 14.99,
+        description: "AI-assisted moderation tools."
+    },
+
+    {
+        id: "bot-043",
+        name: "AI Support",
+        category: "AI",
+        price: 12.99,
+        description: "AI-powered support assistant."
+    },
+
+    {
+        id: "bot-044",
+        name: "StreamerAlert",
+        category: "Streaming",
+        price: 5.99,
+        description: "Notifications όταν ξεκινάει stream."
+    },
+
+    {
+        id: "bot-045",
+        name: "YouTubeAlert",
+        category: "Streaming",
+        price: 4.99,
+        description: "YouTube upload notifications."
+    },
+
+    {
+        id: "bot-046",
+        name: "TwitchAlert",
+        category: "Streaming",
+        price: 4.99,
+        description: "Twitch live notifications."
+    },
+
+    {
+        id: "bot-047",
+        name: "AutoResponder",
+        category: "Automation",
+        price: 3.99,
+        description: "Automatic custom responses."
+    },
+
+    {
+        id: "bot-048",
+        name: "BackupBot",
+        category: "Security",
+        price: 10.99,
+        description: "Discord server backup system."
+    },
+
+    {
+        id: "bot-049",
+        name: "UltimateManager",
+        category: "All-in-One",
+        price: 17.99,
+        description: "All-in-one Discord management system."
+    },
+
+    {
+        id: "bot-050",
+        name: "Ultimate Discord Suite",
+        category: "Premium",
+        price: 24.99,
+        description: "Premium all-in-one Discord bot package."
     }
 
-    body {
-      background: #0f1117;
-      color: white;
-      min-height: 100vh;
-    }
+];
 
-    header {
-      background: #171a23;
-      border-bottom: 1px solid #292d38;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    header h1 {
-      font-size: 24px;
-    }
+/* =====================================================
+   SAVE TO LOCAL DATABASE
+===================================================== */
 
-    header a {
-      color: white;
-      text-decoration: none;
-      background: #5865f2;
-      padding: 10px 18px;
-      border-radius: 8px;
-    }
+localStorage.setItem(
+    "DBM_BOTS",
+    JSON.stringify(DBM_BOTS)
+);
 
-    main {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 20px;
-    }
 
-    .cart-box {
-      background: #171a23;
-      border: 1px solid #292d38;
-      border-radius: 14px;
-      padding: 25px;
-    }
+/* =====================================================
+   GET ALL BOTS
+===================================================== */
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid #292d38;
-      gap: 20px;
-    }
+function getBots() {
 
-    .product-info h3 {
-      margin-bottom: 8px;
-    }
+    return JSON.parse(
+        localStorage.getItem("DBM_BOTS") || "[]"
+    );
 
-    .product-info p {
-      color: #aeb4c0;
-    }
-
-    .quantity {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .quantity button {
-      width: 35px;
-      height: 35px;
-      border: none;
-      border-radius: 6px;
-      background: #5865f2;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .remove {
-      background: #e74c3c !important;
-      padding: 8px 12px;
-      width: auto !important;
-      font-size: 14px !important;
-    }
-
-    .summary {
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .total {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .checkout {
-      background: #43b581;
-      color: white;
-      text-decoration: none;
-      padding: 14px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 50px;
-      color: #aeb4c0;
-    }
-
-    @media (max-width: 700px) {
-      .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .summary {
-        flex-direction: column;
-        gap: 20px;
-        align-items: stretch;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-  <h1>🛒 Discord Bot Marketplace</h1>
-  <a href="index.html">🏠 Home</a>
-</header>
-
-<main>
-
-  <div class="cart-box">
-
-    <h2>🛒 Το καλάθι σου</h2>
-
-    <div id="cartItems"></div>
-
-    <div class="summary">
-
-      <div class="total">
-        Σύνολο: €<span id="total">0.00</span>
-      </div>
-
-      <button class="checkout" onclick="goToCheckout()">
-        💳 Checkout
-      </button>
-
-    </div>
-
-  </div>
-
-</main>
-
-<script>
-
-let cart = JSON.parse(localStorage.getItem("DBM_CART")) || [];
-
-function saveCart() {
-  localStorage.setItem("DBM_CART", JSON.stringify(cart));
 }
 
-function renderCart() {
 
-  const container = document.getElementById("cartItems");
+/* =====================================================
+   FIND BOT
+===================================================== */
 
-  container.innerHTML = "";
+function getBotById(id) {
 
-  if (cart.length === 0) {
+    const bots = getBots();
 
-    container.innerHTML = `
-      <div class="empty">
-        <h3>Το καλάθι σου είναι άδειο.</h3>
-        <p>Πήγαινε στα Bots ή στα Hosting και πρόσθεσε ένα προϊόν.</p>
-      </div>
-    `;
-
-    document.getElementById("total").textContent = "0.00";
-
-    return;
-  }
-
-  let total = 0;
-
-  cart.forEach((item, index) => {
-
-    const price = Number(item.price) || 0;
-
-    const quantity = Number(item.quantity) || 1;
-
-    total += price * quantity;
-
-    container.innerHTML += `
-
-      <div class="cart-item">
-
-        <div class="product-info">
-
-          <h3>${escapeHTML(item.name)}</h3>
-
-          <p>
-            Τιμή: €${price.toFixed(2)}
-          </p>
-
-        </div>
-
-        <div class="quantity">
-
-          <button onclick="changeQuantity(${index}, -1)">
-            −
-          </button>
-
-          <span>${quantity}</span>
-
-          <button onclick="changeQuantity(${index}, 1)">
-            +
-          </button>
-
-        </div>
-
-        <strong>
-          €${(price * quantity).toFixed(2)}
-        </strong>
-
-        <button
-          class="remove"
-          onclick="removeItem(${index})">
-          Διαγραφή
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-  document.getElementById("total").textContent =
-    total.toFixed(2);
+    return bots.find(
+        bot => bot.id === id
+    );
 
 }
 
-function changeQuantity(index, amount) {
 
-  cart[index].quantity =
-    (Number(cart[index].quantity) || 1) + amount;
+/* =====================================================
+   ADD BOT TO CART
+===================================================== */
 
-  if (cart[index].quantity <= 0) {
+function addBotToCart(id) {
 
-    cart.splice(index, 1);
+    const bot =
+        getBotById(id);
 
-  }
+    if (!bot) {
 
-  saveCart();
+        alert(
+            "Το bot δεν βρέθηκε."
+        );
 
-  renderCart();
+        return;
+
+    }
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem(
+                "DBM_CART"
+            ) || "[]"
+        );
+
+
+    const existing =
+        cart.find(
+            item =>
+                item.id === bot.id
+        );
+
+
+    if (existing) {
+
+        existing.quantity += 1;
+
+    } else {
+
+        cart.push({
+
+            ...bot,
+
+            type: "bot",
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+
+        "DBM_CART",
+
+        JSON.stringify(cart)
+
+    );
+
+
+    alert(
+
+        `${bot.name} προστέθηκε στο καλάθι!`
+
+    );
 
 }
-
-function removeItem(index) {
-
-  cart.splice(index, 1);
-
-  saveCart();
-
-  renderCart();
-
-}
-
-function goToCheckout() {
-
-  if (cart.length === 0) {
-
-    alert("Το καλάθι είναι άδειο.");
-
-    return;
-
-  }
-
-  window.location.href = "checkout.html";
-
-}
-
-function escapeHTML(text) {
-
-  const div = document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
-
-}
-
-renderCart();
-
-</script>
-
-</body>
-</html>
 ```
