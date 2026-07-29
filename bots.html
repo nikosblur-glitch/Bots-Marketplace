@@ -1,261 +1,909 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🤖 Bots | Discord Board Marketplace</title>
+<title>Discord Board Marketplace - Bots</title>
 
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    font-family: Arial;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
     background: #03040a;
-    color: white;
+    overflow-x: hidden;
 }
 
-nav {
-    padding: 20px;
-    background: #0d0f19;
+/* BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(88,101,242,.20), transparent 30%),
+        radial-gradient(circle at 85% 70%, rgba(139,92,246,.16), transparent 30%),
+        #03040a;
+}
+
+/* NAVBAR */
+
+.navbar {
+    position: sticky;
+    top: 15px;
+    z-index: 1000;
+
+    width: 92%;
+    max-width: 1250px;
+
+    margin: 15px auto 0;
+    padding: 15px 20px;
+
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
+    align-items: center;
+    justify-content: space-between;
 
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 50px 20px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: #111421;
-    border: 1px solid #252a40;
-    padding: 20px;
     border-radius: 18px;
+
+    background: rgba(20,20,35,.75);
+    border: 1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(20px);
 }
 
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
+.logo {
+    font-size: 19px;
+    font-weight: 900;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #5865f2;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background: #4752c4;
-}
-
-.price {
-    font-size: 22px;
+.logo span {
     color: #7280ff;
 }
 
-</style>
+.nav-links {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.nav-links a {
+    color: rgba(255,255,255,.70);
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: white;
+    background: rgba(255,255,255,.10);
+}
+
+.cart-button {
+    background: linear-gradient(135deg,#5865f2,#8b5cf6);
+    color: white !important;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 90px 20px 50px;
+}
+
+.hero h1 {
+    font-size: clamp(42px,7vw,80px);
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #7280ff;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    color: rgba(255,255,255,.55);
+    line-height: 1.7;
+}
+
+/* CONTAINER */
+
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* CATEGORY MENU */
+
+.category-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-title h2 {
+    font-size: 32px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 45px;
+}
+
+.category-btn {
+    padding: 11px 17px;
+    border-radius: 12px;
+
+    color: white;
+    background: rgba(255,255,255,.06);
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: linear-gradient(135deg,#5865f2,#8b5cf6);
+    transform: translateY(-2px);
+}
+
+/* PRODUCTS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 20px;
+    padding-bottom: 80px;
+}
+
+.product {
+    padding: 25px;
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.10);
+
+    backdrop-filter: blur(20px);
+
+    transition: .35s;
+}
+
+.product:hover {
+    transform: translateY(-7px);
+    border-color: rgba(114,128,255,.5);
+}
+
+.product-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.product h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.product-category {
+    display: inline-block;
+
+    padding: 5px 10px;
+    margin-bottom: 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    background: rgba(88,101,242,.20);
+    color: #b9c0ff;
+}
+
+.product p {
+    color: rgba(255,255,255,.55);
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.product-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    color: white;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,#5865f2,#8b5cf6);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.08);
+}
+
+/* EMPTY */
+
+.empty {
+    text-align: center;
+    grid-column: 1/-1;
+
+    padding: 60px 20px;
+
+    color: rgba(255,255,255,.45);
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero {
+        padding-top: 60px;
+    }
+
+    .product-buttons {
+        flex-direction: column;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<nav>
+<!-- NAVBAR -->
 
-<a href="index.html">🏠 Home</a>
+<nav class="navbar">
 
-<a href="bots.html">🤖 Bots</a>
+    <div class="logo">
+        Discord <span>Board</span> Marketplace
+    </div>
 
-<a href="hosting.html">☁️ Hosting</a>
+    <div class="nav-links">
 
-<a href="support.html">🎧 Support</a>
+        <a href="index.html">🏠 Home</a>
 
-<a href="cart.html">🛒 Cart</a>
+        <a href="bots.html">🤖 Bots</a>
+
+        <a href="hosting.html">☁️ Hosting</a>
+
+        <a href="support.html">🎧 Support</a>
+
+        <a href="cart.html" class="cart-button">
+            🛒 Cart
+        </a>
+
+        <a href="owner.html">
+            🔐 Owner Panel
+        </a>
+
+    </div>
 
 </nav>
 
 
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        Discord <span>Bots</span>
+    </h1>
+
+    <p>
+        Discover powerful Discord bots for moderation,
+        music, gaming, entertainment, security,
+        automation and much more.
+    </p>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
 <div class="container">
 
-<h1>🤖 Discord Bots</h1>
+    <div class="category-title">
 
-<p>Premium bots for your Discord server.</p>
+        <h2>
+            Browse Bot Categories
+        </h2>
 
-<div
-id="botsContainer"
-class="grid"
->
-</div>
+    </div>
+
+
+    <div class="categories">
+
+        <button class="category-btn active"
+        onclick="filterBots('all',this)">
+            ✨ All Bots
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('moderation',this)">
+            🛡️ Moderation
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('automod',this)">
+            🤖 Auto Moderation
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('security',this)">
+            🔐 Security
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('music',this)">
+            🎵 Music
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('games',this)">
+            🎮 Games
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('fun',this)">
+            😂 Fun
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('economy',this)">
+            💰 Economy
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('leveling',this)">
+            📈 Leveling
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('utility',this)">
+            🛠️ Utility
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('ai',this)">
+            🧠 AI
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('anime',this)">
+            🌸 Anime
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('social',this)">
+            💬 Social
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('tickets',this)">
+            🎫 Tickets
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('verification',this)">
+            ✅ Verification
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('logging',this)">
+            📋 Logging
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('roles',this)">
+            🎭 Roles
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('giveaways',this)">
+            🎁 Giveaways
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('notifications',this)">
+            🔔 Notifications
+        </button>
+
+        <button class="category-btn"
+        onclick="filterBots('multipurpose',this)">
+            ⭐ Multipurpose
+        </button>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div class="products" id="products"></div>
 
 </div>
 
 
 <script>
 
-const bots =
-JSON.parse(
-localStorage.getItem("DBM_BOTS")
-) || [];
+/*
+====================================================
+DEFAULT BOT PRODUCTS
+====================================================
+
+Αυτά εμφανίζονται αυτόματα.
+
+Οι τιμές είναι ενδεικτικές.
+Μπορείς να τις αλλάξεις αργότερα.
+
+====================================================
+*/
+
+const defaultBots = [
+
+    {
+        id: "moderation-basic",
+        name: "Moderation Bot",
+        category: "moderation",
+        icon: "🛡️",
+        price: 4.99,
+        description: "Basic moderation commands for Discord servers."
+    },
+
+    {
+        id: "automod-pro",
+        name: "AutoMod Pro",
+        category: "automod",
+        icon: "🤖",
+        price: 7.99,
+        description: "Automatic spam, bad words and protection tools."
+    },
+
+    {
+        id: "security-shield",
+        name: "Security Shield",
+        category: "security",
+        icon: "🔐",
+        price: 9.99,
+        description: "Security tools and anti-raid protection."
+    },
+
+    {
+        id: "music-bot",
+        name: "Music Bot",
+        category: "music",
+        icon: "🎵",
+        price: 5.99,
+        description: "Music commands and voice channel features."
+    },
+
+    {
+        id: "game-bot",
+        name: "Game Bot",
+        category: "games",
+        icon: "🎮",
+        price: 6.99,
+        description: "Fun games and interactive commands."
+    },
+
+    {
+        id: "fun-bot",
+        name: "Funny Bot",
+        category: "fun",
+        icon: "😂",
+        price: 3.99,
+        description: "Memes, jokes and entertainment commands."
+    },
+
+    {
+        id: "economy-bot",
+        name: "Economy Bot",
+        category: "economy",
+        icon: "💰",
+        price: 8.99,
+        description: "Currency, shops, rewards and economy systems."
+    },
+
+    {
+        id: "leveling-bot",
+        name: "Leveling Bot",
+        category: "leveling",
+        icon: "📈",
+        price: 6.99,
+        description: "XP, levels and rewards for your community."
+    },
+
+    {
+        id: "utility-bot",
+        name: "Utility Bot",
+        category: "utility",
+        icon: "🛠️",
+        price: 4.99,
+        description: "Useful commands and server utilities."
+    },
+
+    {
+        id: "ai-bot",
+        name: "AI Assistant",
+        category: "ai",
+        icon: "🧠",
+        price: 14.99,
+        description: "AI-powered assistant for your Discord server."
+    },
+
+    {
+        id: "anime-bot",
+        name: "Anime Bot",
+        category: "anime",
+        icon: "🌸",
+        price: 5.99,
+        description: "Anime commands, profiles and entertainment."
+    },
+
+    {
+        id: "social-bot",
+        name: "Social Bot",
+        category: "social",
+        icon: "💬",
+        price: 5.99,
+        description: "Social profiles and community interaction."
+    },
+
+    {
+        id: "ticket-bot",
+        name: "Ticket Bot",
+        category: "tickets",
+        icon: "🎫",
+        price: 7.99,
+        description: "Professional ticket support system."
+    },
+
+    {
+        id: "verification-bot",
+        name: "Verification Bot",
+        category: "verification",
+        icon: "✅",
+        price: 5.99,
+        description: "Verification and captcha systems."
+    },
+
+    {
+        id: "logging-bot",
+        name: "Logging Bot",
+        category: "logging",
+        icon: "📋",
+        price: 5.99,
+        description: "Track server events and moderation logs."
+    },
+
+    {
+        id: "roles-bot",
+        name: "Role Manager",
+        category: "roles",
+        icon: "🎭",
+        price: 4.99,
+        description: "Automatic and interactive role management."
+    },
+
+    {
+        id: "giveaway-bot",
+        name: "Giveaway Bot",
+        category: "giveaways",
+        icon: "🎁",
+        price: 3.99,
+        description: "Create and manage Discord giveaways."
+    },
+
+    {
+        id: "notifications-bot",
+        name: "Notification Bot",
+        category: "notifications",
+        icon: "🔔",
+        price: 6.99,
+        description: "Notifications for YouTube, Twitch and social platforms."
+    },
+
+    {
+        id: "multipurpose-bot",
+        name: "Multipurpose Bot",
+        category: "multipurpose",
+        icon: "⭐",
+        price: 19.99,
+        description: "A complete multi-feature Discord bot."
+    }
+
+];
 
 
-const container =
-document.getElementById("botsContainer");
+/*
+====================================================
+LOAD OWNER BOTS
+====================================================
+*/
+
+let ownerBots =
+    JSON.parse(
+        localStorage.getItem("DBM_BOTS")
+    ) || [];
 
 
-if (bots.length === 0) {
+/*
+====================================================
+COMBINE PRODUCTS
+====================================================
+*/
 
-container.innerHTML =
-"<p>No Bots available yet.</p>";
+let allBots = [
+    ...defaultBots,
+    ...ownerBots
+];
+
+
+/*
+====================================================
+RENDER BOTS
+====================================================
+*/
+
+function renderBots(category = "all") {
+
+    const container =
+        document.getElementById("products");
+
+    container.innerHTML = "";
+
+    let filteredBots = allBots;
+
+    if (category !== "all") {
+
+        filteredBots =
+            allBots.filter(
+                bot =>
+                bot.category === category
+            );
+
+    }
+
+    if (filteredBots.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                <h2>No bots found</h2>
+                <p>There are no products in this category yet.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filteredBots.forEach(bot => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "product";
+
+
+        card.innerHTML = `
+
+            <div class="product-icon">
+                ${bot.icon || "🤖"}
+            </div>
+
+            <span class="product-category">
+                ${bot.category}
+            </span>
+
+            <h3>
+                ${escapeHTML(bot.name)}
+            </h3>
+
+            <p>
+                ${escapeHTML(
+                    bot.description ||
+                    "Premium Discord bot."
+                )}
+            </p>
+
+            <div class="price">
+                €${Number(bot.price).toFixed(2)}
+            </div>
+
+            <div class="product-buttons">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="addToCart('${bot.id}')"
+                >
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        `;
+
+        container.appendChild(card);
+
+    });
 
 }
 
 
-bots.forEach(bot => {
+/*
+====================================================
+FILTER
+====================================================
+*/
 
-const card =
-document.createElement("div");
+function filterBots(category, button) {
 
-card.className = "card";
+    document
+        .querySelectorAll(".category-btn")
+        .forEach(btn => {
 
+            btn.classList.remove("active");
 
-card.innerHTML = `
-
-${
-bot.image
-?
-`<img src="${bot.image}" alt="Bot">`
-:
-""
-}
-
-<h2>🤖 ${escapeHTML(bot.name)}</h2>
-
-<p>
-${escapeHTML(bot.description || "Premium Discord Bot")}
-</p>
-
-<p class="price">
-€${Number(bot.price).toFixed(2)}
-</p>
-
-<p>
-Stock: ${bot.stock}
-</p>
-
-<button
-onclick="addToCart(${bot.id})"
->
-🛒 Add to Cart
-</button>
-
-`;
+        });
 
 
-container.appendChild(card);
-
-});
+    button.classList.add("active");
 
 
-function addToCart(id) {
-
-const bot =
-bots.find(
-item => item.id === id
-);
-
-
-if (!bot) return;
-
-
-let cart =
-JSON.parse(
-localStorage.getItem("DBM_CART")
-) || [];
-
-
-const existing =
-cart.find(
-item =>
-item.productId === bot.id &&
-item.type === "bot"
-);
-
-
-if (existing) {
-
-existing.quantity++;
-
-} else {
-
-cart.push({
-
-productId: bot.id,
-
-type: "bot",
-
-name: bot.name,
-
-price: bot.price,
-
-quantity: 1
-
-});
+    renderBots(category);
 
 }
 
 
-localStorage.setItem(
-"DBM_CART",
-JSON.stringify(cart)
-);
+/*
+====================================================
+ADD TO CART
+====================================================
+*/
+
+function addToCart(botId) {
+
+    const bot =
+        allBots.find(
+            item =>
+            String(item.id) ===
+            String(botId)
+        );
 
 
-alert("🤖 Bot added to cart!");
+    if (!bot) {
+
+        alert("Bot not found.");
+
+        return;
+
+    }
+
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem("DBM_CART")
+        ) || [];
+
+
+    const existing =
+        cart.find(
+            item =>
+            String(item.id) ===
+            String(bot.id)
+        );
+
+
+    if (existing) {
+
+        existing.quantity++;
+
+    } else {
+
+        cart.push({
+
+            id: bot.id,
+
+            name: bot.name,
+
+            price: Number(bot.price),
+
+            quantity: 1,
+
+            type: "bot"
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "DBM_CART",
+        JSON.stringify(cart)
+    );
+
+
+    alert(
+        bot.name +
+        " added to cart!"
+    );
 
 }
 
+
+/*
+====================================================
+ESCAPE HTML
+====================================================
+*/
 
 function escapeHTML(text) {
 
-return String(text)
+    return String(text)
 
-.replace(/&/g, "&amp;")
+        .replace(/&/g,"&amp;")
 
-.replace(/</g, "&lt;")
+        .replace(/</g,"&lt;")
 
-.replace(/>/g, "&gt;")
+        .replace(/>/g,"&gt;")
 
-.replace(/"/g, "&quot;")
+        .replace(/"/g,"&quot;")
 
-.replace(/'/g, "&#039;");
+        .replace(/'/g,"&#039;");
 
 }
+
+
+/*
+====================================================
+START
+====================================================
+*/
+
+renderBots();
 
 </script>
 
 </body>
-
 </html>
+```
