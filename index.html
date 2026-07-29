@@ -5,580 +5,380 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discord Board Marketplace</title>
+<title>Discord Bot Marketplace</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
+body{
+    background:#0b0d12;
+    color:#fff;
+    min-height:100vh;
 }
 
-body {
-    min-height: 100vh;
-    font-family: Inter, Arial, sans-serif;
-    color: white;
-    background: #05060b;
-    overflow-x: hidden;
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#11141b;
+    border-bottom:1px solid #252a35;
+    padding:16px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-/* =========================
-   ANIMATED BACKGROUND
-========================= */
-
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    overflow: hidden;
-    background:
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(88,101,242,0.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 70%,
-            rgba(139,92,246,0.16),
-            transparent 30%
-        ),
-        #05060b;
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
 }
 
-.orb {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.22;
-    animation: floatOrb 18s infinite alternate ease-in-out;
+nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
-.orb.one {
-    top: -300px;
-    left: -200px;
-    background: #5865f2;
+nav button{
+    background:transparent;
+    border:0;
+    color:#b8beca;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.2s;
 }
 
-.orb.two {
-    right: -300px;
-    top: 20%;
-    background: #8b5cf6;
-    animation-delay: 4s;
+nav button:hover,
+nav button.active{
+    background:#5865f2;
+    color:#fff;
 }
 
-.orb.three {
-    bottom: -400px;
-    left: 35%;
-    background: #06b6d4;
-    animation-delay: 8s;
+.cart-button{
+    position:relative;
+    background:#5865f2;
+    border:0;
+    color:#fff;
+    padding:11px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-@keyframes floatOrb {
-    0% {
-        transform: translate(0, 0) scale(1);
+.cart-count{
+    position:absolute;
+    top:-7px;
+    right:-7px;
+    background:#ff4757;
+    width:21px;
+    height:21px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 5%;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+.hero h1 span{
+    color:#5865f2;
+}
+
+.hero p{
+    color:#aeb4c0;
+    max-width:650px;
+    margin:auto;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    background:#5865f2;
+    color:#fff;
+    border:0;
+    padding:13px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#191d26;
+    color:#fff;
+    border:1px solid #303642;
+    padding:13px 22px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#12151c;
+    border:1px solid #252a35;
+    border-radius:14px;
+    padding:22px;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:#5865f2;
+}
+
+.card-icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#9ca3af;
+    line-height:1.5;
+    min-height:48px;
+}
+
+.price{
+    color:#5865f2;
+    font-size:22px;
+    font-weight:bold;
+    margin:18px 0;
+}
+
+.category{
+    display:inline-block;
+    background:#202532;
+    color:#aeb4c0;
+    padding:5px 9px;
+    border-radius:5px;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+}
+
+.actions button{
+    flex:1;
+}
+
+.filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.filters button{
+    background:#191d26;
+    color:#ccc;
+    border:1px solid #303642;
+    padding:9px 14px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.filters button:hover{
+    background:#5865f2;
+    color:#fff;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#12151c;
+    border:1px solid #252a35;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:12px;
+    gap:15px;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.quantity button{
+    width:30px;
+    height:30px;
+    border:0;
+    border-radius:5px;
+    background:#5865f2;
+    color:#fff;
+    cursor:pointer;
+}
+
+.remove{
+    background:#ff4757;
+    border:0;
+    color:#fff;
+    padding:8px 10px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.total{
+    margin-top:25px;
+    padding:25px;
+    background:#12151c;
+    border:1px solid #252a35;
+    border-radius:12px;
+    text-align:right;
+}
+
+.total h2{
+    margin-bottom:15px;
+}
+
+.form{
+    max-width:600px;
+    margin:auto;
+    background:#12151c;
+    border:1px solid #252a35;
+    padding:25px;
+    border-radius:12px;
+}
+
+.form input,
+.form textarea,
+.form select{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    background:#0b0d12;
+    border:1px solid #303642;
+    color:#fff;
+    border-radius:7px;
+    outline:none;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus{
+    border-color:#5865f2;
+}
+
+.payment-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:15px;
+}
+
+.payment-option{
+    padding:18px;
+    background:#191d26;
+    border:1px solid #303642;
+    border-radius:9px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.payment-option.selected{
+    border-color:#5865f2;
+    background:#20263a;
+}
+
+.owner-box{
+    background:#12151c;
+    border:1px solid #252a35;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+footer{
+    margin-top:80px;
+    border-top:1px solid #252a35;
+    padding:30px 5%;
+    text-align:center;
+    color:#777f8d;
+}
+
+.empty{
+    text-align:center;
+    padding:60px;
+    color:#888;
+}
+
+@media(max-width:700px){
+    header{
+        flex-direction:column;
     }
 
-    50% {
-        transform: translate(100px, 80px) scale(1.2);
+    .hero h1{
+        font-size:34px;
     }
 
-    100% {
-        transform: translate(-80px, 120px) scale(0.9);
-    }
-}
-
-/* =========================
-   GLASS NAVBAR
-========================= */
-
-.navbar {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 94%;
-    max-width: 1250px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 15px 20px;
-
-    border-radius: 22px;
-
-    background: rgba(255,255,255,0.055);
-    border: 1px solid rgba(255,255,255,0.13);
-
-    backdrop-filter: blur(25px) saturate(150%);
-    -webkit-backdrop-filter: blur(25px) saturate(150%);
-
-    box-shadow:
-        0 20px 80px rgba(0,0,0,0.4);
-
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 19px;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.logo span {
-    color: #7280ff;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.nav-links a {
-    color: rgba(255,255,255,0.65);
-    text-decoration: none;
-
-    padding: 10px 14px;
-    border-radius: 12px;
-
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: white;
-    background: rgba(255,255,255,0.09);
-    transform: translateY(-2px);
-}
-
-.cart-link {
-    color: white !important;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(88,101,242,0.9),
-            rgba(139,92,246,0.9)
-        );
-
-    box-shadow:
-        0 10px 35px rgba(88,101,242,0.25);
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    min-height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    padding:
-        150px 20px
-        80px;
-}
-
-.hero-content {
-    max-width: 900px;
-
-    animation:
-        heroAnimation
-        1.1s
-        ease
-        forwards;
-}
-
-@keyframes heroAnimation {
-    from {
-        opacity: 0;
-        transform:
-            translateY(40px)
-            scale(0.96);
+    .cart-item{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    to {
-        opacity: 1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-.badge {
-    display: inline-flex;
-
-    padding: 10px 18px;
-
-    margin-bottom: 25px;
-
-    border-radius: 50px;
-
-    color: #c5caff;
-
-    background:
-        rgba(88,101,242,0.12);
-
-    border:
-        1px solid
-        rgba(114,128,255,0.35);
-
-    box-shadow:
-        0 0 40px
-        rgba(88,101,242,0.15);
-}
-
-.hero h1 {
-    font-size:
-        clamp(
-            48px,
-            8vw,
-            100px
-        );
-
-    line-height: 0.95;
-
-    letter-spacing: -5px;
-
-    margin-bottom: 30px;
-}
-
-.hero h1 span {
-    color: #7280ff;
-
-    text-shadow:
-        0 0 60px
-        rgba(88,101,242,0.6);
-}
-
-.hero p {
-    max-width: 650px;
-
-    margin: auto;
-
-    color:
-        rgba(255,255,255,0.58);
-
-    font-size: 18px;
-
-    line-height: 1.7;
-}
-
-.hero-buttons {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 14px;
-
-    flex-wrap: wrap;
-
-    margin-top: 35px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 14px 23px;
-
-    border-radius: 13px;
-
-    text-decoration: none;
-
-    font-weight: 800;
-
-    transition: 0.35s;
-}
-
-.btn-primary {
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5865f2,
-            #8b5cf6
-        );
-
-    box-shadow:
-        0 15px 50px
-        rgba(88,101,242,0.3);
-}
-
-.btn-primary:hover {
-    transform:
-        translateY(-5px)
-        scale(1.02);
-
-    box-shadow:
-        0 20px 70px
-        rgba(88,101,242,0.5);
-}
-
-.btn-glass {
-    color: white;
-
-    background:
-        rgba(255,255,255,0.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.13);
-
-    backdrop-filter:
-        blur(15px);
-}
-
-.btn-glass:hover {
-    transform:
-        translateY(-5px);
-
-    background:
-        rgba(255,255,255,0.11);
-}
-
-/* =========================
-   SECTION
-========================= */
-
-.section {
-    width: 92%;
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding: 100px 0;
-}
-
-.section-title {
-    text-align: center;
-
-    margin-bottom: 50px;
-}
-
-.section-title h2 {
-    font-size:
-        clamp(
-            32px,
-            5vw,
-            48px
-        );
-
-    margin-bottom: 12px;
-}
-
-.section-title p {
-    color:
-        rgba(255,255,255,0.5);
-}
-
-/* =========================
-   CATEGORY CARDS
-========================= */
-
-.categories {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(230px, 1fr)
-        );
-
-    gap: 20px;
-}
-
-.category-card {
-    position: relative;
-
-    overflow: hidden;
-
-    padding: 35px;
-
-    min-height: 280px;
-
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.075),
-            rgba(255,255,255,0.025)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,0.12);
-
-    backdrop-filter:
-        blur(25px);
-
-    box-shadow:
-        0 20px 70px
-        rgba(0,0,0,0.3);
-
-    transition: 0.45s;
-}
-
-.category-card:hover {
-    transform:
-        translateY(-10px);
-
-    border-color:
-        rgba(114,128,255,0.45);
-
-    box-shadow:
-        0 30px 100px
-        rgba(0,0,0,0.45);
-}
-
-.category-icon {
-    font-size: 45px;
-
-    margin-bottom: 20px;
-}
-
-.category-card h3 {
-    font-size: 24px;
-
-    margin-bottom: 12px;
-}
-
-.category-card p {
-    color:
-        rgba(255,255,255,0.55);
-
-    line-height: 1.6;
-
-    margin-bottom: 25px;
-}
-
-/* =========================
-   TRUST
-========================= */
-
-.trust {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(200px,1fr)
-        );
-
-    gap: 20px;
-}
-
-.trust-card {
-    padding: 30px;
-
-    text-align: center;
-
-    border-radius: 20px;
-
-    background:
-        rgba(255,255,255,0.04);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.1);
-
-    backdrop-filter:
-        blur(20px);
-}
-
-.trust-card strong {
-    display: block;
-
-    font-size: 30px;
-
-    color: #7280ff;
-
-    margin-bottom: 8px;
-}
-
-.trust-card span {
-    color:
-        rgba(255,255,255,0.55);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-    padding: 60px 20px;
-
-    text-align: center;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.08);
-
-    background:
-        rgba(255,255,255,0.025);
-}
-
-footer p {
-    color:
-        rgba(255,255,255,0.45);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 800px) {
-
-    .navbar {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .hero h1 {
-        letter-spacing: -3px;
-    }
-}
-
-@media (max-width: 500px) {
-
-    .navbar {
-        top: 8px;
-    }
-
-    .nav-links a {
-        padding:
-            8px 9px;
-
-        font-size:
-            13px;
-    }
-
-    .hero {
-        padding-top: 190px;
+    .payment-box{
+        grid-template-columns:1fr;
     }
 }
 </style>
@@ -586,648 +386,876 @@ footer p {
 
 <body>
 
-<!-- =========================
-     ANIMATED BACKGROUND
-========================= -->
+<header>
 
-<div class="background">
+<div class="logo">🤖 Discord Bot Marketplace</div>
 
-    <div class="orb one"></div>
+<nav>
+<button onclick="showPage('home')" class="active">🏠 Home</button>
+<button onclick="showPage('bots')">🤖 Bots</button>
+<button onclick="showPage('hosting')">🖥️ Hosting</button>
+<button onclick="showPage('support')">🎫 Support</button>
+<button onclick="showPage('owner')">👑 Owner Panel</button>
+</nav>
 
-    <div class="orb two"></div>
+<button class="cart-button" onclick="showPage('cart')">
+🛒 Cart
+<span class="cart-count" id="cartCount">0</span>
+</button>
 
-    <div class="orb three"></div>
+</header>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>Discord <span>Marketplace</span></h1>
+
+<p>
+Premium Discord Bots, Hosting Services and Digital Products.
+Choose your product, view the details and add it to your cart.
+</p>
+
+<div class="hero-buttons">
+
+<button class="primary" onclick="showPage('bots')">
+🤖 Browse Bots
+</button>
+
+<button class="secondary" onclick="showPage('hosting')">
+🖥️ Browse Hosting
+</button>
+
+</div>
+
+</div>
+
+<div class="section-title">
+<h2>What We Offer</h2>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="card-icon">🤖</div>
+<h3>Discord Bots</h3>
+<p>Moderation, Music, Games, Fun, Economy and many more.</p>
+<button class="primary" onclick="showPage('bots')">View Bots</button>
+</div>
+
+<div class="card">
+<div class="card-icon">🖥️</div>
+<h3>Hosting</h3>
+<p>Reliable hosting plans for your Discord bots and projects.</p>
+<button class="primary" onclick="showPage('hosting')">View Hosting</button>
+</div>
+
+<div class="card">
+<div class="card-icon">🎫</div>
+<h3>Support</h3>
+<p>Need help? Contact our support team.</p>
+<button class="primary" onclick="showPage('support')">Open Support</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BOTS -->
+
+<section id="bots" class="page">
+
+<div class="section-title">
+<h2>🤖 Discord Bots</h2>
+</div>
+
+<div class="filters" id="botFilters"></div>
+
+<div class="grid" id="botGrid"></div>
+
+</section>
+
+
+<!-- HOSTING -->
+
+<section id="hosting" class="page">
+
+<div class="section-title">
+<h2>🖥️ Hosting</h2>
+</div>
+
+<div class="filters" id="hostingFilters"></div>
+
+<div class="grid" id="hostingGrid"></div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="page">
+
+<div class="section-title">
+<h2>🛒 Shopping Cart</h2>
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+
+<h2>Total: €<span id="cartTotal">0.00</span></h2>
+
+<button class="primary" onclick="goCheckout()">
+💳 Continue to Checkout
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="page">
+
+<div class="section-title">
+<h2>💳 Checkout</h2>
+</div>
+
+<div class="form">
+
+<input id="customerName" placeholder="Full Name">
+
+<input id="customerEmail" type="email" placeholder="Email Address">
+
+<h3>Payment Method</h3>
+
+<div class="payment-box">
+
+<div class="payment-option" onclick="selectPayment('paypal',this)">
+🅿️ PayPal
+</div>
+
+<div class="payment-option" onclick="selectPayment('revolut',this)">
+💳 Revolut
+</div>
+
+</div>
+
+<br>
+
+<button class="primary" style="width:100%" onclick="completeCheckout()">
+Complete Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section id="support" class="page">
+
+<div class="section-title">
+<h2>🎫 Support</h2>
+</div>
+
+<div class="form">
+
+<input id="supportName" placeholder="Your Name">
+
+<input id="supportEmail" placeholder="Your Email">
+
+<textarea id="supportMessage" rows="6" placeholder="How can we help?"></textarea>
+
+<button class="primary" style="width:100%" onclick="sendSupport()">
+Send Support Request
+</button>
+
+</div>
+
+</section>
+
+
+<!-- OWNER -->
+
+<section id="owner" class="page">
+
+<div class="section-title">
+<h2>👑 Owner Panel</h2>
+</div>
+
+<div class="owner-box">
+
+<h3>Add Bot</h3>
+
+<br>
+
+<input id="botName" placeholder="Bot Name">
+
+<input id="botPrice" type="number" placeholder="Price">
+
+<input id="botCategory" placeholder="Category e.g. Music">
+
+<input id="botDescription" placeholder="Description">
+
+<button class="primary" onclick="addBot()">
+➕ Add Bot
+</button>
 
 </div>
 
 
-<!-- =========================
-     NAVBAR
-========================= -->
+<div class="owner-box">
 
-<nav class="navbar">
+<h3>Add Hosting</h3>
 
-    <div class="logo">
-        Discord
-        <span>Board</span>
-        Marketplace
-    </div>
+<br>
 
-    <div class="nav-links">
+<input id="hostingName" placeholder="Hosting Name">
 
-        <a href="index.html">
-            Home
-        </a>
+<input id="hostingPrice" type="number" placeholder="Price">
 
-        <a href="bots.html">
-            🤖 Bots
-        </a>
+<input id="hostingCategory" placeholder="Category e.g. Minecraft">
 
-        <a href="hosting.html">
-            ☁️ Hosting
-        </a>
+<input id="hostingDescription" placeholder="Description">
 
-        <a href="support.html">
-            🎧 Support
-        </a>
+<button class="primary" onclick="addHosting()">
+➕ Add Hosting
+</button>
 
-        <a
-            href="cart.html"
-            class="cart-link"
-        >
-            🛒 Cart
-        </a>
+</div>
 
-    </div>
+<div class="owner-box">
 
-</nav>
+<h3>Manage Products</h3>
 
+<br>
 
-<!-- =========================
-     HERO
-========================= -->
+<button class="secondary" onclick="resetProducts()">
+Reset Demo Products
+</button>
 
-<section class="hero">
-
-    <div class="hero-content">
-
-        <div class="badge">
-            ✦ Premium Discord Marketplace
-        </div>
-
-        <h1>
-            The Future of
-            <span>Discord</span>
-        </h1>
-
-        <p>
-            Discover premium Discord bots,
-            reliable hosting and digital
-            services designed for modern
-            communities.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a
-                href="bots.html"
-                class="btn btn-primary"
-            >
-                🤖 Explore Bots
-            </a>
-
-            <a
-                href="hosting.html"
-                class="btn btn-glass"
-            >
-                ☁️ View Hosting
-            </a>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
-
-<!-- =========================
-     CATEGORIES
-========================= -->
-
-<section class="section">
-
-    <div class="section-title">
-
-        <h2>
-            Explore Marketplace
-        </h2>
-
-        <p>
-            Everything you need for your Discord community.
-        </p>
-
-    </div>
-
-
-    <div class="categories">
-
-
-        <!-- BOTS -->
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                🤖
-            </div>
-
-            <h3>
-                Discord Bots
-            </h3>
-
-            <p>
-                Powerful Discord bots for
-                moderation, automation and
-                community management.
-            </p>
-
-            <a
-                href="bots.html"
-                class="btn btn-glass"
-            >
-                Browse Bots
-            </a>
-
-        </div>
-
-
-        <!-- HOSTING -->
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                ☁️
-            </div>
-
-            <h3>
-                Bot Hosting
-            </h3>
-
-            <p>
-                Reliable hosting solutions
-                for your Discord bots and
-                projects.
-            </p>
-
-            <a
-                href="hosting.html"
-                class="btn btn-glass"
-            >
-                View Hosting
-            </a>
-
-        </div>
-
-
-        <!-- SUPPORT -->
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                🎧
-            </div>
-
-            <h3>
-                Support Center
-            </h3>
-
-            <p>
-                Need help with your order?
-                Contact our support team.
-            </p>
-
-            <a
-                href="support.html"
-                class="btn btn-glass"
-            >
-                Get Support
-            </a>
-
-        </div>
-
-
-        <!-- CART -->
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                🛒
-            </div>
-
-            <h3>
-                Your Cart
-            </h3>
-
-            <p>
-                Review your selected products
-                and continue to checkout.
-            </p>
-
-            <a
-                href="cart.html"
-                class="btn btn-glass"
-            >
-                Open Cart
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TRUST
-========================= -->
-
-<section class="section">
-
-    <div class="section-title">
-
-        <h2>
-            Why Choose Us?
-        </h2>
-
-        <p>
-            Built for modern Discord communities.
-        </p>
-
-    </div>
-
-
-    <div class="trust">
-
-        <div class="trust-card">
-
-            <strong>
-                100%
-            </strong>
-
-            <span>
-                Premium Quality
-            </span>
-
-        </div>
-
-
-        <div class="trust-card">
-
-            <strong>
-                24/7
-            </strong>
-
-            <span>
-                Support
-            </span>
-
-        </div>
-
-
-        <div class="trust-card">
-
-            <strong>
-                Fast
-            </strong>
-
-            <span>
-                Digital Delivery
-            </span>
-
-        </div>
-
-
-        <div class="trust-card">
-
-            <strong>
-                Secure
-            </strong>
-
-            <span>
-                Checkout
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
+</main>
 
 <footer>
 
-    <p>
-        © 2026 Discord Board Marketplace.
-        All rights reserved.
-    </p>
+Discord Bot Marketplace © 2026
 
 </footer>
+
+
+<script>
+
+let bots = JSON.parse(localStorage.getItem("DBM_BOTS")) || [
+
+{
+id:1,
+name:"Moderation Bot",
+price:9.99,
+category:"Moderation",
+description:"Powerful Discord moderation bot."
+},
+
+{
+id:2,
+name:"Music Bot",
+price:7.99,
+category:"Music",
+description:"Music bot for your Discord server."
+},
+
+{
+id:3,
+name:"Economy Bot",
+price:12.99,
+category:"Economy",
+description:"Economy and currency system."
+},
+
+{
+id:4,
+name:"Fun Bot",
+price:5.99,
+category:"Fun",
+description:"Fun commands and entertainment."
+}
+
+];
+
+
+let hosting = JSON.parse(localStorage.getItem("DBM_HOSTING")) || [
+
+{
+id:1,
+name:"Starter Hosting",
+price:3.99,
+category:"Discord Bot",
+description:"Starter hosting for small Discord bots."
+},
+
+{
+id:2,
+name:"Premium Hosting",
+price:9.99,
+category:"Discord Bot",
+description:"Premium hosting for powerful Discord bots."
+},
+
+{
+id:3,
+name:"Game Hosting",
+price:14.99,
+category:"Game Server",
+description:"Game server hosting plan."
+},
+
+{
+id:4,
+name:"Minecraft Hosting",
+price:12.99,
+category:"Minecraft",
+description:"Minecraft server hosting."
+}
+
+];
+
+
+let cart = JSON.parse(localStorage.getItem("DBM_CART")) || [];
+
+let selectedPayment = null;
+
+
+function saveData(){
+
+localStorage.setItem("DBM_BOTS",JSON.stringify(bots));
+
+localStorage.setItem("DBM_HOSTING",JSON.stringify(hosting));
+
+localStorage.setItem("DBM_CART",JSON.stringify(cart));
+
+}
+
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+document.querySelectorAll("nav button").forEach(b=>{
+b.classList.remove("active");
+});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(page==="bots") renderBots();
+
+if(page==="hosting") renderHosting();
+
+if(page==="cart") renderCart();
+
+}
+
+
+function renderBots(){
+
+let categories=[...new Set(bots.map(b=>b.category))];
+
+document.getElementById("botFilters").innerHTML=
+
+`<button onclick="filterBots('all')">All</button>`+
+
+categories.map(c=>
+`<button onclick="filterBots('${c}')">${c}</button>`
+).join("");
+
+filterBots("all");
+
+}
+
+
+function filterBots(category){
+
+let list=category==="all"
+?bots
+:bots.filter(b=>b.category===category);
+
+document.getElementById("botGrid").innerHTML=list.map(bot=>`
+
+<div class="card">
+
+<div class="card-icon">🤖</div>
+
+<span class="category">${bot.category}</span>
+
+<h3>${bot.name}</h3>
+
+<p>${bot.description}</p>
+
+<div class="price">€${Number(bot.price).toFixed(2)}</div>
+
+<div class="actions">
+
+<button class="secondary"
+onclick="viewProduct('bot',${bot.id})">
+View
+</button>
+
+<button class="primary"
+onclick="addToCart('bot',${bot.id})">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderHosting(){
+
+let categories=[...new Set(hosting.map(h=>h.category))];
+
+document.getElementById("hostingFilters").innerHTML=
+
+`<button onclick="filterHosting('all')">All</button>`+
+
+categories.map(c=>
+`<button onclick="filterHosting('${c}')">${c}</button>`
+).join("");
+
+filterHosting("all");
+
+}
+
+
+function filterHosting(category){
+
+let list=category==="all"
+?hosting
+:hosting.filter(h=>h.category===category);
+
+document.getElementById("hostingGrid").innerHTML=list.map(h=>`
+
+<div class="card">
+
+<div class="card-icon">🖥️</div>
+
+<span class="category">${h.category}</span>
+
+<h3>${h.name}</h3>
+
+<p>${h.description}</p>
+
+<div class="price">€${Number(h.price).toFixed(2)}</div>
+
+<div class="actions">
+
+<button class="secondary"
+onclick="viewProduct('hosting',${h.id})">
+View
+</button>
+
+<button class="primary"
+onclick="addToCart('hosting',${h.id})">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+function viewProduct(type,id){
+
+let product;
+
+if(type==="bot"){
+product=bots.find(x=>x.id===id);
+}else{
+product=hosting.find(x=>x.id===id);
+}
+
+alert(
+"Product: "+product.name+
+"\nCategory: "+product.category+
+"\nPrice: €"+product.price+
+"\n\n"+product.description
+);
+
+}
+
+
+function addToCart(type,id){
+
+let product;
+
+if(type==="bot"){
+product=bots.find(x=>x.id===id);
+}else{
+product=hosting.find(x=>x.id===id);
+}
+
+let existing=cart.find(x=>
+x.type===type && x.id===id
+);
+
+if(existing){
+
+existing.quantity++;
+
+}else{
+
+cart.push({
+
+type:type,
+id:id,
+name:product.name,
+price:Number(product.price),
+quantity:1
+
+});
+
+}
+
+saveData();
+
+updateCartCount();
+
+alert(product.name+" added to cart!");
+
+}
+
+
+function renderCart(){
+
+let container=document.getElementById("cartItems");
+
+if(cart.length===0){
+
+container.innerHTML=
+`<div class="empty">
+🛒 Your cart is empty.
+</div>`;
+
+document.getElementById("cartTotal").innerText="0.00";
+
+return;
+
+}
+
+
+container.innerHTML=cart.map((item,index)=>`
+
+<div class="cart-item">
+
+<div>
+
+<h3>${item.name}</h3>
+
+<p>€${item.price.toFixed(2)} each</p>
+
+</div>
+
+<div class="quantity">
+
+<button onclick="changeQuantity(${index},-1)">−</button>
+
+<span>${item.quantity}</span>
+
+<button onclick="changeQuantity(${index},1)">+</button>
+
+</div>
+
+<strong>
+€${(item.price*item.quantity).toFixed(2)}
+</strong>
+
+<button class="remove"
+onclick="removeCart(${index})">
+Delete
+</button>
+
+</div>
+
+`).join("");
+
+
+let total=cart.reduce(
+(sum,item)=>sum+(item.price*item.quantity),0
+);
+
+document.getElementById("cartTotal")
+.innerText=total.toFixed(2);
+
+}
+
+
+function changeQuantity(index,change){
+
+cart[index].quantity+=change;
+
+if(cart[index].quantity<=0){
+
+cart.splice(index,1);
+
+}
+
+saveData();
+
+renderCart();
+
+updateCartCount();
+
+}
+
+
+function removeCart(index){
+
+cart.splice(index,1);
+
+saveData();
+
+renderCart();
+
+updateCartCount();
+
+}
+
+
+function updateCartCount(){
+
+let count=cart.reduce(
+(sum,item)=>sum+item.quantity,0
+);
+
+document.getElementById("cartCount").innerText=count;
+
+}
+
+
+function goCheckout(){
+
+if(cart.length===0){
+
+alert("Your cart is empty!");
+
+return;
+
+}
+
+showPage("checkout");
+
+}
+
+
+function selectPayment(method,element){
+
+selectedPayment=method;
+
+document.querySelectorAll(".payment-option")
+.forEach(x=>x.classList.remove("selected"));
+
+element.classList.add("selected");
+
+}
+
+
+function completeCheckout(){
+
+let name=document.getElementById("customerName").value;
+
+let email=document.getElementById("customerEmail").value;
+
+if(!name || !email){
+
+alert("Please enter your name and email.");
+
+return;
+
+}
+
+if(!selectedPayment){
+
+alert("Please select a payment method.");
+
+return;
+
+}
+
+let orderId=
+"DBM-"+Date.now();
+
+alert(
+"Order Created!\n\n"+
+"Order ID: "+orderId+
+"\nPayment: "+selectedPayment.toUpperCase()+
+"\n\nPayment gateway connection must be added here."
+);
+
+}
+
+
+function addBot(){
+
+let name=document.getElementById("botName").value;
+
+let price=document.getElementById("botPrice").value;
+
+let category=document.getElementById("botCategory").value;
+
+let description=document.getElementById("botDescription").value;
+
+if(!name || !price || !category){
+
+alert("Please complete all required fields.");
+
+return;
+
+}
+
+bots.push({
+
+id:Date.now(),
+
+name:name,
+
+price:Number(price),
+
+category:category,
+
+description:description || "Premium Discord Bot."
+
+});
+
+saveData();
+
+alert("Bot added successfully!");
+
+document.getElementById("botName").value="";
+
+document.getElementById("botPrice").value="";
+
+document.getElementById("botCategory").value="";
+
+document.getElementById("botDescription").value="";
+
+}
+
+
+function addHosting(){
+
+let name=document.getElementById("hostingName").value;
+
+let price=document.getElementById("hostingPrice").value;
+
+let category=document.getElementById("hostingCategory").value;
+
+let description=document.getElementById("hostingDescription").value;
+
+if(!name || !price || !category){
+
+alert("Please complete all required fields.");
+
+return;
+
+}
+
+hosting.push({
+
+id:Date.now(),
+
+name:name,
+
+price:Number(price),
+
+category:category,
+
+description:description || "Reliable Hosting Service."
+
+});
+
+saveData();
+
+alert("Hosting added successfully!");
+
+document.getElementById("hostingName").value="";
+
+document.getElementById("hostingPrice").value="";
+
+document.getElementById("hostingCategory").value="";
+
+document.getElementById("hostingDescription").value="";
+
+}
+
+
+function resetProducts(){
+
+localStorage.removeItem("DBM_BOTS");
+
+localStorage.removeItem("DBM_HOSTING");
+
+location.reload();
+
+}
+
+
+function sendSupport(){
+
+let name=document.getElementById("supportName").value;
+
+let email=document.getElementById("supportEmail").value;
+
+let message=document.getElementById("supportMessage").value;
+
+if(!name || !email || !message){
+
+alert("Please complete the support form.");
+
+return;
+
+}
+
+alert(
+"Support request created!\n\n"+
+"Thank you "+name+"."
+);
+
+}
+
+
+updateCartCount();
+
+renderBots();
+
+renderHosting();
+
+</script>
 
 </body>
 </html>
 ```
-<script>
-
-let products =
-JSON.parse(
-    localStorage.getItem("DBM_PRODUCTS")
-) || [];
-
-
-// ================================
-// ADD PRODUCT
-// ================================
-
-function addProduct() {
-
-    const type =
-        document
-        .getElementById("productType")
-        .value;
-
-    const name =
-        document
-        .getElementById("productName")
-        .value
-        .trim();
-
-    const price =
-        Number(
-            document
-            .getElementById("productPrice")
-            .value
-        );
-
-    const stock =
-        Number(
-            document
-            .getElementById("productStock")
-            .value
-        );
-
-    const image =
-        document
-        .getElementById("productImage")
-        .value
-        .trim();
-
-    const description =
-        document
-        .getElementById("productDescription")
-        .value
-        .trim();
-
-
-    if (
-        !name ||
-        price <= 0 ||
-        stock < 0
-    ) {
-
-        alert(
-            "Please complete all required fields."
-        );
-
-        return;
-    }
-
-
-    const product = {
-
-        id: Date.now(),
-
-        type: type,
-
-        name: name,
-
-        price: price,
-
-        stock: stock,
-
-        image: image,
-
-        description: description
-
-    };
-
-
-    products.push(product);
-
-
-    localStorage.setItem(
-        "DBM_PRODUCTS",
-        JSON.stringify(products)
-    );
-
-
-    renderProducts();
-
-
-    clearProductForm();
-
-
-    alert(
-        "Product added successfully!"
-    );
-
-}
-
-
-// ================================
-// RENDER PRODUCTS
-// ================================
-
-function renderProducts() {
-
-    const list =
-        document
-        .getElementById("productList");
-
-
-    if (!list) return;
-
-
-    list.innerHTML = "";
-
-
-    if (products.length === 0) {
-
-        list.innerHTML =
-        "<p>No products yet.</p>";
-
-        return;
-
-    }
-
-
-    products.forEach(
-        product => {
-
-            const item =
-                document
-                .createElement("div");
-
-
-            item.className =
-                "inventory-item";
-
-
-            item.innerHTML = `
-
-                <div class="inventory-info">
-
-                    <strong>
-                        ${escapeHTML(product.name)}
-                    </strong>
-
-                    <span>
-
-                        ${product.type === "bot"
-                            ? "🤖 Bot"
-                            : "☁️ Hosting"
-                        }
-
-                        • €${product.price.toFixed(2)}
-
-                        • Stock:
-                        ${product.stock}
-
-                    </span>
-
-                </div>
-
-
-                <div class="inventory-actions">
-
-                    <button
-                        class="small-button"
-                        onclick="deleteProduct(${product.id})"
-                    >
-                        🗑️ Delete
-                    </button>
-
-                </div>
-
-            `;
-
-
-            list.appendChild(item);
-
-        }
-    );
-
-}
-
-
-// ================================
-// DELETE PRODUCT
-// ================================
-
-function deleteProduct(id) {
-
-    if (
-        !confirm(
-            "Delete this product?"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    products =
-        products.filter(
-            product =>
-                product.id !== id
-        );
-
-
-    localStorage.setItem(
-        "DBM_PRODUCTS",
-        JSON.stringify(products)
-    );
-
-
-    renderProducts();
-
-}
-
-
-// ================================
-// CLEAR FORM
-// ================================
-
-function clearProductForm() {
-
-    document
-    .getElementById("productName")
-    .value = "";
-
-
-    document
-    .getElementById("productPrice")
-    .value = "";
-
-
-    document
-    .getElementById("productStock")
-    .value = "";
-
-
-    document
-    .getElementById("productImage")
-    .value = "";
-
-
-    document
-    .getElementById("productDescription")
-    .value = "";
-
-}
-
-
-// ================================
-// ESCAPE HTML
-// ================================
-
-function escapeHTML(text) {
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// ================================
-// LOAD
-// ================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        renderProducts();
-
-    }
-);
-<a href="servers.html">
-🌐 Servers
-</a>
