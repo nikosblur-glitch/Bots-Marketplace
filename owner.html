@@ -1658,3 +1658,37 @@ async function loadOrders() {
 
 }
 </html>
+async function updateOrder(
+    id,
+    status
+) {
+
+    await fetch(
+        `/api/orders/${id}`,
+        {
+
+            method:
+            "PATCH",
+
+            headers: {
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            body:
+            JSON.stringify({
+
+                orderStatus:
+                status
+
+            })
+
+        }
+    );
+
+
+    loadOrders();
+
+}
