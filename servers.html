@@ -1,0 +1,1945 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Discord Board Marketplace - Servers
+</title>
+
+
+<style>
+
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color: white;
+
+    background: #03040a;
+
+    overflow-x: hidden;
+
+}
+
+
+/* ================================
+   BACKGROUND
+================================ */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -2;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 10%,
+        rgba(88,101,242,.20),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 85% 70%,
+        rgba(139,92,246,.16),
+        transparent 30%
+    ),
+
+    #03040a;
+
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar {
+
+    position: sticky;
+
+    top: 15px;
+
+    z-index: 1000;
+
+    width: 92%;
+
+    max-width: 1250px;
+
+    margin: 15px auto 0;
+
+    padding: 15px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-radius: 18px;
+
+    background:
+    rgba(20,20,35,.80);
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    backdrop-filter:
+    blur(20px);
+
+}
+
+
+.logo {
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+
+}
+
+
+.logo span {
+
+    color:
+    #7280ff;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+}
+
+
+.nav-links a {
+
+    color:
+    rgba(255,255,255,.70);
+
+    text-decoration: none;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    transition: .3s;
+
+}
+
+
+.nav-links a:hover {
+
+    color: white;
+
+    background:
+    rgba(255,255,255,.10);
+
+}
+
+
+.cart-button {
+
+    background:
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    color: white !important;
+
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+
+    text-align: center;
+
+    padding:
+    90px 20px 50px;
+
+}
+
+
+.hero h1 {
+
+    font-size:
+    clamp(
+        42px,
+        7vw,
+        80px
+    );
+
+    margin-bottom: 20px;
+
+}
+
+
+.hero h1 span {
+
+    color:
+    #7280ff;
+
+}
+
+
+.hero p {
+
+    max-width:
+    700px;
+
+    margin: auto;
+
+    color:
+    rgba(255,255,255,.55);
+
+    line-height:
+    1.7;
+
+    font-size: 17px;
+
+}
+
+
+/* ================================
+   CONTAINER
+================================ */
+
+.container {
+
+    width: 92%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+}
+
+
+/* ================================
+   CATEGORY TITLE
+================================ */
+
+.category-title {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.category-title h2 {
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.category-title p {
+
+    color:
+    rgba(255,255,255,.45);
+
+}
+
+
+/* ================================
+   CATEGORIES
+================================ */
+
+.categories {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 50px;
+
+}
+
+
+.category-btn {
+
+    padding:
+    11px 16px;
+
+    border-radius:
+    12px;
+
+    color: white;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    font-size: 14px;
+
+}
+
+
+.category-btn:hover {
+
+    transform:
+    translateY(-2px);
+
+    background:
+    rgba(255,255,255,.12);
+
+}
+
+
+.category-btn.active {
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    border-color:
+    transparent;
+
+}
+
+
+/* ================================
+   PRODUCTS
+================================ */
+
+.products {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(270px,1fr)
+    );
+
+    gap: 20px;
+
+    padding-bottom: 80px;
+
+}
+
+
+/* ================================
+   PRODUCT CARD
+================================ */
+
+.product {
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background:
+    rgba(255,255,255,.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,.10);
+
+    backdrop-filter:
+    blur(20px);
+
+    transition: .35s;
+
+}
+
+
+.product:hover {
+
+    transform:
+    translateY(-7px);
+
+    border-color:
+    rgba(114,128,255,.5);
+
+    box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.3);
+
+}
+
+
+.product-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.product-category {
+
+    display: inline-block;
+
+    padding:
+    5px 10px;
+
+    margin-bottom: 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    background:
+    rgba(88,101,242,.20);
+
+    color:
+    #b9c0ff;
+
+}
+
+
+.product h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.product p {
+
+    color:
+    rgba(255,255,255,.55);
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+
+}
+
+
+.price {
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+}
+
+
+.product-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.btn {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .3s;
+
+}
+
+
+.btn:hover {
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+.btn-primary {
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+}
+
+
+.btn-secondary {
+
+    background:
+    rgba(255,255,255,.08);
+
+}
+
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty {
+
+    text-align: center;
+
+    grid-column: 1/-1;
+
+    padding: 60px 20px;
+
+    color:
+    rgba(255,255,255,.45);
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:700px) {
+
+    .navbar {
+
+        flex-direction:
+        column;
+
+    }
+
+
+    .hero {
+
+        padding-top:
+        60px;
+
+    }
+
+
+    .product-buttons {
+
+        flex-direction:
+        column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     NAVBAR
+================================ -->
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+Discord
+<span>
+Board
+</span>
+Marketplace
+
+</div>
+
+
+<div class="nav-links">
+
+
+<a href="index.html">
+🏠 Home
+</a>
+
+
+<a href="bots.html">
+🤖 Bots
+</a>
+
+
+<a href="servers.html">
+🌐 Servers
+</a>
+
+
+<a href="hosting.html">
+☁️ Hosting
+</a>
+
+
+<a href="support.html">
+🎧 Support
+</a>
+
+
+<a
+href="cart.html"
+class="cart-button"
+>
+
+🛒 Cart
+
+</a>
+
+
+<a href="owner.html">
+
+🔐 Owner Panel
+
+</a>
+
+
+</div>
+
+</nav>
+
+
+
+<!-- ================================
+     HERO
+================================ -->
+
+<section class="hero">
+
+
+<h1>
+
+Discord
+<span>
+Servers
+</span>
+
+</h1>
+
+
+<p>
+
+Premium pre-built Discord servers
+for gaming, communities, creators,
+education, entertainment and more.
+
+</p>
+
+
+</section>
+
+
+
+<!-- ================================
+     CATEGORIES
+================================ -->
+
+<div class="container">
+
+
+<div class="category-title">
+
+
+<h2>
+
+Browse Server Categories
+
+</h2>
+
+
+<p>
+
+Choose the perfect Discord server
+for your community.
+
+</p>
+
+
+</div>
+
+
+
+<div class="categories">
+
+
+<button
+class="category-btn active"
+onclick="filterServers('all',this)"
+>
+
+✨ All Servers
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('gaming',this)"
+>
+
+🎮 Gaming
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('minecraft',this)"
+>
+
+⛏️ Minecraft
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('roblox',this)"
+>
+
+🟥 Roblox
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('fortnite',this)"
+>
+
+🔫 Fortnite
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('community',this)"
+>
+
+🌍 Community
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('social',this)"
+>
+
+💬 Social
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('friends',this)"
+>
+
+👥 Friends
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('music',this)"
+>
+
+🎵 Music
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('anime',this)"
+>
+
+🌸 Anime
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('roleplay',this)"
+>
+
+🎭 Roleplay
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('education',this)"
+>
+
+📚 Education
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('technology',this)"
+>
+
+💻 Technology
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('creator',this)"
+>
+
+🎥 Content Creator
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('streaming',this)"
+>
+
+📺 Streaming
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('esports',this)"
+>
+
+🏆 Esports
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('business',this)"
+>
+
+💼 Business
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('support',this)"
+>
+
+🎧 Support
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('entertainment',this)"
+>
+
+🎬 Entertainment
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('art',this)"
+>
+
+🎨 Art & Design
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('memes',this)"
+>
+
+😂 Memes
+
+</button>
+
+
+<button
+class="category-btn"
+onclick="filterServers('giveaways',this)"
+>
+
+🎁 Giveaways
+
+</button>
+
+
+</div>
+
+
+
+<!-- ================================
+     PRODUCTS
+================================ -->
+
+<div
+class="products"
+id="products"
+>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+/*
+========================================
+DEFAULT SERVER PRODUCTS
+========================================
+
+Έτοιμα demo προϊόντα.
+
+Μπορείς αργότερα να τα αλλάξεις
+με τα πραγματικά server templates
+που δημιουργείς εσύ.
+
+========================================
+*/
+
+
+const defaultServers = [
+
+
+{
+
+id:
+"gaming-server",
+
+name:
+"Gaming Community Server",
+
+category:
+"gaming",
+
+icon:
+"🎮",
+
+price:
+14.99,
+
+description:
+"Complete gaming community server with organized channels, roles and moderation."
+
+},
+
+
+{
+
+id:
+"minecraft-server",
+
+name:
+"Minecraft Server",
+
+category:
+"minecraft",
+
+icon:
+"⛏️",
+
+price:
+12.99,
+
+description:
+"Ready-to-use Minecraft community Discord server."
+
+},
+
+
+{
+
+id:
+"roblox-server",
+
+name:
+"Roblox Community",
+
+category:
+"roblox",
+
+icon:
+"🟥",
+
+price:
+11.99,
+
+description:
+"Roblox community server with gaming channels and role structure."
+
+},
+
+
+{
+
+id:
+"fortnite-server",
+
+name:
+"Fortnite Community",
+
+category:
+"fortnite",
+
+icon:
+"🔫",
+
+price:
+11.99,
+
+description:
+"Fortnite server template for players, teams and communities."
+
+},
+
+
+{
+
+id:
+"community-server",
+
+name:
+"Professional Community",
+
+category:
+"community",
+
+icon:
+"🌍",
+
+price:
+19.99,
+
+description:
+"Professional all-purpose Discord community server."
+
+},
+
+
+{
+
+id:
+"social-server",
+
+name:
+"Social Hangout",
+
+category:
+"social",
+
+icon:
+"💬",
+
+price:
+9.99,
+
+description:
+"Relaxed social Discord server for chatting and meeting people."
+
+},
+
+
+{
+
+id:
+"friends-server",
+
+name:
+"Friends Server",
+
+category:
+"friends",
+
+icon:
+"👥",
+
+price:
+7.99,
+
+description:
+"Simple and clean Discord server for friends."
+
+},
+
+
+{
+
+id:
+"music-server",
+
+name:
+"Music Community",
+
+category:
+"music",
+
+icon:
+"🎵",
+
+price:
+12.99,
+
+description:
+"Music-focused server with playlists, discussions and voice channels."
+
+},
+
+
+{
+
+id:
+"anime-server",
+
+name:
+"Anime Community",
+
+category:
+"anime",
+
+icon:
+"🌸",
+
+price:
+14.99,
+
+description:
+"Anime and manga community server with organized channels."
+
+},
+
+
+{
+
+id:
+"roleplay-server",
+
+name:
+"Roleplay Server",
+
+category:
+"roleplay",
+
+icon:
+"🎭",
+
+price:
+17.99,
+
+description:
+"Roleplay server structure with character and community channels."
+
+},
+
+
+{
+
+id:
+"education-server",
+
+name:
+"Education Hub",
+
+category:
+"education",
+
+icon:
+"📚",
+
+price:
+14.99,
+
+description:
+"Educational community server for students and learning groups."
+
+},
+
+
+{
+
+id:
+"tech-server",
+
+name:
+"Technology Hub",
+
+category:
+"technology",
+
+icon:
+"💻",
+
+price:
+16.99,
+
+description:
+"Technology community for developers and tech enthusiasts."
+
+},
+
+
+{
+
+id:
+"creator-server",
+
+name:
+"Content Creator Hub",
+
+category:
+"creator",
+
+icon:
+"🎥",
+
+price:
+19.99,
+
+description:
+"Server for YouTubers, creators and online communities."
+
+},
+
+
+{
+
+id:
+"streaming-server",
+
+name:
+"Streamer Community",
+
+category:
+"streaming",
+
+icon:
+"📺",
+
+price:
+18.99,
+
+description:
+"Professional server for streamers and their communities."
+
+},
+
+
+{
+
+id:
+"esports-server",
+
+name:
+"Esports Team",
+
+category:
+"esports",
+
+icon:
+"🏆",
+
+price:
+24.99,
+
+description:
+"Organized esports server for teams and competitive communities."
+
+},
+
+
+{
+
+id:
+"business-server",
+
+name:
+"Business Community",
+
+category:
+"business",
+
+icon:
+"💼",
+
+price:
+24.99,
+
+description:
+"Professional business Discord server template."
+
+},
+
+
+{
+
+id:
+"support-server",
+
+name:
+"Support Center",
+
+category:
+"support",
+
+icon:
+"🎧",
+
+price:
+15.99,
+
+description:
+"Customer support server with organized support channels."
+
+},
+
+
+{
+
+id:
+"entertainment-server",
+
+name:
+"Entertainment Hub",
+
+category:
+"entertainment",
+
+icon:
+"🎬",
+
+price:
+14.99,
+
+description:
+"Entertainment community server for movies, shows and discussions."
+
+},
+
+
+{
+
+id:
+"art-server",
+
+name:
+"Art & Design",
+
+category:
+"art",
+
+icon:
+"🎨",
+
+price:
+13.99,
+
+description:
+"Creative Discord community for artists and designers."
+
+},
+
+
+{
+
+id:
+"memes-server",
+
+name:
+"Meme Community",
+
+category:
+"memes",
+
+icon:
+"😂",
+
+price:
+9.99,
+
+description:
+"Fun meme community server with entertainment channels."
+
+},
+
+
+{
+
+id:
+"giveaways-server",
+
+name:
+"Giveaway Community",
+
+category:
+"giveaways",
+
+icon:
+"🎁",
+
+price:
+12.99,
+
+description:
+"Giveaway-focused server with organized event channels."
+
+}
+
+];
+
+
+
+/*
+========================================
+LOAD OWNER SERVERS
+========================================
+*/
+
+
+let ownerServers =
+
+JSON.parse(
+
+localStorage.getItem(
+"DBM_SERVERS"
+)
+
+) || [];
+
+
+
+/*
+========================================
+COMBINE
+========================================
+*/
+
+
+let allServers = [
+
+...defaultServers,
+
+...ownerServers
+
+];
+
+
+
+/*
+========================================
+RENDER
+========================================
+*/
+
+
+function renderServers(
+category = "all"
+) {
+
+
+const container =
+
+document.getElementById(
+"products"
+);
+
+
+container.innerHTML = "";
+
+
+
+let filteredServers =
+
+allServers;
+
+
+
+if (
+category !== "all"
+) {
+
+
+filteredServers =
+
+allServers.filter(
+
+server =>
+
+server.category ===
+category
+
+);
+
+}
+
+
+
+if (
+filteredServers.length === 0
+) {
+
+
+container.innerHTML = `
+
+<div class="empty">
+
+<h2>
+No Servers Found
+</h2>
+
+<p>
+There are no servers in this category yet.
+</p>
+
+</div>
+
+`;
+
+
+return;
+
+}
+
+
+
+filteredServers.forEach(
+
+server => {
+
+
+const card =
+
+document.createElement(
+"div"
+);
+
+
+card.className =
+"product";
+
+
+
+card.innerHTML = `
+
+
+<div class="product-icon">
+
+${server.icon || "🌐"}
+
+</div>
+
+
+
+<span class="product-category">
+
+${server.category}
+
+</span>
+
+
+
+<h3>
+
+${escapeHTML(
+server.name
+)}
+
+</h3>
+
+
+
+<p>
+
+${escapeHTML(
+
+server.description ||
+
+"Premium Discord server."
+
+)}
+
+</p>
+
+
+
+<div class="price">
+
+€${Number(
+server.price
+).toFixed(2)}
+
+</div>
+
+
+
+<div class="product-buttons">
+
+
+<button
+
+class="btn btn-primary"
+
+onclick="addToCart(
+'${server.id}'
+)"
+
+>
+
+🛒 Add to Cart
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+container.appendChild(
+card
+);
+
+
+}
+
+);
+
+}
+
+
+
+/*
+========================================
+FILTER
+========================================
+*/
+
+
+function filterServers(
+
+category,
+
+button
+
+) {
+
+
+document
+
+.querySelectorAll(
+".category-btn"
+)
+
+.forEach(
+
+btn => {
+
+btn.classList.remove(
+"active"
+);
+
+}
+
+);
+
+
+button.classList.add(
+"active"
+);
+
+
+renderServers(
+category
+);
+
+}
+
+
+
+/*
+========================================
+ADD TO CART
+========================================
+*/
+
+
+function addToCart(
+serverId
+) {
+
+
+const server =
+
+allServers.find(
+
+item =>
+
+String(item.id) ===
+String(serverId)
+
+);
+
+
+
+if (!server) {
+
+
+alert(
+"Server not found."
+);
+
+
+return;
+
+}
+
+
+
+let cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"DBM_CART"
+)
+
+) || [];
+
+
+
+const existing =
+
+cart.find(
+
+item =>
+
+String(item.id) ===
+String(server.id)
+
+);
+
+
+
+if (existing) {
+
+
+existing.quantity++;
+
+
+} else {
+
+
+cart.push({
+
+
+id:
+server.id,
+
+
+name:
+server.name,
+
+
+price:
+Number(server.price),
+
+
+quantity:
+1,
+
+
+type:
+"server"
+
+
+});
+
+
+}
+
+
+
+localStorage.setItem(
+
+"DBM_CART",
+
+JSON.stringify(
+cart
+)
+
+);
+
+
+
+alert(
+
+server.name +
+
+" added to cart!"
+
+);
+
+}
+
+
+
+/*
+========================================
+ESCAPE HTML
+========================================
+*/
+
+
+function escapeHTML(
+text
+) {
+
+
+return String(text)
+
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+
+.replace(
+/</g,
+"&lt;"
+)
+
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+
+}
+
+
+
+/*
+========================================
+START
+========================================
+*/
+
+
+renderServers();
+
+
+</script>
+
+
+</body>
+
+</html>
+```
