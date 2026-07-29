@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Owner Panel | Discord Board Marketplace
+</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    color: white;
+
+    background: #03040a;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(88,101,242,.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(139,92,246,.18),
+            transparent 30%
+        ),
+
+        #03040a;
+
+}
+
+
+.glow {
+
+    position: absolute;
+
+    width: 600px;
+
+    height: 600px;
+
+    border-radius: 50%;
+
+    filter: blur(140px);
+
+    opacity: .25;
+
+    animation:
+        moveGlow 15s
+        infinite alternate
+        ease-in-out;
+
+}
+
+
+.glow.one {
+
+    background: #5865f2;
+
+    top: -300px;
+
+    left: -200px;
+
+}
+
+
+.glow.two {
+
+    background: #8b5cf6;
+
+    right: -300px;
+
+    bottom: -200px;
+
+}
+
+
+@keyframes moveGlow {
+
+    from {
+
+        transform:
+            translate(0,0)
+            scale(1);
+
+    }
+
+    to {
+
+        transform:
+            translate(120px,80px)
+            scale(1.2);
+
+    }
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+}
+
+
+.login-box {
+
+    width: 100%;
+
+    max-width: 450px;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.13);
+
+    backdrop-filter:
+        blur(30px);
+
+    box-shadow:
+
+        0 30px 100px
+        rgba(0,0,0,.5);
+
+}
+
+
+.login-box h1 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.login-box p {
+
+    color:
+        rgba(255,255,255,.5);
+
+    margin-bottom: 25px;
+
+}
+
+
+input {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 15px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.055);
+
+    color: white;
+
+    outline: none;
+
+}
+
+
+input:focus {
+
+    border-color:
+        #7280ff;
+
+}
+
+
+button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.login-button {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #5865f2,
+            #8b5cf6
+        );
+
+}
+
+
+.error {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(220,60,70,.15);
+
+    color:
+        #ff8b94;
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+
+    display: none;
+
+}
+
+
+.navbar {
+
+    position: fixed;
+
+    top: 18px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 92%;
+
+    max-width: 1250px;
+
+    padding: 14px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    z-index: 1000;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    backdrop-filter:
+        blur(25px);
+
+}
+
+
+.logo {
+
+    font-weight: 900;
+
+}
+
+
+.logo span {
+
+    color:
+        #7280ff;
+
+}
+
+
+.logout {
+
+    width: auto;
+
+    padding:
+        10px 16px;
+
+    background:
+        rgba(220,60,70,.2);
+
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+    width: 92%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding:
+        150px 0 80px;
+
+}
+
+
+.header {
+
+    margin-bottom: 35px;
+
+}
+
+
+.header h1 {
+
+    font-size:
+        clamp(
+            35px,
+            6vw,
+            65px
+        );
+
+}
+
+
+.header p {
+
+    color:
+        rgba(255,255,255,.5);
+
+    margin-top: 10px;
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(200px,1fr)
+        );
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.stat {
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    backdrop-filter:
+        blur(20px);
+
+}
+
+
+.stat strong {
+
+    display: block;
+
+    font-size: 30px;
+
+    color:
+        #7280ff;
+
+    margin-bottom: 5px;
+
+}
+
+
+.stat span {
+
+    color:
+        rgba(255,255,255,.5);
+
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.panel {
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    backdrop-filter:
+        blur(25px);
+
+    margin-bottom: 25px;
+
+}
+
+
+.panel h2 {
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 15px;
+
+}
+
+
+.full {
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+.add-button {
+
+    margin-top: 15px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #5865f2,
+            #8b5cf6
+        );
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.product {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    margin-top: 12px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.product-info strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+}
+
+
+.product-info span {
+
+    color:
+        rgba(255,255,255,.5);
+
+    font-size: 14px;
+
+}
+
+
+.product-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.small {
+
+    width: auto;
+
+    padding:
+        9px 12px;
+
+}
+
+
+.delete {
+
+    background:
+        rgba(220,60,70,.2);
+
+}
+
+
+.edit {
+
+    background:
+        rgba(88,101,242,.25);
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px) {
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .full {
+
+        grid-column:
+            auto;
+
+    }
+
+    .product {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="background">
+
+    <div class="glow one"></div>
+
+    <div class="glow two"></div>
+
+</div>
+
+
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
+
+<div
+    class="login-screen"
+    id="loginScreen"
+>
+
+    <div class="login-box">
+
+        <h1>
+            🔐 Owner Panel
+        </h1>
+
+        <p>
+            Private administration area
+            for Discord Board Marketplace.
+        </p>
+
+        <input
+            type="password"
+            id="ownerPassword"
+            placeholder="Enter owner password"
+        >
+
+        <button
+            class="login-button"
+            onclick="login()"
+        >
+            Login
+        </button>
+
+        <div
+            class="error"
+            id="loginError"
+        >
+            ❌ Incorrect password.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<div
+    class="dashboard"
+    id="dashboard"
+>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        Discord
+        <span>
+            Board
+        </span>
+        Marketplace
+
+    </div>
+
+    <button
+        class="logout"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+</nav>
+
+
+<main>
+
+
+<div class="header">
+
+    <h1>
+        Owner Dashboard
+    </h1>
+
+    <p>
+        Manage your bots and hosting products.
+    </p>
+
+</div>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<div class="stats">
+
+    <div class="stat">
+
+        <strong id="botCount">
+            0
+        </strong>
+
+        <span>
+            Total Bots
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <strong id="hostingCount">
+            0
+        </strong>
+
+        <span>
+            Hosting Products
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <strong id="ticketCount">
+            0
+        </strong>
+
+        <span>
+            Support Tickets
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ADD PRODUCT
+========================= -->
+
+<div class="panel">
+
+    <h2>
+        ➕ Add Product
+    </h2>
+
+
+    <div class="form-grid">
+
+
+        <input
+            id="productName"
+            placeholder="Product Name"
+        >
+
+
+        <input
+            id="productPrice"
+            type="number"
+            step="0.01"
+            placeholder="Price (€)"
+        >
+
+
+        <input
+            id="productStock"
+            type="number"
+            min="0"
+            placeholder="Stock"
+        >
+
+
+        <select
+            id="productCategory"
+        >
+
+            <option value="bot">
+                🤖 Discord Bot
+            </option>
+
+            <option value="hosting">
+                ☁️ Hosting
+            </option>
+
+        </select>
+
+
+        <input
+            id="productImage"
+            class="full"
+            placeholder="Image URL"
+        >
+
+
+        <input
+            id="productDescription"
+            class="full"
+            placeholder="Product Description"
+        >
+
+
+    </div>
+
+
+    <button
+        class="add-button"
+        onclick="addProduct()"
+    >
+
+        Add Product
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     INVENTORY
+========================= -->
+
+<div class="panel">
+
+    <h2>
+        📦 Inventory
+    </h2>
+
+    <div id="productList">
+
+    </div>
+
+</div>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================
+   CONFIG
+========================= */
+
+/*
+   IMPORTANT:
+
+   This is only a temporary
+   frontend password.
+
+   Later, in Step 11,
+   we will replace this with
+   real backend authentication.
+*/
+
+const OWNER_PASSWORD =
+    "CHANGE_THIS_OWNER_PASSWORD";
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login() {
+
+    const password =
+        document
+        .getElementById(
+            "ownerPassword"
+        )
+        .value;
+
+    if (
+        password ===
+        OWNER_PASSWORD
+    ) {
+
+        sessionStorage.setItem(
+            "DBM_OWNER_AUTH",
+            "true"
+        );
+
+        showDashboard();
+
+    } else {
+
+        document
+        .getElementById(
+            "loginError"
+        )
+        .style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================
+   SHOW DASHBOARD
+========================= */
+
+function showDashboard() {
+
+    document
+    .getElementById(
+        "loginScreen"
+    )
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById(
+        "dashboard"
+    )
+    .style.display =
+        "block";
+
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "DBM_OWNER_AUTH"
+    );
+
+    location.reload();
+
+}
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+if (
+    sessionStorage.getItem(
+        "DBM_OWNER_AUTH"
+    ) === "true"
+) {
+
+    showDashboard();
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+let products =
+    JSON.parse(
+        localStorage.getItem(
+            "DBM_PRODUCTS"
+        )
+    ) || [];
+
+
+/* =========================
+   ADD PRODUCT
+========================= */
+
+function addProduct() {
+
+    const name =
+        document
+        .getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
+
+    const price =
+        Number(
+            document
+            .getElementById(
+                "productPrice"
+            )
+            .value
+        );
+
+
+    const stock =
+        Number(
+            document
+            .getElementById(
+                "productStock"
+            )
+            .value
+        );
+
+
+    const category =
+        document
+        .getElementById(
+            "productCategory"
+        )
+        .value;
+
+
+    const image =
+        document
+        .getElementById(
+            "productImage"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById(
+            "productDescription"
+        )
+        .value
+        .trim();
+
+
+    if (
+        !name ||
+        price <= 0 ||
+        stock < 0
+    ) {
+
+        alert(
+            "Please complete the required fields."
+        );
+
+        return;
+
+    }
+
+
+    const product = {
+
+        id:
+            Date.now(),
+
+        name:
+            name,
+
+        price:
+            price,
+
+        stock:
+            stock,
+
+        category:
+            category,
+
+        image:
+            image,
+
+        description:
+            description
+
+    };
+
+
+    products.push(
+        product
+    );
+
+
+    saveProducts();
+
+    renderProducts();
+
+    clearForm();
+
+
+    alert(
+        "Product added successfully!"
+    );
+
+}
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+function deleteProduct(
+    id
+) {
+
+    if (
+        !confirm(
+            "Delete this product?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    products =
+        products.filter(
+            product =>
+                product.id !== id
+        );
+
+
+    saveProducts();
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   SAVE PRODUCTS
+========================= */
+
+function saveProducts() {
+
+    localStorage.setItem(
+
+        "DBM_PRODUCTS",
+
+        JSON.stringify(
+            products
+        )
+
+    );
+
+}
+
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts() {
+
+    const list =
+        document
+        .getElementById(
+            "productList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    products.forEach(
+        product => {
+
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "product";
+
+
+            div.innerHTML = `
+
+                <div
+                    class="product-info"
+                >
+
+                    <strong>
+                        ${escapeHTML(
+                            product.name
+                        )}
+                    </strong>
+
+                    <span>
+
+                        ${product.category}
+                        • €${product.price.toFixed(2)}
+                        • Stock:
+                        ${product.stock}
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="product-actions"
+                >
+
+                    <button
+                        class="small delete"
+                        onclick="
+                            deleteProduct(
+                                ${product.id}
+                            )
+                        "
+                    >
+
+                        🗑️ Delete
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    updateStats();
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats() {
+
+    const bots =
+        products.filter(
+            product =>
+                product.category ===
+                "bot"
+        );
+
+
+    const hosting =
+        products.filter(
+            product =>
+                product.category ===
+                "hosting"
+        );
+
+
+    let tickets =
+        JSON.parse(
+            localStorage.getItem(
+                "DBM_TICKETS"
+            )
+        ) || [];
+
+
+    document
+    .getElementById(
+        "botCount"
+    )
+    .textContent =
+        bots.length;
+
+
+    document
+    .getElementById(
+        "hostingCount"
+    )
+    .textContent =
+        hosting.length;
+
+
+    document
+    .getElementById(
+        "ticketCount"
+    )
+    .textContent =
+        tickets.length;
+
+}
+
+
+/* =========================
+   CLEAR FORM
+========================= */
+
+function clearForm() {
+
+    document
+    .getElementById(
+        "productName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "productPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "productStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "productImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "productDescription"
+    )
+    .value = "";
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(
+    text
+) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+</script>
+
+</body>
+
+</html>
