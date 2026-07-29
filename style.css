@@ -1,0 +1,1018 @@
+```html
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Discord Bot Marketplace - Premium Discord Bots & Hosting"
+    >
+
+    <title>Discord Bot Marketplace</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        <span>⚡</span>
+        Discord Bot Marketplace
+    </a>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a
+                    href="index.html"
+                    class="active"
+                >
+                    🏠 Home
+                </a>
+            </li>
+
+            <li>
+                <a href="bots.html">
+                    🤖 Bots
+                </a>
+            </li>
+
+            <li>
+                <a href="hosting.html">
+                    🖥️ Hosting
+                </a>
+            </li>
+
+            <li>
+                <a href="support.html">
+                    🎫 Support
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    🛒 Cart
+                    <span id="cart-count">
+                        0
+                    </span>
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            ✨ PREMIUM DISCORD MARKETPLACE
+        </span>
+
+        <h1>
+            Build Your Discord
+            <br>
+
+            <span class="gradient-text">
+                Without Limits.
+            </span>
+        </h1>
+
+        <p>
+
+            Discover premium Discord bots,
+            powerful hosting solutions and
+            professional services designed
+            to take your community to the next level.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="bots.html"
+                class="btn"
+            >
+                🤖 Explore Bots
+            </a>
+
+            <a
+                href="hosting.html"
+                class="btn btn-secondary"
+            >
+                🖥️ Explore Hosting
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="container">
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🤖
+            </div>
+
+            <strong>
+                50+
+            </strong>
+
+            <span>
+                Discord Bots
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🖥️
+            </div>
+
+            <strong>
+                20+
+            </strong>
+
+            <span>
+                Hosting Plans
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⚡
+            </div>
+
+            <strong>
+                24/7
+            </strong>
+
+            <span>
+                Service
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🛡️
+            </div>
+
+            <strong>
+                Secure
+            </strong>
+
+            <span>
+                Checkout
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <span class="badge">
+            EXPLORE
+        </span>
+
+        <h2>
+            Find Exactly What You Need
+        </h2>
+
+        <p>
+            Explore our most popular Discord categories.
+        </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <a
+            href="bots.html?category=Music"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                🎵
+            </span>
+
+            <h3>
+                Music Bots
+            </h3>
+
+            <p>
+                Music, playlists and audio systems.
+            </p>
+
+        </a>
+
+
+        <a
+            href="bots.html?category=Moderation"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                🛡️
+            </span>
+
+            <h3>
+                Moderation
+            </h3>
+
+            <p>
+                Keep your Discord server safe.
+            </p>
+
+        </a>
+
+
+        <a
+            href="bots.html?category=Gaming"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                🎮
+            </span>
+
+            <h3>
+                Gaming
+            </h3>
+
+            <p>
+                Gaming tools and statistics.
+            </p>
+
+        </a>
+
+
+        <a
+            href="bots.html?category=Fun"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                😂
+            </span>
+
+            <h3>
+                Fun
+            </h3>
+
+            <p>
+                Entertainment for your community.
+            </p>
+
+        </a>
+
+
+        <a
+            href="bots.html?category=Security"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                🔐
+            </span>
+
+            <h3>
+                Security
+            </h3>
+
+            <p>
+                Anti-raid and server protection.
+            </p>
+
+        </a>
+
+
+        <a
+            href="hosting.html"
+            class="category-card"
+        >
+
+            <span class="category-icon">
+                🖥️
+            </span>
+
+            <h3>
+                Hosting
+            </h3>
+
+            <p>
+                Fast and reliable hosting solutions.
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURED BOTS
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <span class="badge">
+            FEATURED
+        </span>
+
+        <h2>
+            Popular Discord Bots
+        </h2>
+
+        <p>
+            Check out some of our most popular products.
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+
+        <article class="product-card">
+
+            <span class="badge">
+                ⭐ POPULAR
+            </span>
+
+            <div class="product-icon">
+                🎵
+            </div>
+
+            <h3>
+                Music Pro
+            </h3>
+
+            <p>
+                A powerful music bot with
+                playlists, queue and volume controls.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €4.99
+                </strong>
+
+                <a
+                    href="bots.html"
+                    class="btn"
+                >
+                    View Bot
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="product-card">
+
+            <span class="badge badge-new">
+                ✨ NEW
+            </span>
+
+            <div class="product-icon">
+                🛡️
+            </div>
+
+            <h3>
+                Security Guard
+            </h3>
+
+            <p>
+                Advanced security and
+                anti-raid protection for your server.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €9.99
+                </strong>
+
+                <a
+                    href="bots.html"
+                    class="btn"
+                >
+                    View Bot
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="product-card">
+
+            <span class="badge">
+                PREMIUM
+            </span>
+
+            <div class="product-icon">
+                🤖
+            </div>
+
+            <h3>
+                Ultimate Discord Bot
+            </h3>
+
+            <p>
+                An all-in-one Discord solution
+                for your community.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €19.99
+                </strong>
+
+                <a
+                    href="bots.html"
+                    class="btn"
+                >
+                    View Bot
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="center-button">
+
+        <a
+            href="bots.html"
+            class="btn btn-secondary"
+        >
+            View All Bots →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOSTING
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <span class="badge">
+            HOSTING
+        </span>
+
+        <h2>
+            Powerful Hosting
+        </h2>
+
+        <p>
+            Choose the right hosting solution for your project.
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+
+        <article class="product-card">
+
+            <div class="product-icon">
+                🤖
+            </div>
+
+            <h3>
+                Bot Hosting Starter
+            </h3>
+
+            <p>
+                Perfect for small Discord bots
+                and personal projects.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €2.99
+                    <small>/month</small>
+                </strong>
+
+                <a
+                    href="hosting.html"
+                    class="btn"
+                >
+                    View Hosting
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="product-card">
+
+            <div class="product-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Bot Hosting Pro
+            </h3>
+
+            <p>
+                More power and resources
+                for growing Discord bots.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €7.99
+                    <small>/month</small>
+                </strong>
+
+                <a
+                    href="hosting.html"
+                    class="btn"
+                >
+                    View Hosting
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="product-card">
+
+            <div class="product-icon">
+                🚀
+            </div>
+
+            <h3>
+                Ultimate Hosting
+            </h3>
+
+            <p>
+                Premium resources for
+                demanding projects.
+            </p>
+
+            <div class="product-bottom">
+
+                <strong class="product-price">
+                    €49.99
+                    <small>/month</small>
+                </strong>
+
+                <a
+                    href="hosting.html"
+                    class="btn"
+                >
+                    View Hosting
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="center-button">
+
+        <a
+            href="hosting.html"
+            class="btn btn-secondary"
+        >
+            View All Hosting →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY US
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <span class="badge">
+            WHY US
+        </span>
+
+        <h2>
+            Built For Discord Communities
+        </h2>
+
+    </div>
+
+
+    <div class="features-grid">
+
+
+        <div class="feature-card">
+
+            <span>
+                ⚡
+            </span>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Get your products and services
+                quickly after your order.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <span>
+                🔒
+            </span>
+
+            <h3>
+                Secure Payments
+            </h3>
+
+            <p>
+                Secure payment options
+                for your purchases.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <span>
+                🎫
+            </span>
+
+            <h3>
+                Support
+            </h3>
+
+            <p>
+                Our support team is available
+                when you need assistance.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <span>
+                💎
+            </span>
+
+            <h3>
+                Premium Quality
+            </h3>
+
+            <p>
+                High-quality products
+                designed for Discord communities.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REVIEWS
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <span class="badge">
+            REVIEWS
+        </span>
+
+        <h2>
+            What Our Customers Say
+        </h2>
+
+    </div>
+
+
+    <div class="reviews-grid">
+
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "Very clean website and
+                fast service. The bot works perfectly."
+            </p>
+
+            <strong>
+                — Customer
+            </strong>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "The hosting was easy to use
+                and the support helped me quickly."
+            </p>
+
+            <strong>
+                — Customer
+            </strong>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "Professional marketplace
+                with many useful Discord products."
+            </p>
+
+            <strong>
+                — Customer
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="container">
+
+    <div class="cta">
+
+        <span class="badge">
+            READY?
+        </span>
+
+        <h2>
+            Upgrade Your Discord Server
+        </h2>
+
+        <p>
+            Explore our bots and hosting
+            and find the perfect solution
+            for your community.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="bots.html"
+                class="btn"
+            >
+                Explore Bots
+            </a>
+
+            <a
+                href="support.html"
+                class="btn btn-secondary"
+            >
+                Contact Support
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div>
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+                ⚡ Discord Bot Marketplace
+            </a>
+
+            <p>
+                Premium Discord bots,
+                hosting and digital services.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="bots.html">
+                Bots
+            </a>
+
+            <a href="hosting.html">
+                Hosting
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+
+            <a href="cart.html">
+                Cart
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Discord Bot Marketplace.
+            All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     CART COUNT
+===================================================== -->
+
+<script>
+
+    function updateCartCount() {
+
+        try {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("DBM_CART")
+                    || "[]"
+                );
+
+            const count =
+                cart.reduce(
+                    (total, item) =>
+                        total +
+                        (Number(item.quantity) || 1),
+                    0
+                );
+
+            const cartCount =
+                document.getElementById(
+                    "cart-count"
+                );
+
+            if (cartCount) {
+
+                cartCount.textContent =
+                    count;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Cart error:",
+                error
+            );
+
+        }
+
+    }
+
+    updateCartCount();
+
+</script>
+
+</body>
+</html>
+```
