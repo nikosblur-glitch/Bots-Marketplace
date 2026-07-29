@@ -1466,7 +1466,69 @@ function escapeHTML(
 }
 
 </script>
+<div class="owner-panel">
 
+    <h2>🔐 Owner Panel</h2>
+
+    <div class="owner-form">
+
+        <select id="productType" class="owner-input">
+            <option value="bot">🤖 Discord Bot</option>
+            <option value="hosting">☁️ Hosting</option>
+        </select>
+
+        <input
+            id="productName"
+            class="owner-input"
+            placeholder="Product Name"
+        >
+
+        <input
+            id="productPrice"
+            class="owner-input"
+            type="number"
+            step="0.01"
+            placeholder="Price (€)"
+        >
+
+        <input
+            id="productStock"
+            class="owner-input"
+            type="number"
+            min="0"
+            placeholder="Stock"
+        >
+
+        <input
+            id="productImage"
+            class="owner-input owner-full"
+            placeholder="Image URL"
+        >
+
+        <textarea
+            id="productDescription"
+            class="owner-input owner-full"
+            placeholder="Product Description"
+        ></textarea>
+
+    </div>
+
+    <button
+        class="btn btn-primary"
+        onclick="addProduct()"
+    >
+        ➕ Add Product
+    </button>
+
+    <div class="inventory">
+
+        <h3>📦 Products</h3>
+
+        <div id="productList"></div>
+
+    </div>
+
+</div>
 </body>
 
 </html>
