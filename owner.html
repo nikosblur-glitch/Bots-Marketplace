@@ -1530,5 +1530,131 @@ function escapeHTML(
 
 </div>
 </body>
+async function loadOrders() {
 
+    const response =
+    await fetch(
+        "/api/orders"
+    );
+
+
+    const data =
+    await response.json();
+
+
+    if (
+        !data.success
+    ) {
+
+        return;
+
+    }
+
+
+    const container =
+    document
+    .getElementById(
+        "ordersList"
+    );
+
+
+    container.innerHTML =
+    "";
+
+
+    data.orders.forEach(
+
+        order => {
+
+            const div =
+            document
+            .createElement(
+                "div"
+            );
+
+
+            div.className =
+            "order-card";
+
+
+            div.innerHTML = `
+
+                <h3>
+                    ${order.id}
+                </h3>
+
+                <p>
+                    Customer:
+                    ${order.customer}
+                </p>
+
+                <p>
+                    Email:
+                    ${order.email}
+                </p>
+
+                <p>
+                    Total:
+                    €${order.total.toFixed(2)}
+                </p>
+
+                <p>
+                    Payment:
+                    ${order.paymentMethod}
+                </p>
+
+                <p>
+                    Payment Status:
+                    ${order.paymentStatus}
+                </p>
+
+                <p>
+                    Order Status:
+                    ${order.orderStatus}
+                </p>
+
+                <button
+                    onclick="
+                    updateOrder(
+                        '${order.id}',
+                        'processing'
+                    )
+                    "
+                >
+                    Processing
+                </button>
+
+                <button
+                    onclick="
+                    updateOrder(
+                        '${order.id}',
+                        'completed'
+                    )
+                    "
+                >
+                    Completed
+                </button>
+
+                <button
+                    onclick="
+                    deleteOrder(
+                        '${order.id}'
+                    )
+                    "
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+
+    );
+
+}
 </html>
