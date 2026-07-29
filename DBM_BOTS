@@ -1,0 +1,1754 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Owner Panel | Discord Board Marketplace
+</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color: white;
+
+    background:
+    #03040a;
+
+    padding: 30px 15px;
+
+}
+
+
+/* ==============================
+   BACKGROUND
+============================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -1;
+
+    background:
+
+    radial-gradient(
+        circle at 20% 10%,
+        rgba(88,101,242,0.20),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 80% 70%,
+        rgba(139,92,246,0.15),
+        transparent 30%
+    ),
+
+    #03040a;
+
+}
+
+
+/* ==============================
+   PANEL
+============================== */
+
+.owner-panel {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background:
+    rgba(15,17,30,0.90);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px);
+
+    box-shadow:
+    0 30px 100px
+    rgba(0,0,0,0.5);
+
+}
+
+
+/* ==============================
+   HEADER
+============================== */
+
+.header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+}
+
+.header h1 {
+
+    font-size: 30px;
+
+}
+
+.header p {
+
+    margin-top: 6px;
+
+    color:
+    rgba(255,255,255,0.5);
+
+}
+
+
+/* ==============================
+   BACK BUTTON
+============================== */
+
+.back-button {
+
+    padding: 11px 16px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    color: white;
+
+    background:
+    rgba(255,255,255,0.07);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+}
+
+
+/* ==============================
+   TABS
+============================== */
+
+.tabs {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+}
+
+.tab-button {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color:
+    rgba(255,255,255,0.6);
+
+    background:
+    rgba(255,255,255,0.05);
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+.tab-button:hover {
+
+    background:
+    rgba(255,255,255,0.1);
+
+    color: white;
+
+}
+
+.tab-button.active {
+
+    color: white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+}
+
+
+/* ==============================
+   FORM
+============================== */
+
+.form-section {
+
+    display: none;
+
+}
+
+.form-section.active {
+
+    display: block;
+
+}
+
+
+.form-title {
+
+    margin-bottom: 20px;
+
+}
+
+.form-title h2 {
+
+    font-size: 23px;
+
+}
+
+.form-title p {
+
+    margin-top: 7px;
+
+    color:
+    rgba(255,255,255,0.5);
+
+}
+
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap: 14px;
+
+}
+
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.input-group.full {
+
+    grid-column:
+    1 / -1;
+
+}
+
+
+.input-group label {
+
+    font-size: 13px;
+
+    color:
+    rgba(255,255,255,0.6);
+
+}
+
+
+.input-group input,
+
+.input-group textarea {
+
+    width: 100%;
+
+    padding: 14px;
+
+    color: white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: inherit;
+
+}
+
+
+.input-group textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+}
+
+
+.input-group input:focus,
+
+.input-group textarea:focus {
+
+    border-color:
+    #7280ff;
+
+    box-shadow:
+    0 0 20px
+    rgba(88,101,242,0.15);
+
+}
+
+
+/* ==============================
+   ADD BUTTON
+============================== */
+
+.add-button {
+
+    margin-top: 20px;
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    transition: 0.3s;
+
+}
+
+
+.add-button:hover {
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 15px 40px
+    rgba(88,101,242,0.35);
+
+}
+
+
+/* ==============================
+   INVENTORY
+============================== */
+
+.inventory {
+
+    margin-top: 45px;
+
+}
+
+
+.inventory h2 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.inventory-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.inventory-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 16px;
+
+    border-radius: 14px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+}
+
+
+.inventory-info strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+}
+
+
+.inventory-info span {
+
+    color:
+    rgba(255,255,255,0.5);
+
+    font-size: 14px;
+
+}
+
+
+.delete-button {
+
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    color: white;
+
+    background:
+    rgba(220,60,70,0.2);
+
+    cursor: pointer;
+
+}
+
+
+.delete-button:hover {
+
+    background:
+    rgba(220,60,70,0.4);
+
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:700px) {
+
+    .owner-panel {
+
+        padding: 20px;
+
+    }
+
+    .header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .input-group.full {
+
+        grid-column: auto;
+
+    }
+
+    .tabs {
+
+        flex-direction: column;
+
+    }
+
+    .inventory-item {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="background"></div>
+
+
+<div class="owner-panel">
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div>
+
+<h1>
+🔐 Owner Panel
+</h1>
+
+<p>
+Manage your Bots and Hosting products.
+</p>
+
+</div>
+
+
+<a
+href="index.html"
+class="back-button"
+>
+
+← Back to Home
+
+</a>
+
+</div>
+
+
+
+<!-- TABS -->
+
+<div class="tabs">
+
+
+<button
+class="tab-button active"
+onclick="showTab('bots', this)"
+>
+
+🤖 Add Bot
+
+</button>
+
+
+<button
+class="tab-button"
+onclick="showTab('hosting', this)"
+>
+
+☁️ Add Hosting
+
+</button>
+
+
+</div>
+
+
+
+<!-- =================================
+     BOT FORM
+================================= -->
+
+<section
+id="botsForm"
+class="form-section active"
+>
+
+
+<div class="form-title">
+
+<h2>
+🤖 Add New Bot
+</h2>
+
+<p>
+This product will be saved in DBM_BOTS.
+</p>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="input-group">
+
+<label>
+Bot Name
+</label>
+
+<input
+id="botName"
+type="text"
+placeholder="Example: Moderation Bot"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Price (€)
+</label>
+
+<input
+id="botPrice"
+type="number"
+step="0.01"
+min="0"
+placeholder="9.99"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Stock
+</label>
+
+<input
+id="botStock"
+type="number"
+min="0"
+placeholder="10"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Bot ID
+</label>
+
+<input
+id="botId"
+type="text"
+placeholder="Discord Bot ID"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Bot Image URL
+</label>
+
+<input
+id="botImage"
+type="url"
+placeholder="https://example.com/bot.png"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Bot Description
+</label>
+
+<textarea
+id="botDescription"
+placeholder="Write a description for your bot..."
+></textarea>
+
+</div>
+
+
+</div>
+
+
+<button
+class="add-button"
+onclick="addBot()"
+>
+
+➕ Add Bot to Marketplace
+
+</button>
+
+
+</section>
+
+
+
+<!-- =================================
+     HOSTING FORM
+================================= -->
+
+<section
+id="hostingForm"
+class="form-section"
+>
+
+
+<div class="form-title">
+
+<h2>
+☁️ Add New Hosting
+</h2>
+
+<p>
+This product will be saved in DBM_HOSTING.
+</p>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="input-group">
+
+<label>
+Hosting Name
+</label>
+
+<input
+id="hostingName"
+type="text"
+placeholder="Example: Premium Bot Hosting"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Price (€)
+</label>
+
+<input
+id="hostingPrice"
+type="number"
+step="0.01"
+min="0"
+placeholder="5.99"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Stock
+</label>
+
+<input
+id="hostingStock"
+type="number"
+min="0"
+placeholder="20"
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Hosting ID
+</label>
+
+<input
+id="hostingId"
+type="text"
+placeholder="Hosting Plan ID"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Hosting Image URL
+</label>
+
+<input
+id="hostingImage"
+type="url"
+placeholder="https://example.com/hosting.png"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Hosting Description
+</label>
+
+<textarea
+id="hostingDescription"
+placeholder="Write a description for your hosting..."
+></textarea>
+
+</div>
+
+
+</div>
+
+
+<button
+class="add-button"
+onclick="addHosting()"
+>
+
+➕ Add Hosting to Marketplace
+
+</button>
+
+
+</section>
+
+
+
+<!-- =================================
+     BOT INVENTORY
+================================= -->
+
+<div class="inventory">
+
+<h2>
+🤖 Bot Inventory
+</h2>
+
+
+<div
+id="botInventory"
+class="inventory-list"
+>
+
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     HOSTING INVENTORY
+================================= -->
+
+<div class="inventory">
+
+<h2>
+☁️ Hosting Inventory
+</h2>
+
+
+<div
+id="hostingInventory"
+class="inventory-list"
+>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   DATA
+========================================= */
+
+
+let bots = JSON.parse(
+
+localStorage.getItem(
+    "DBM_BOTS"
+)
+
+) || [];
+
+
+let hostingProducts = JSON.parse(
+
+localStorage.getItem(
+    "DBM_HOSTING"
+)
+
+) || [];
+
+
+
+/* =========================================
+   TAB SYSTEM
+========================================= */
+
+
+function showTab(
+    tab,
+    button
+) {
+
+
+    document
+    .querySelectorAll(
+        ".form-section"
+    )
+    .forEach(
+        section => {
+
+            section.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    document
+    .querySelectorAll(
+        ".tab-button"
+    )
+    .forEach(
+        btn => {
+
+            btn.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    if (
+        tab === "bots"
+    ) {
+
+        document
+        .getElementById(
+            "botsForm"
+        )
+        .classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (
+        tab === "hosting"
+    ) {
+
+        document
+        .getElementById(
+            "hostingForm"
+        )
+        .classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.classList.add(
+        "active"
+    );
+
+}
+
+
+
+/* =========================================
+   ADD BOT
+========================================= */
+
+
+function addBot() {
+
+
+    const name =
+        document
+        .getElementById(
+            "botName"
+        )
+        .value
+        .trim();
+
+
+    const price =
+        Number(
+            document
+            .getElementById(
+                "botPrice"
+            )
+            .value
+        );
+
+
+    const stock =
+        Number(
+            document
+            .getElementById(
+                "botStock"
+            )
+            .value
+        );
+
+
+    const botId =
+        document
+        .getElementById(
+            "botId"
+        )
+        .value
+        .trim();
+
+
+    const image =
+        document
+        .getElementById(
+            "botImage"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById(
+            "botDescription"
+        )
+        .value
+        .trim();
+
+
+
+    if (
+        !name ||
+        !botId ||
+        price <= 0 ||
+        stock < 0
+    ) {
+
+        alert(
+            "Please complete all required Bot fields."
+        );
+
+        return;
+
+    }
+
+
+
+    const bot = {
+
+        id:
+            Date.now(),
+
+        type:
+            "bot",
+
+        name:
+            name,
+
+        price:
+            price,
+
+        stock:
+            stock,
+
+        botId:
+            botId,
+
+        image:
+            image,
+
+        description:
+            description
+
+    };
+
+
+
+    bots.push(
+        bot
+    );
+
+
+    localStorage.setItem(
+
+        "DBM_BOTS",
+
+        JSON.stringify(
+            bots
+        )
+
+    );
+
+
+    clearBotForm();
+
+
+    renderBots();
+
+
+    alert(
+        "✅ Bot added successfully!"
+    );
+
+}
+
+
+
+/* =========================================
+   ADD HOSTING
+========================================= */
+
+
+function addHosting() {
+
+
+    const name =
+        document
+        .getElementById(
+            "hostingName"
+        )
+        .value
+        .trim();
+
+
+    const price =
+        Number(
+            document
+            .getElementById(
+                "hostingPrice"
+            )
+            .value
+        );
+
+
+    const stock =
+        Number(
+            document
+            .getElementById(
+                "hostingStock"
+            )
+            .value
+        );
+
+
+    const hostingId =
+        document
+        .getElementById(
+            "hostingId"
+        )
+        .value
+        .trim();
+
+
+    const image =
+        document
+        .getElementById(
+            "hostingImage"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById(
+            "hostingDescription"
+        )
+        .value
+        .trim();
+
+
+
+    if (
+        !name ||
+        !hostingId ||
+        price <= 0 ||
+        stock < 0
+    ) {
+
+        alert(
+            "Please complete all required Hosting fields."
+        );
+
+        return;
+
+    }
+
+
+
+    const hosting = {
+
+        id:
+            Date.now(),
+
+        type:
+            "hosting",
+
+        name:
+            name,
+
+        price:
+            price,
+
+        stock:
+            stock,
+
+        hostingId:
+            hostingId,
+
+        image:
+            image,
+
+        description:
+            description
+
+    };
+
+
+
+    hostingProducts.push(
+        hosting
+    );
+
+
+    localStorage.setItem(
+
+        "DBM_HOSTING",
+
+        JSON.stringify(
+            hostingProducts
+        )
+
+    );
+
+
+    clearHostingForm();
+
+
+    renderHosting();
+
+
+    alert(
+        "✅ Hosting added successfully!"
+    );
+
+}
+
+
+
+/* =========================================
+   CLEAR BOT FORM
+========================================= */
+
+
+function clearBotForm() {
+
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value = "";
+
+}
+
+
+
+/* =========================================
+   CLEAR HOSTING FORM
+========================================= */
+
+
+function clearHostingForm() {
+
+
+    document
+    .getElementById(
+        "hostingName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingDescription"
+    )
+    .value = "";
+
+}
+
+
+
+/* =========================================
+   RENDER BOTS
+========================================= */
+
+
+function renderBots() {
+
+
+    const list =
+        document
+        .getElementById(
+            "botInventory"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        bots.length === 0
+    ) {
+
+        list.innerHTML =
+
+        "<p style='color:#777;'>No bots added yet.</p>";
+
+        return;
+
+    }
+
+
+    bots.forEach(
+        bot => {
+
+
+            const item =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "inventory-item";
+
+
+            item.innerHTML = `
+
+                <div class="inventory-info">
+
+                    <strong>
+                        🤖 ${escapeHTML(bot.name)}
+                    </strong>
+
+                    <span>
+                        €${Number(bot.price).toFixed(2)}
+                        • Stock: ${bot.stock}
+                    </span>
+
+                </div>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteBot(${bot.id})"
+                >
+
+                    🗑️ Delete
+
+                </button>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   RENDER HOSTING
+========================================= */
+
+
+function renderHosting() {
+
+
+    const list =
+        document
+        .getElementById(
+            "hostingInventory"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        hostingProducts.length === 0
+    ) {
+
+        list.innerHTML =
+
+        "<p style='color:#777;'>No hosting products added yet.</p>";
+
+        return;
+
+    }
+
+
+    hostingProducts.forEach(
+        hosting => {
+
+
+            const item =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "inventory-item";
+
+
+            item.innerHTML = `
+
+                <div class="inventory-info">
+
+                    <strong>
+                        ☁️ ${escapeHTML(hosting.name)}
+                    </strong>
+
+                    <span>
+                        €${Number(hosting.price).toFixed(2)}
+                        • Stock: ${hosting.stock}
+                    </span>
+
+                </div>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteHosting(${hosting.id})"
+                >
+
+                    🗑️ Delete
+
+                </button>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   DELETE BOT
+========================================= */
+
+
+function deleteBot(
+    id
+) {
+
+
+    if (
+        !confirm(
+            "Delete this bot?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    bots =
+        bots.filter(
+            bot =>
+                bot.id !== id
+        );
+
+
+    localStorage.setItem(
+
+        "DBM_BOTS",
+
+        JSON.stringify(
+            bots
+        )
+
+    );
+
+
+    renderBots();
+
+}
+
+
+
+/* =========================================
+   DELETE HOSTING
+========================================= */
+
+
+function deleteHosting(
+    id
+) {
+
+
+    if (
+        !confirm(
+            "Delete this hosting product?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    hostingProducts =
+        hostingProducts.filter(
+            hosting =>
+                hosting.id !== id
+        );
+
+
+    localStorage.setItem(
+
+        "DBM_HOSTING",
+
+        JSON.stringify(
+            hostingProducts
+        )
+
+    );
+
+
+    renderHosting();
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+
+function escapeHTML(
+    text
+) {
+
+    return String(
+        text
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
+
+renderBots();
+
+renderHosting();
+
+
+</script>
+
+</body>
+
+</html>
+```
