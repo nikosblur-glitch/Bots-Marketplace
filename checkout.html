@@ -1,164 +1,609 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="el">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Checkout | Discord Bot Marketplace</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
 
-<title>💳 Checkout</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
+    body {
+      background: #0f1117;
+      color: white;
+      min-height: 100vh;
+    }
 
-body {
-    font-family: Arial;
-    background: #03040a;
-    color: white;
-    padding: 30px;
-}
+    header {
+      background: #171a23;
+      border-bottom: 1px solid #292d38;
+      padding: 20px 40px;
 
-.container {
-    max-width: 600px;
-    margin: auto;
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-input {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    background: #111421;
-    border: 1px solid #292d42;
-    color: white;
-    border-radius: 10px;
-}
+    header h1 {
+      font-size: 23px;
+    }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 10px;
-    background: #5865f2;
-    color: white;
-    cursor: pointer;
-}
+    header a {
+      color: white;
+      text-decoration: none;
+      background: #5865f2;
+      padding: 10px 18px;
+      border-radius: 8px;
+    }
 
-</style>
+    main {
+      width: 90%;
+      max-width: 850px;
+      margin: 40px auto;
+    }
 
+    .box {
+      background: #171a23;
+      border: 1px solid #292d38;
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .product {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #292d38;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .payment-option {
+      background: #20232d;
+      border: 1px solid #343846;
+      border-radius: 10px;
+      margin-top: 15px;
+      overflow: hidden;
+    }
+
+    .payment-button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: white;
+      padding: 20px;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .payment-button:hover {
+      background: #282c38;
+    }
+
+    .arrow {
+      transition: 0.2s;
+    }
+
+    .payment-button.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    .payment-content {
+      display: none;
+      padding: 20px;
+      background: #14161d;
+      border-top: 1px solid #343846;
+    }
+
+    .payment-content.active {
+      display: block;
+    }
+
+    .payment-content p {
+      color: #b7bdc9;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 7px;
+      border: 1px solid #363b48;
+      background: #20232d;
+      color: white;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #5865f2;
+    }
+
+    .pay-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      background: #5865f2;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .pay-button:hover {
+      opacity: 0.9;
+    }
+
+    .paypal-button {
+      background: #0070ba;
+    }
+
+    .revolut-button {
+      background: #000000;
+      border: 1px solid #444;
+    }
+
+    .card-button {
+      background: #43b581;
+    }
+
+    .notice {
+      background: #222632;
+      padding: 15px;
+      border-radius: 8px;
+      color: #b7bdc9;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .empty {
+      text-align: center;
+      color: #b7bdc9;
+      padding: 30px;
+    }
+
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<header>
 
-<h1>💳 Checkout</h1>
+  <h1>🛒 Discord Bot Marketplace</h1>
 
-<p>Complete your order information.</p>
+  <a href="cart.html">
+    ← Καλάθι
+  </a>
 
-<input
-id="name"
-placeholder="Full Name"
->
+</header>
 
-<input
-id="email"
-type="email"
-placeholder="Email"
->
 
-<input
-id="discord"
-placeholder="Discord Username"
->
+<main>
 
-<button onclick="placeOrder()">
-Continue to Payment
-</button>
+  <!-- ORDER SUMMARY -->
 
-</div>
+  <div class="box">
+
+    <h2>📦 Η παραγγελία σου</h2>
+
+    <div id="products"></div>
+
+    <div class="total">
+      Σύνολο: €<span id="total">0.00</span>
+    </div>
+
+  </div>
+
+
+  <!-- PAYMENT -->
+
+  <div class="box">
+
+    <h2>💳 Επιλογή τρόπου πληρωμής</h2>
+
+
+    <!-- PAYPAL -->
+
+    <div class="payment-option">
+
+      <button
+        class="payment-button"
+        onclick="togglePayment('paypal', this)"
+      >
+
+        <span>🅿️ PayPal</span>
+
+        <span class="arrow">▼</span>
+
+      </button>
+
+
+      <div
+        id="paypal"
+        class="payment-content"
+      >
+
+        <p>
+          Πάτησε το κουμπί παρακάτω για να συνεχίσεις
+          στην ασφαλή πληρωμή μέσω PayPal.
+        </p>
+
+        <div class="notice">
+
+          🔐 Η πληρωμή θα ολοκληρωθεί
+          στο επίσημο ασφαλές περιβάλλον του PayPal.
+
+        </div>
+
+        <button
+          class="pay-button paypal-button"
+          onclick="startPayPal()"
+        >
+
+          🅿️ Continue with PayPal
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- CARD -->
+
+    <div class="payment-option">
+
+      <button
+        class="payment-button"
+        onclick="togglePayment('card', this)"
+      >
+
+        <span>💳 Πιστωτική / Χρεωστική Κάρτα</span>
+
+        <span class="arrow">▼</span>
+
+      </button>
+
+
+      <div
+        id="card"
+        class="payment-content"
+      >
+
+        <p>
+          Η πληρωμή με κάρτα θα γίνει μέσω
+          ασφαλούς payment provider.
+        </p>
+
+        <div class="notice">
+
+          🔐 Για λόγους ασφαλείας, τα στοιχεία της
+          κάρτας δεν αποθηκεύονται στο site.
+
+        </div>
+
+        <button
+          class="pay-button card-button"
+          onclick="startCardPayment()"
+        >
+
+          💳 Continue to Secure Payment
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- REVOLUT -->
+
+    <div class="payment-option">
+
+      <button
+        class="payment-button"
+        onclick="togglePayment('revolut', this)"
+      >
+
+        <span>🔴 Revolut</span>
+
+        <span class="arrow">▼</span>
+
+      </button>
+
+
+      <div
+        id="revolut"
+        class="payment-content"
+      >
+
+        <p>
+          Πάτησε το κουμπί για να συνεχίσεις
+          στην ασφαλή πληρωμή μέσω Revolut.
+        </p>
+
+        <div class="notice">
+
+          🔐 Θα μεταφερθείς στο ασφαλές
+          περιβάλλον πληρωμών της Revolut.
+
+        </div>
+
+        <button
+          class="pay-button revolut-button"
+          onclick="startRevolut()"
+        >
+
+          🔴 Continue with Revolut
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
 
 
 <script>
 
-function placeOrder() {
 
-const name =
-document.getElementById("name").value.trim();
+/* ================================
+   LOAD CART
+================================ */
 
-const email =
-document.getElementById("email").value.trim();
+let cart =
+  JSON.parse(
+    localStorage.getItem("DBM_CART")
+  ) || [];
 
-const discord =
-document.getElementById("discord").value.trim();
+
+function displayOrder() {
+
+  const container =
+    document.getElementById("products");
+
+  const totalElement =
+    document.getElementById("total");
 
 
-if (!name || !email || !discord) {
+  if (cart.length === 0) {
 
-alert(
-"Please complete all fields."
-);
+    container.innerHTML = `
+      <div class="empty">
+        🛒 Το καλάθι σου είναι άδειο.
+      </div>
+    `;
 
-return;
+    totalElement.textContent =
+      "0.00";
+
+    return;
+
+  }
+
+
+  let total = 0;
+
+  container.innerHTML = "";
+
+
+  cart.forEach(item => {
+
+    const price =
+      Number(item.price) || 0;
+
+    const quantity =
+      Number(item.quantity) || 1;
+
+
+    total +=
+      price * quantity;
+
+
+    container.innerHTML += `
+
+      <div class="product">
+
+        <span>
+          ${escapeHTML(item.name)}
+          × ${quantity}
+        </span>
+
+        <strong>
+          €${(
+            price * quantity
+          ).toFixed(2)}
+        </strong>
+
+      </div>
+
+    `;
+
+  });
+
+
+  totalElement.textContent =
+    total.toFixed(2);
 
 }
 
 
-const order = {
+/* ================================
+   OPEN / CLOSE PAYMENT BOX
+================================ */
 
-id:
-"DBM-" +
-Date.now(),
+function togglePayment(
+  id,
+  button
+) {
 
-name: name,
-
-email: email,
-
-discord: discord,
-
-cart:
-JSON.parse(
-localStorage.getItem("DBM_CART")
-) || [],
-
-status:
-"Pending",
-
-created:
-new Date().toISOString()
-
-};
+  const content =
+    document.getElementById(id);
 
 
-let orders =
-JSON.parse(
-localStorage.getItem("DBM_ORDERS")
-) || [];
+  const isOpen =
+    content.classList.contains(
+      "active"
+    );
 
 
-orders.push(order);
+  /*
+    Κλείνουμε όλα τα
+    payment boxes
+  */
+
+  document
+    .querySelectorAll(
+      ".payment-content"
+    )
+    .forEach(box => {
+
+      box.classList.remove(
+        "active"
+      );
+
+    });
 
 
-localStorage.setItem(
-"DBM_ORDERS",
-JSON.stringify(orders)
-);
+  document
+    .querySelectorAll(
+      ".payment-button"
+    )
+    .forEach(btn => {
+
+      btn.classList.remove(
+        "active"
+      );
+
+    });
 
 
-localStorage.setItem(
-"DBM_CURRENT_ORDER",
-JSON.stringify(order)
-);
+  /*
+    Αν ήταν κλειστό,
+    το ανοίγουμε
+  */
 
+  if (!isOpen) {
 
-window.location.href =
-"payment.html";
+    content.classList.add(
+      "active"
+    );
+
+    button.classList.add(
+      "active"
+    );
+
+  }
 
 }
+
+
+/* ================================
+   PAYPAL
+================================ */
+
+function startPayPal() {
+
+  alert(
+    "Το PayPal Checkout θα συνδεθεί εδώ με το PayPal API."
+  );
+
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+function startCardPayment() {
+
+  alert(
+    "Εδώ θα ανοίγει το ασφαλές Card Checkout του payment provider."
+  );
+
+}
+
+
+/* ================================
+   REVOLUT
+================================ */
+
+function startRevolut() {
+
+  alert(
+    "Το Revolut Checkout θα συνδεθεί εδώ με το Revolut Business API."
+  );
+
+}
+
+
+/* ================================
+   SECURITY
+================================ */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ================================
+   START
+================================ */
+
+displayOrder();
+
 
 </script>
 
 </body>
-
 </html>
+```
