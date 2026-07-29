@@ -569,3 +569,50 @@ renderBots();
 </body>
 </html>
 ```
+function addToCart(product) {
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem("DBM_CART")
+        ) || [];
+
+    const existing =
+        cart.find(
+            item => item.id === product.id
+        );
+
+    if(existing){
+
+        existing.quantity++;
+
+    }else{
+
+        cart.push({
+
+            id: product.id,
+
+            name: product.name,
+
+            price: Number(product.price),
+
+            type: product.type || "Digital Product",
+
+            quantity: 1
+
+        });
+
+    }
+
+    localStorage.setItem(
+
+        "DBM_CART",
+
+        JSON.stringify(cart)
+
+    );
+
+    alert(
+        product.name + " added to cart!"
+    );
+
+}
