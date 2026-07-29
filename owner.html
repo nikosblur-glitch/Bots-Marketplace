@@ -1,1754 +1,695 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
-
-<title>
-Owner Panel | Discord Board Marketplace
-</title>
+<title>Owner Panel | Discord Board Marketplace</title>
 
 <style>
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-
+    font-family: Arial, sans-serif;
+    background: #03040a;
+    color: white;
     min-height: 100vh;
-
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-    color: white;
-
-    background:
-    #03040a;
-
-    padding: 30px 15px;
-
-}
-
-
-/* ==============================
-   BACKGROUND
-============================== */
-
-.background {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: -1;
-
-    background:
-
-    radial-gradient(
-        circle at 20% 10%,
-        rgba(88,101,242,0.20),
-        transparent 30%
-    ),
-
-    radial-gradient(
-        circle at 80% 70%,
-        rgba(139,92,246,0.15),
-        transparent 30%
-    ),
-
-    #03040a;
-
-}
-
-
-/* ==============================
-   PANEL
-============================== */
-
-.owner-panel {
-
-    width: 100%;
-
-    max-width: 1000px;
-
-    margin: auto;
-
     padding: 30px;
-
-    border-radius: 25px;
-
-    background:
-    rgba(15,17,30,0.90);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.12);
-
-    backdrop-filter:
-    blur(25px);
-
-    box-shadow:
-    0 30px 100px
-    rgba(0,0,0,0.5);
-
 }
 
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
 
-/* ==============================
-   HEADER
-============================== */
+h1 {
+    margin-bottom: 10px;
+}
 
-.header {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
+.subtitle {
+    color: #999;
     margin-bottom: 30px;
-
 }
 
-.header h1 {
-
-    font-size: 30px;
-
+.nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
-.header p {
-
-    margin-top: 6px;
-
-    color:
-    rgba(255,255,255,0.5);
-
-}
-
-
-/* ==============================
-   BACK BUTTON
-============================== */
-
-.back-button {
-
-    padding: 11px 16px;
-
-    border-radius: 10px;
-
+.nav a {
     text-decoration: none;
-
     color: white;
-
-    background:
-    rgba(255,255,255,0.07);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.1);
-
+    background: #15182a;
+    padding: 12px 18px;
+    border-radius: 10px;
 }
 
+.nav a:hover {
+    background: #5865f2;
+}
 
-/* ==============================
-   TABS
-============================== */
-
-.tabs {
-
-    display: flex;
-
-    gap: 10px;
-
+.panel {
+    background: #0d0f19;
+    border: 1px solid #24283d;
+    border-radius: 20px;
+    padding: 25px;
     margin-bottom: 25px;
-
 }
 
-.tab-button {
-
-    flex: 1;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    color:
-    rgba(255,255,255,0.6);
-
-    background:
-    rgba(255,255,255,0.05);
-
-    cursor: pointer;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    transition: 0.3s;
-
-}
-
-.tab-button:hover {
-
-    background:
-    rgba(255,255,255,0.1);
-
-    color: white;
-
-}
-
-.tab-button.active {
-
-    color: white;
-
-    background:
-    linear-gradient(
-        135deg,
-        #5865f2,
-        #8b5cf6
-    );
-
-}
-
-
-/* ==============================
-   FORM
-============================== */
-
-.form-section {
-
-    display: none;
-
-}
-
-.form-section.active {
-
-    display: block;
-
-}
-
-
-.form-title {
-
+.panel h2 {
     margin-bottom: 20px;
-
 }
 
-.form-title h2 {
-
-    font-size: 23px;
-
-}
-
-.form-title p {
-
-    margin-top: 7px;
-
-    color:
-    rgba(255,255,255,0.5);
-
-}
-
-
-.form-grid {
-
+.form {
     display: grid;
-
-    grid-template-columns:
-    repeat(2, 1fr);
-
-    gap: 14px;
-
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-
-.input-group {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-}
-
-
-.input-group.full {
-
-    grid-column:
-    1 / -1;
-
-}
-
-
-.input-group label {
-
-    font-size: 13px;
-
-    color:
-    rgba(255,255,255,0.6);
-
-}
-
-
-.input-group input,
-
-.input-group textarea {
-
+input,
+textarea {
     width: 100%;
-
-    padding: 14px;
-
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #292d42;
+    background: #080a11;
     color: white;
-
-    background:
-    rgba(255,255,255,0.055);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.1);
-
-    border-radius: 11px;
-
     outline: none;
-
-    font-family: inherit;
-
 }
 
-
-.input-group textarea {
-
-    min-height: 110px;
-
+textarea {
+    min-height: 100px;
     resize: vertical;
-
 }
 
-
-.input-group input:focus,
-
-.input-group textarea:focus {
-
-    border-color:
-    #7280ff;
-
-    box-shadow:
-    0 0 20px
-    rgba(88,101,242,0.15);
-
+.full {
+    grid-column: 1 / -1;
 }
 
-
-/* ==============================
-   ADD BUTTON
-============================== */
-
-.add-button {
-
-    margin-top: 20px;
-
-    width: 100%;
-
-    padding: 15px;
-
+button {
     border: none;
-
-    border-radius: 12px;
-
+    cursor: pointer;
+    padding: 13px 20px;
+    border-radius: 10px;
     color: white;
-
-    font-size: 16px;
-
+    background: #5865f2;
     font-weight: bold;
-
-    cursor: pointer;
-
-    background:
-    linear-gradient(
-        135deg,
-        #5865f2,
-        #8b5cf6
-    );
-
-    transition: 0.3s;
-
 }
 
-
-.add-button:hover {
-
-    transform:
-    translateY(-3px);
-
-    box-shadow:
-    0 15px 40px
-    rgba(88,101,242,0.35);
-
+button:hover {
+    background: #4752c4;
 }
 
-
-/* ==============================
-   INVENTORY
-============================== */
-
-.inventory {
-
-    margin-top: 45px;
-
+.products {
+    display: grid;
+    gap: 12px;
 }
 
-
-.inventory h2 {
-
-    margin-bottom: 15px;
-
-}
-
-
-.inventory-list {
-
+.product {
     display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-}
-
-
-.inventory-item {
-
-    display: flex;
-
-    align-items: center;
-
     justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 16px;
-
-    border-radius: 14px;
-
-    background:
-    rgba(255,255,255,0.045);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.08);
-
+    align-items: center;
+    gap: 20px;
+    background: #151824;
+    padding: 18px;
+    border-radius: 12px;
 }
 
-
-.inventory-info strong {
-
-    display: block;
-
-    margin-bottom: 5px;
-
+.product-info h3 {
+    margin-bottom: 7px;
 }
 
-
-.inventory-info span {
-
-    color:
-    rgba(255,255,255,0.5);
-
-    font-size: 14px;
-
+.product-info p {
+    color: #999;
 }
 
-
-.delete-button {
-
-    padding: 9px 12px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    color: white;
-
-    background:
-    rgba(220,60,70,0.2);
-
-    cursor: pointer;
-
+.delete {
+    background: #d83c4a;
 }
 
-
-.delete-button:hover {
-
-    background:
-    rgba(220,60,70,0.4);
-
+.delete:hover {
+    background: #a92d38;
 }
-
-
-/* ==============================
-   MOBILE
-============================== */
 
 @media(max-width:700px) {
 
-    .owner-panel {
-
-        padding: 20px;
-
+    body {
+        padding: 15px;
     }
 
-    .header {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-    }
-
-    .form-grid {
-
+    .form {
         grid-template-columns: 1fr;
-
     }
 
-    .input-group.full {
-
+    .full {
         grid-column: auto;
-
     }
 
-    .tabs {
-
+    .product {
         flex-direction: column;
-
-    }
-
-    .inventory-item {
-
-        flex-direction: column;
-
         align-items: flex-start;
-
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<div class="container">
 
-<div class="background"></div>
+<h1>🔐 Owner Panel</h1>
 
-
-<div class="owner-panel">
-
-
-<!-- HEADER -->
-
-<div class="header">
-
-<div>
-
-<h1>
-🔐 Owner Panel
-</h1>
-
-<p>
-Manage your Bots and Hosting products.
+<p class="subtitle">
+Private administration panel for Discord Board Marketplace
 </p>
 
-</div>
+<div class="nav">
 
+<a href="index.html">🏠 Home</a>
 
-<a
-href="index.html"
-class="back-button"
->
+<a href="bots.html">🤖 Bots</a>
 
-← Back to Home
+<a href="hosting.html">☁️ Hosting</a>
 
-</a>
+<a href="support.html">🎧 Support</a>
 
-</div>
-
-
-
-<!-- TABS -->
-
-<div class="tabs">
-
-
-<button
-class="tab-button active"
-onclick="showTab('bots', this)"
->
-
-🤖 Add Bot
-
-</button>
-
-
-<button
-class="tab-button"
-onclick="showTab('hosting', this)"
->
-
-☁️ Add Hosting
-
-</button>
-
+<a href="cart.html">🛒 Cart</a>
 
 </div>
 
 
+<!-- ADD BOT -->
 
-<!-- =================================
-     BOT FORM
-================================= -->
+<div class="panel">
 
-<section
-id="botsForm"
-class="form-section active"
->
+<h2>🤖 Add New Bot</h2>
 
-
-<div class="form-title">
-
-<h2>
-🤖 Add New Bot
-</h2>
-
-<p>
-This product will be saved in DBM_BOTS.
-</p>
-
-</div>
-
-
-<div class="form-grid">
-
-
-<div class="input-group">
-
-<label>
-Bot Name
-</label>
+<div class="form">
 
 <input
 id="botName"
-type="text"
-placeholder="Example: Moderation Bot"
+placeholder="Bot Name"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Price (€)
-</label>
 
 <input
 id="botPrice"
 type="number"
 step="0.01"
-min="0"
-placeholder="9.99"
+placeholder="Price (€)"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Stock
-</label>
 
 <input
 id="botStock"
 type="number"
 min="0"
-placeholder="10"
+placeholder="Stock"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Bot ID
-</label>
 
 <input
 id="botId"
-type="text"
 placeholder="Discord Bot ID"
 >
 
-</div>
-
-
-<div class="input-group full">
-
-<label>
-Bot Image URL
-</label>
-
 <input
 id="botImage"
-type="url"
-placeholder="https://example.com/bot.png"
+class="full"
+placeholder="Bot Image URL"
 >
-
-</div>
-
-
-<div class="input-group full">
-
-<label>
-Bot Description
-</label>
 
 <textarea
 id="botDescription"
-placeholder="Write a description for your bot..."
+class="full"
+placeholder="Bot Description"
 ></textarea>
 
-</div>
-
-
-</div>
-
-
 <button
-class="add-button"
+class="full"
 onclick="addBot()"
 >
-
-➕ Add Bot to Marketplace
-
+➕ Add Bot
 </button>
 
-
-</section>
-
-
-
-<!-- =================================
-     HOSTING FORM
-================================= -->
-
-<section
-id="hostingForm"
-class="form-section"
->
-
-
-<div class="form-title">
-
-<h2>
-☁️ Add New Hosting
-</h2>
-
-<p>
-This product will be saved in DBM_HOSTING.
-</p>
+</div>
 
 </div>
 
 
-<div class="form-grid">
+<!-- ADD HOSTING -->
 
+<div class="panel">
 
-<div class="input-group">
+<h2>☁️ Add New Hosting</h2>
 
-<label>
-Hosting Name
-</label>
+<div class="form">
 
 <input
 id="hostingName"
-type="text"
-placeholder="Example: Premium Bot Hosting"
+placeholder="Hosting Name"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Price (€)
-</label>
 
 <input
 id="hostingPrice"
 type="number"
 step="0.01"
-min="0"
-placeholder="5.99"
+placeholder="Price (€)"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Stock
-</label>
 
 <input
 id="hostingStock"
 type="number"
 min="0"
-placeholder="20"
+placeholder="Stock"
 >
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Hosting ID
-</label>
 
 <input
-id="hostingId"
-type="text"
-placeholder="Hosting Plan ID"
+id="hostingRam"
+placeholder="RAM (Example: 4GB)"
 >
-
-</div>
-
-
-<div class="input-group full">
-
-<label>
-Hosting Image URL
-</label>
 
 <input
 id="hostingImage"
-type="url"
-placeholder="https://example.com/hosting.png"
+class="full"
+placeholder="Hosting Image URL"
 >
-
-</div>
-
-
-<div class="input-group full">
-
-<label>
-Hosting Description
-</label>
 
 <textarea
 id="hostingDescription"
-placeholder="Write a description for your hosting..."
+class="full"
+placeholder="Hosting Description"
 ></textarea>
 
-</div>
-
-
-</div>
-
-
 <button
-class="add-button"
+class="full"
 onclick="addHosting()"
 >
-
-➕ Add Hosting to Marketplace
-
+➕ Add Hosting
 </button>
 
+</div>
 
-</section>
+</div>
 
 
+<!-- BOT INVENTORY -->
 
-<!-- =================================
-     BOT INVENTORY
-================================= -->
+<div class="panel">
 
-<div class="inventory">
-
-<h2>
-🤖 Bot Inventory
-</h2>
-
+<h2>📦 Bot Inventory</h2>
 
 <div
 id="botInventory"
-class="inventory-list"
+class="products"
 >
-
 </div>
 
 </div>
 
 
+<!-- HOSTING INVENTORY -->
 
-<!-- =================================
-     HOSTING INVENTORY
-================================= -->
+<div class="panel">
 
-<div class="inventory">
-
-<h2>
-☁️ Hosting Inventory
-</h2>
-
+<h2>☁️ Hosting Inventory</h2>
 
 <div
 id="hostingInventory"
-class="inventory-list"
+class="products"
 >
-
 </div>
 
 </div>
 
-
 </div>
-
 
 
 <script>
 
-
-/* =========================================
-   DATA
-========================================= */
-
-
-let bots = JSON.parse(
-
-localStorage.getItem(
-    "DBM_BOTS"
-)
-
+let bots =
+JSON.parse(
+localStorage.getItem("DBM_BOTS")
 ) || [];
 
-
-let hostingProducts = JSON.parse(
-
-localStorage.getItem(
-    "DBM_HOSTING"
-)
-
+let hosting =
+JSON.parse(
+localStorage.getItem("DBM_HOSTING")
 ) || [];
-
-
-
-/* =========================================
-   TAB SYSTEM
-========================================= */
-
-
-function showTab(
-    tab,
-    button
-) {
-
-
-    document
-    .querySelectorAll(
-        ".form-section"
-    )
-    .forEach(
-        section => {
-
-            section.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    document
-    .querySelectorAll(
-        ".tab-button"
-    )
-    .forEach(
-        btn => {
-
-            btn.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    if (
-        tab === "bots"
-    ) {
-
-        document
-        .getElementById(
-            "botsForm"
-        )
-        .classList.add(
-            "active"
-        );
-
-    }
-
-
-    if (
-        tab === "hosting"
-    ) {
-
-        document
-        .getElementById(
-            "hostingForm"
-        )
-        .classList.add(
-            "active"
-        );
-
-    }
-
-
-    button.classList.add(
-        "active"
-    );
-
-}
-
-
-
-/* =========================================
-   ADD BOT
-========================================= */
 
 
 function addBot() {
 
+const name =
+document.getElementById("botName").value.trim();
 
-    const name =
-        document
-        .getElementById(
-            "botName"
-        )
-        .value
-        .trim();
+const price =
+Number(
+document.getElementById("botPrice").value
+);
 
+const stock =
+Number(
+document.getElementById("botStock").value
+);
 
-    const price =
-        Number(
-            document
-            .getElementById(
-                "botPrice"
-            )
-            .value
-        );
+const botId =
+document.getElementById("botId").value.trim();
 
+const image =
+document.getElementById("botImage").value.trim();
 
-    const stock =
-        Number(
-            document
-            .getElementById(
-                "botStock"
-            )
-            .value
-        );
+const description =
+document.getElementById("botDescription").value.trim();
 
 
-    const botId =
-        document
-        .getElementById(
-            "botId"
-        )
-        .value
-        .trim();
+if (!name || !botId || price <= 0) {
 
+alert("Please fill in the required Bot fields.");
 
-    const image =
-        document
-        .getElementById(
-            "botImage"
-        )
-        .value
-        .trim();
-
-
-    const description =
-        document
-        .getElementById(
-            "botDescription"
-        )
-        .value
-        .trim();
-
-
-
-    if (
-        !name ||
-        !botId ||
-        price <= 0 ||
-        stock < 0
-    ) {
-
-        alert(
-            "Please complete all required Bot fields."
-        );
-
-        return;
-
-    }
-
-
-
-    const bot = {
-
-        id:
-            Date.now(),
-
-        type:
-            "bot",
-
-        name:
-            name,
-
-        price:
-            price,
-
-        stock:
-            stock,
-
-        botId:
-            botId,
-
-        image:
-            image,
-
-        description:
-            description
-
-    };
-
-
-
-    bots.push(
-        bot
-    );
-
-
-    localStorage.setItem(
-
-        "DBM_BOTS",
-
-        JSON.stringify(
-            bots
-        )
-
-    );
-
-
-    clearBotForm();
-
-
-    renderBots();
-
-
-    alert(
-        "✅ Bot added successfully!"
-    );
+return;
 
 }
 
 
+const bot = {
 
-/* =========================================
-   ADD HOSTING
-========================================= */
+id: Date.now(),
+
+name: name,
+
+price: price,
+
+stock: stock,
+
+botId: botId,
+
+image: image,
+
+description: description
+
+};
+
+
+bots.push(bot);
+
+localStorage.setItem(
+"DBM_BOTS",
+JSON.stringify(bots)
+);
+
+
+alert("🤖 Bot added successfully!");
+
+clearBotForm();
+
+renderBots();
+
+}
 
 
 function addHosting() {
 
+const name =
+document.getElementById("hostingName").value.trim();
 
-    const name =
-        document
-        .getElementById(
-            "hostingName"
-        )
-        .value
-        .trim();
+const price =
+Number(
+document.getElementById("hostingPrice").value
+);
 
+const stock =
+Number(
+document.getElementById("hostingStock").value
+);
 
-    const price =
-        Number(
-            document
-            .getElementById(
-                "hostingPrice"
-            )
-            .value
-        );
+const ram =
+document.getElementById("hostingRam").value.trim();
 
+const image =
+document.getElementById("hostingImage").value.trim();
 
-    const stock =
-        Number(
-            document
-            .getElementById(
-                "hostingStock"
-            )
-            .value
-        );
+const description =
+document.getElementById("hostingDescription").value.trim();
 
 
-    const hostingId =
-        document
-        .getElementById(
-            "hostingId"
-        )
-        .value
-        .trim();
+if (!name || price <= 0) {
 
+alert("Please fill in the required Hosting fields.");
 
-    const image =
-        document
-        .getElementById(
-            "hostingImage"
-        )
-        .value
-        .trim();
-
-
-    const description =
-        document
-        .getElementById(
-            "hostingDescription"
-        )
-        .value
-        .trim();
-
-
-
-    if (
-        !name ||
-        !hostingId ||
-        price <= 0 ||
-        stock < 0
-    ) {
-
-        alert(
-            "Please complete all required Hosting fields."
-        );
-
-        return;
-
-    }
-
-
-
-    const hosting = {
-
-        id:
-            Date.now(),
-
-        type:
-            "hosting",
-
-        name:
-            name,
-
-        price:
-            price,
-
-        stock:
-            stock,
-
-        hostingId:
-            hostingId,
-
-        image:
-            image,
-
-        description:
-            description
-
-    };
-
-
-
-    hostingProducts.push(
-        hosting
-    );
-
-
-    localStorage.setItem(
-
-        "DBM_HOSTING",
-
-        JSON.stringify(
-            hostingProducts
-        )
-
-    );
-
-
-    clearHostingForm();
-
-
-    renderHosting();
-
-
-    alert(
-        "✅ Hosting added successfully!"
-    );
+return;
 
 }
 
 
+const item = {
 
-/* =========================================
-   CLEAR BOT FORM
-========================================= */
+id: Date.now(),
 
+name: name,
 
-function clearBotForm() {
+price: price,
 
+stock: stock,
 
-    document
-    .getElementById(
-        "botName"
-    )
-    .value = "";
+ram: ram,
 
+image: image,
 
-    document
-    .getElementById(
-        "botPrice"
-    )
-    .value = "";
+description: description
+
+};
 
 
-    document
-    .getElementById(
-        "botStock"
-    )
-    .value = "";
+hosting.push(item);
+
+localStorage.setItem(
+"DBM_HOSTING",
+JSON.stringify(hosting)
+);
 
 
-    document
-    .getElementById(
-        "botId"
-    )
-    .value = "";
+alert("☁️ Hosting added successfully!");
 
+clearHostingForm();
 
-    document
-    .getElementById(
-        "botImage"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "botDescription"
-    )
-    .value = "";
+renderHosting();
 
 }
-
-
-
-/* =========================================
-   CLEAR HOSTING FORM
-========================================= */
-
-
-function clearHostingForm() {
-
-
-    document
-    .getElementById(
-        "hostingName"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "hostingPrice"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "hostingStock"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "hostingId"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "hostingImage"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "hostingDescription"
-    )
-    .value = "";
-
-}
-
-
-
-/* =========================================
-   RENDER BOTS
-========================================= */
 
 
 function renderBots() {
 
+const container =
+document.getElementById("botInventory");
 
-    const list =
-        document
-        .getElementById(
-            "botInventory"
-        );
+container.innerHTML = "";
 
 
-    list.innerHTML = "";
+if (bots.length === 0) {
 
+container.innerHTML =
+"<p style='color:#888'>No bots added yet.</p>";
 
-    if (
-        bots.length === 0
-    ) {
-
-        list.innerHTML =
-
-        "<p style='color:#777;'>No bots added yet.</p>";
-
-        return;
-
-    }
-
-
-    bots.forEach(
-        bot => {
-
-
-            const item =
-                document
-                .createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "inventory-item";
-
-
-            item.innerHTML = `
-
-                <div class="inventory-info">
-
-                    <strong>
-                        🤖 ${escapeHTML(bot.name)}
-                    </strong>
-
-                    <span>
-                        €${Number(bot.price).toFixed(2)}
-                        • Stock: ${bot.stock}
-                    </span>
-
-                </div>
-
-                <button
-                    class="delete-button"
-                    onclick="deleteBot(${bot.id})"
-                >
-
-                    🗑️ Delete
-
-                </button>
-
-            `;
-
-
-            list.appendChild(
-                item
-            );
-
-        }
-    );
+return;
 
 }
 
 
+bots.forEach(bot => {
 
-/* =========================================
-   RENDER HOSTING
-========================================= */
+const div =
+document.createElement("div");
+
+div.className = "product";
+
+div.innerHTML = `
+
+<div class="product-info">
+
+<h3>🤖 ${escapeHTML(bot.name)}</h3>
+
+<p>
+Price: €${Number(bot.price).toFixed(2)}
+<br>
+Stock: ${bot.stock}
+</p>
+
+</div>
+
+<button
+class="delete"
+onclick="deleteBot(${bot.id})"
+>
+🗑️ Delete
+</button>
+
+`;
+
+container.appendChild(div);
+
+});
+
+}
 
 
 function renderHosting() {
 
+const container =
+document.getElementById("hostingInventory");
 
-    const list =
-        document
-        .getElementById(
-            "hostingInventory"
-        );
+container.innerHTML = "";
 
 
-    list.innerHTML = "";
+if (hosting.length === 0) {
 
+container.innerHTML =
+"<p style='color:#888'>No hosting products added yet.</p>";
 
-    if (
-        hostingProducts.length === 0
-    ) {
-
-        list.innerHTML =
-
-        "<p style='color:#777;'>No hosting products added yet.</p>";
-
-        return;
-
-    }
-
-
-    hostingProducts.forEach(
-        hosting => {
-
-
-            const item =
-                document
-                .createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "inventory-item";
-
-
-            item.innerHTML = `
-
-                <div class="inventory-info">
-
-                    <strong>
-                        ☁️ ${escapeHTML(hosting.name)}
-                    </strong>
-
-                    <span>
-                        €${Number(hosting.price).toFixed(2)}
-                        • Stock: ${hosting.stock}
-                    </span>
-
-                </div>
-
-                <button
-                    class="delete-button"
-                    onclick="deleteHosting(${hosting.id})"
-                >
-
-                    🗑️ Delete
-
-                </button>
-
-            `;
-
-
-            list.appendChild(
-                item
-            );
-
-        }
-    );
+return;
 
 }
 
 
+hosting.forEach(item => {
 
-/* =========================================
-   DELETE BOT
-========================================= */
+const div =
+document.createElement("div");
 
+div.className = "product";
 
-function deleteBot(
-    id
-) {
+div.innerHTML = `
 
+<div class="product-info">
 
-    if (
-        !confirm(
-            "Delete this bot?"
-        )
-    ) {
+<h3>☁️ ${escapeHTML(item.name)}</h3>
 
-        return;
+<p>
+Price: €${Number(item.price).toFixed(2)}
+<br>
+Stock: ${item.stock}
+<br>
+RAM: ${escapeHTML(item.ram || "Not specified")}
+</p>
 
-    }
+</div>
 
+<button
+class="delete"
+onclick="deleteHosting(${item.id})"
+>
+🗑️ Delete
+</button>
 
-    bots =
-        bots.filter(
-            bot =>
-                bot.id !== id
-        );
+`;
 
+container.appendChild(div);
 
-    localStorage.setItem(
-
-        "DBM_BOTS",
-
-        JSON.stringify(
-            bots
-        )
-
-    );
-
-
-    renderBots();
+});
 
 }
 
 
+function deleteBot(id) {
 
-/* =========================================
-   DELETE HOSTING
-========================================= */
+if (!confirm("Delete this Bot?")) return;
 
+bots =
+bots.filter(
+bot => bot.id !== id
+);
 
-function deleteHosting(
-    id
-) {
+localStorage.setItem(
+"DBM_BOTS",
+JSON.stringify(bots)
+);
 
-
-    if (
-        !confirm(
-            "Delete this hosting product?"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    hostingProducts =
-        hostingProducts.filter(
-            hosting =>
-                hosting.id !== id
-        );
-
-
-    localStorage.setItem(
-
-        "DBM_HOSTING",
-
-        JSON.stringify(
-            hostingProducts
-        )
-
-    );
-
-
-    renderHosting();
+renderBots();
 
 }
 
 
+function deleteHosting(id) {
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+if (!confirm("Delete this Hosting?")) return;
 
+hosting =
+hosting.filter(
+item => item.id !== id
+);
 
-function escapeHTML(
-    text
-) {
+localStorage.setItem(
+"DBM_HOSTING",
+JSON.stringify(hosting)
+);
 
-    return String(
-        text
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+renderHosting();
 
 }
 
 
+function clearBotForm() {
 
-/* =========================================
-   START
-========================================= */
+document.getElementById("botName").value = "";
+
+document.getElementById("botPrice").value = "";
+
+document.getElementById("botStock").value = "";
+
+document.getElementById("botId").value = "";
+
+document.getElementById("botImage").value = "";
+
+document.getElementById("botDescription").value = "";
+
+}
+
+
+function clearHostingForm() {
+
+document.getElementById("hostingName").value = "";
+
+document.getElementById("hostingPrice").value = "";
+
+document.getElementById("hostingStock").value = "";
+
+document.getElementById("hostingRam").value = "";
+
+document.getElementById("hostingImage").value = "";
+
+document.getElementById("hostingDescription").value = "";
+
+}
+
+
+function escapeHTML(text) {
+
+return String(text)
+
+.replace(/&/g, "&amp;")
+
+.replace(/</g, "&lt;")
+
+.replace(/>/g, "&gt;")
+
+.replace(/"/g, "&quot;")
+
+.replace(/'/g, "&#039;");
+
+}
 
 
 renderBots();
 
 renderHosting();
 
-
 </script>
 
 </body>
-
 </html>
-```
