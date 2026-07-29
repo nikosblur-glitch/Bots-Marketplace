@@ -1,43 +1,53 @@
-```js
+```javascript
 const express = require("express");
-const cors = require("cors");
-const fs = require("fs");
 const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
 
 const app = express();
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000;
+
+// ==========================================
+// SETTINGS
+// ==========================================
 
 const ORDERS_FILE = path.join(__dirname, "orders.json");
 
-app.use(cors());
+// ==========================================
+// MIDDLEWARE
+// ==========================================
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
 
+app.use(express.static(__dirname));
 
 // ==========================================
-// READ ORDERS
+// CREATE ORDERS FILE IF IT DOES NOT EXIST
 // ==========================================
 
-function getOrders() {
+if (!fs.existsSync(ORDERS_FILE)) {
+    fs.writeFileSync(
+        ORDERS_FILE,
+        JSON.stringify([], null, 2)
+    );
+}
+
+// ==========================================
+// HELPER FUNCTIONS
+// ==========================================
+
+function readOrders() {
 
     try {
 
-        if (!fs.existsSync(ORDERS_FILE)) {
-
-            fs.writeFileSync(
-                ORDERS_FILE,
-                "[]",
-                "utf8"
-            );
-
-        }
-
-        return JSON.parse(
+        const data =
             fs.readFileSync(
                 ORDERS_FILE,
                 "utf8"
-            )
-        );
+            );
+
+        return JSON.parse(data);
 
     } catch (error) {
 
@@ -53,162 +63,283 @@ function getOrders() {
 }
 
 
-// ==========================================
-// SAVE ORDERS
-// ==========================================
-
 function saveOrders(orders) {
 
     fs.writeFileSync(
-
         ORDERS_FILE,
-
         JSON.stringify(
             orders,
             null,
             2
-        ),
+        )
+    );
 
-        "utf8"
+}
 
+
+function generateOrderId() {
+
+    return (
+        "DBM-" +
+        Date.now() +
+        "-" +
+        crypto
+            .randomBytes(4)
+            .toString("hex")
+            .toUpperCase()
     );
 
 }
 
 
 // ==========================================
-// CREATE ORDER
+// CALCULATE CART TOTAL
+// IMPORTANT:
+// NEVER TRUST THE TOTAL SENT BY THE CLIENT
+// ==========================================
+
+function calculateTotal(cart) {
+
+    let total = 0;
+
+    for (const product of cart) {
+
+        const price =
+            Number(product.price) || 0;
+
+        const quantity =
+            Number(product.quantity) || 1;
+
+        if (
+            price < 0 ||
+            quantity < 1
+        ) {
+            continue;
+        }
+
+        total +=
+            price * quantity;
+
+    }
+
+    return Number(
+        total.toFixed(2)
+    );
+
+}
+
+
+// ==========================================
+// CREATE CHECKOUT
 // ==========================================
 
 app.post(
-    "/api/orders",
-    (req, res) => {
+    "/api/create-checkout",
+    async (req, res) => {
 
         try {
 
             const {
-                customer,
-                email,
-                items,
-                paymentMethod
+                paymentMethod,
+                cart
             } = req.body;
 
 
+            // ------------------------------
+            // VALIDATION
+            // ------------------------------
+
             if (
-                !customer ||
-                !email ||
-                !items ||
-                !Array.isArray(items) ||
-                items.length === 0
+                !paymentMethod ||
+                !["paypal", "revolut"]
+                    .includes(paymentMethod)
             ) {
 
                 return res.status(400).json({
 
-                    success: false,
-
-                    message:
-                    "Invalid order data."
+                    error:
+                        "Invalid payment method."
 
                 });
 
             }
 
 
-            const total = items.reduce(
+            if (
+                !Array.isArray(cart) ||
+                cart.length === 0
+            ) {
 
-                (sum, item) => {
+                return res.status(400).json({
 
-                    return sum +
-                    (
-                        Number(item.price) *
-                        Number(item.quantity)
-                    );
+                    error:
+                        "Cart is empty."
 
-                },
+                });
 
-                0
+            }
 
-            );
 
+            // ------------------------------
+            // CALCULATE TOTAL
+            // ------------------------------
+
+            const total =
+                calculateTotal(cart);
+
+
+            if (total <= 0) {
+
+                return res.status(400).json({
+
+                    error:
+                        "Invalid order total."
+
+                });
+
+            }
+
+
+            // ------------------------------
+            // CREATE ORDER
+            // ------------------------------
 
             const order = {
 
                 id:
-                "DBM-" +
-                Date.now(),
+                    generateOrderId(),
 
-                customer,
+                items:
+                    cart.map(product => ({
 
-                email,
+                        name:
+                            String(
+                                product.name ||
+                                "Product"
+                            ),
 
-                items,
+                        quantity:
+                            Number(
+                                product.quantity
+                            ) || 1,
+
+                        price:
+                            Number(
+                                product.price
+                            ) || 0
+
+                    })),
 
                 total:
-                Number(
-                    total.toFixed(2)
-                ),
+                    total,
+
+                currency:
+                    "EUR",
 
                 paymentMethod:
-                paymentMethod ||
-                "pending",
+                    paymentMethod,
 
-                paymentStatus:
-                "pending",
-
-                orderStatus:
-                "new",
+                status:
+                    "PENDING",
 
                 createdAt:
-                new Date().toISOString()
+                    new Date()
+                        .toISOString()
 
             };
 
 
+            // ------------------------------
+            // SAVE ORDER
+            // ------------------------------
+
             const orders =
-            getOrders();
+                readOrders();
+
+            orders.push(order);
+
+            saveOrders(orders);
 
 
-            orders.push(
-                order
-            );
+            // ------------------------------
+            // PAYMENT PROVIDER
+            // ------------------------------
+
+            /*
+                IMPORTANT:
+
+                Εδώ θα συνδεθεί το επίσημο
+                PayPal API ή Revolut API.
+
+                Το API θα δημιουργήσει
+                ένα πραγματικό checkout session
+                και θα επιστρέψει το URL.
+
+                Προς το παρόν επιστρέφουμε
+                ένα demo response.
+            */
 
 
-            saveOrders(
-                orders
-            );
+            if (
+                paymentMethod === "paypal"
+            ) {
+
+                return res.json({
+
+                    success: true,
+
+                    orderId:
+                        order.id,
+
+                    paymentMethod:
+                        "paypal",
+
+                    checkoutUrl:
+                        "/payment-demo.html?order=" +
+                        encodeURIComponent(
+                            order.id
+                        )
+
+                });
+
+            }
 
 
-            console.log(
-                "New order:",
-                order.id
-            );
+            if (
+                paymentMethod === "revolut"
+            ) {
 
+                return res.json({
 
-            res.status(201).json({
+                    success: true,
 
-                success: true,
+                    orderId:
+                        order.id,
 
-                message:
-                "Order created successfully.",
+                    paymentMethod:
+                        "revolut",
 
-                order
+                    checkoutUrl:
+                        "/payment-demo.html?order=" +
+                        encodeURIComponent(
+                            order.id
+                        )
 
-            });
+                });
 
+            }
 
         } catch (error) {
 
             console.error(
+                "Checkout error:",
                 error
             );
 
-
             res.status(500).json({
 
-                success: false,
-
-                message:
-                "Server error."
+                error:
+                    "Internal server error."
 
             });
 
@@ -219,41 +350,53 @@ app.post(
 
 
 // ==========================================
-// GET ALL ORDERS
-// OWNER PANEL USE ONLY
+// GET ORDERS
+// OWNER PANEL
 // ==========================================
 
 app.get(
     "/api/orders",
     (req, res) => {
 
-        try {
+        const orders =
+            readOrders();
 
-            const orders =
-            getOrders();
+        res.json(orders);
 
-
-            res.json({
-
-                success: true,
-
-                orders
-
-            });
+    }
+);
 
 
-        } catch (error) {
+// ==========================================
+// GET SINGLE ORDER
+// ==========================================
 
-            res.status(500).json({
+app.get(
+    "/api/orders/:id",
+    (req, res) => {
 
-                success: false,
+        const orders =
+            readOrders();
 
-                message:
-                "Could not load orders."
+        const order =
+            orders.find(
+                item =>
+                    item.id ===
+                    req.params.id
+            );
+
+        if (!order) {
+
+            return res.status(404).json({
+
+                error:
+                    "Order not found."
 
             });
 
         }
+
+        res.json(order);
 
     }
 );
@@ -261,171 +404,122 @@ app.get(
 
 // ==========================================
 // UPDATE ORDER STATUS
+// OWNER PANEL
 // ==========================================
 
 app.patch(
     "/api/orders/:id",
     (req, res) => {
 
-        try {
+        const {
+            status
+        } = req.body;
 
-            const {
-                orderStatus,
-                paymentStatus
-            } = req.body;
+        const allowedStatuses = [
 
+            "PENDING",
+            "PAID",
+            "CANCELLED",
+            "COMPLETED"
 
-            const orders =
-            getOrders();
+        ];
 
+        if (
+            !allowedStatuses
+                .includes(status)
+        ) {
 
-            const order =
-            orders.find(
+            return res.status(400).json({
 
-                item =>
-                item.id ===
-                req.params.id
-
-            );
-
-
-            if (!order) {
-
-                return res.status(404).json({
-
-                    success: false,
-
-                    message:
-                    "Order not found."
-
-                });
-
-            }
-
-
-            if (
-                orderStatus
-            ) {
-
-                order.orderStatus =
-                orderStatus;
-
-            }
-
-
-            if (
-                paymentStatus
-            ) {
-
-                order.paymentStatus =
-                paymentStatus;
-
-            }
-
-
-            saveOrders(
-                orders
-            );
-
-
-            res.json({
-
-                success: true,
-
-                order
-
-            });
-
-
-        } catch (error) {
-
-            res.status(500).json({
-
-                success: false,
-
-                message:
-                "Could not update order."
+                error:
+                    "Invalid status."
 
             });
 
         }
+
+
+        const orders =
+            readOrders();
+
+        const order =
+            orders.find(
+                item =>
+                    item.id ===
+                    req.params.id
+            );
+
+
+        if (!order) {
+
+            return res.status(404).json({
+
+                error:
+                    "Order not found."
+
+            });
+
+        }
+
+
+        order.status =
+            status;
+
+
+        order.updatedAt =
+            new Date()
+                .toISOString();
+
+
+        saveOrders(orders);
+
+
+        res.json({
+
+            success: true,
+
+            order:
+                order
+
+        });
 
     }
 );
 
 
 // ==========================================
-// DELETE ORDER
+// SUCCESS PAGE
 // ==========================================
 
-app.delete(
-    "/api/orders/:id",
+app.get(
+    "/payment/success",
     (req, res) => {
 
-        try {
+        res.sendFile(
+            path.join(
+                __dirname,
+                "success.html"
+            )
+        );
 
-            let orders =
-            getOrders();
-
-
-            const oldLength =
-            orders.length;
-
-
-            orders =
-            orders.filter(
-
-                order =>
-                order.id !==
-                req.params.id
-
-            );
+    }
+);
 
 
-            if (
-                orders.length ===
-                oldLength
-            ) {
+// ==========================================
+// CANCEL PAGE
+// ==========================================
 
-                return res.status(404).json({
+app.get(
+    "/payment/cancel",
+    (req, res) => {
 
-                    success: false,
-
-                    message:
-                    "Order not found."
-
-                });
-
-            }
-
-
-            saveOrders(
-                orders
-            );
-
-
-            res.json({
-
-                success: true,
-
-                message:
-                "Order deleted."
-
-            });
-
-
-        } catch (error) {
-
-            res.status(500).json({
-
-                success: false,
-
-                message:
-                "Could not delete order."
-
-            });
-
-        }
+        res.sendFile(
+            path.join(
+                __dirname,
+                "cancel.html"
+            )
+        );
 
     }
 );
@@ -436,16 +530,29 @@ app.delete(
 // ==========================================
 
 app.listen(
-
     PORT,
-
     () => {
 
         console.log(
-            `Discord Board Marketplace running at http://localhost:${PORT}`
+            "================================="
+        );
+
+        console.log(
+            "Discord Bot Marketplace"
+        );
+
+        console.log(
+            "Server running on:"
+        );
+
+        console.log(
+            `http://localhost:${PORT}`
+        );
+
+        console.log(
+            "================================="
         );
 
     }
-
 );
 ```
