@@ -1,558 +1,174 @@
-```javascript
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
+const cors = require("cors");
 const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
-// ==========================================
-// SETTINGS
-// ==========================================
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
 const ORDERS_FILE = path.join(__dirname, "orders.json");
 
-// ==========================================
-// MIDDLEWARE
-// ==========================================
+function loadOrders() {
+    if (!fs.existsSync(ORDERS_FILE)) {
+        fs.writeFileSync(ORDERS_FILE, "[]");
+    }
 
-app.use(express.json());
+    return JSON.parse(fs.readFileSync(ORDERS_FILE, "utf8"));
+}
 
-app.use(express.static(__dirname));
-
-// ==========================================
-// CREATE ORDERS FILE IF IT DOES NOT EXIST
-// ==========================================
-
-if (!fs.existsSync(ORDERS_FILE)) {
+function saveOrders(orders) {
     fs.writeFileSync(
         ORDERS_FILE,
-        JSON.stringify([], null, 2)
+        JSON.stringify(orders, null, 2)
     );
 }
 
-// ==========================================
-// HELPER FUNCTIONS
-// ==========================================
+function createOrderId() {
+    return "DBM-" + crypto.randomBytes(6).toString("hex").toUpperCase();
+}
 
-function readOrders() {
+// Δημιουργία παραγγελίας
+app.post("/api/orders", (req, res) => {
 
     try {
 
-        const data =
-            fs.readFileSync(
-                ORDERS_FILE,
-                "utf8"
-            );
-
-        return JSON.parse(data);
-
-    } catch (error) {
-
-        console.error(
-            "Error reading orders:",
-            error
-        );
-
-        return [];
-
-    }
-
-}
-
-
-function saveOrders(orders) {
-
-    fs.writeFileSync(
-        ORDERS_FILE,
-        JSON.stringify(
-            orders,
-            null,
-            2
-        )
-    );
-
-}
-
-
-function generateOrderId() {
-
-    return (
-        "DBM-" +
-        Date.now() +
-        "-" +
-        crypto
-            .randomBytes(4)
-            .toString("hex")
-            .toUpperCase()
-    );
-
-}
-
-
-// ==========================================
-// CALCULATE CART TOTAL
-// IMPORTANT:
-// NEVER TRUST THE TOTAL SENT BY THE CLIENT
-// ==========================================
-
-function calculateTotal(cart) {
-
-    let total = 0;
-
-    for (const product of cart) {
-
-        const price =
-            Number(product.price) || 0;
-
-        const quantity =
-            Number(product.quantity) || 1;
-
-        if (
-            price < 0 ||
-            quantity < 1
-        ) {
-            continue;
-        }
-
-        total +=
-            price * quantity;
-
-    }
-
-    return Number(
-        total.toFixed(2)
-    );
-
-}
-
-
-// ==========================================
-// CREATE CHECKOUT
-// ==========================================
-
-app.post(
-    "/api/create-checkout",
-    async (req, res) => {
-
-        try {
-
-            const {
-                paymentMethod,
-                cart
-            } = req.body;
-
-
-            // ------------------------------
-            // VALIDATION
-            // ------------------------------
-
-            if (
-                !paymentMethod ||
-                !["paypal", "revolut"]
-                    .includes(paymentMethod)
-            ) {
-
-                return res.status(400).json({
-
-                    error:
-                        "Invalid payment method."
-
-                });
-
-            }
-
-
-            if (
-                !Array.isArray(cart) ||
-                cart.length === 0
-            ) {
-
-                return res.status(400).json({
-
-                    error:
-                        "Cart is empty."
-
-                });
-
-            }
-
-
-            // ------------------------------
-            // CALCULATE TOTAL
-            // ------------------------------
-
-            const total =
-                calculateTotal(cart);
-
-
-            if (total <= 0) {
-
-                return res.status(400).json({
-
-                    error:
-                        "Invalid order total."
-
-                });
-
-            }
-
-
-            // ------------------------------
-            // CREATE ORDER
-            // ------------------------------
-
-            const order = {
-
-                id:
-                    generateOrderId(),
-
-                items:
-                    cart.map(product => ({
-
-                        name:
-                            String(
-                                product.name ||
-                                "Product"
-                            ),
-
-                        quantity:
-                            Number(
-                                product.quantity
-                            ) || 1,
-
-                        price:
-                            Number(
-                                product.price
-                            ) || 0
-
-                    })),
-
-                total:
-                    total,
-
-                currency:
-                    "EUR",
-
-                paymentMethod:
-                    paymentMethod,
-
-                status:
-                    "PENDING",
-
-                createdAt:
-                    new Date()
-                        .toISOString()
-
-            };
-
-
-            // ------------------------------
-            // SAVE ORDER
-            // ------------------------------
-
-            const orders =
-                readOrders();
-
-            orders.push(order);
-
-            saveOrders(orders);
-
-
-            // ------------------------------
-            // PAYMENT PROVIDER
-            // ------------------------------
-
-            /*
-                IMPORTANT:
-
-                Εδώ θα συνδεθεί το επίσημο
-                PayPal API ή Revolut API.
-
-                Το API θα δημιουργήσει
-                ένα πραγματικό checkout session
-                και θα επιστρέψει το URL.
-
-                Προς το παρόν επιστρέφουμε
-                ένα demo response.
-            */
-
-
-            if (
-                paymentMethod === "paypal"
-            ) {
-
-                return res.json({
-
-                    success: true,
-
-                    orderId:
-                        order.id,
-
-                    paymentMethod:
-                        "paypal",
-
-                    checkoutUrl:
-                        "/payment-demo.html?order=" +
-                        encodeURIComponent(
-                            order.id
-                        )
-
-                });
-
-            }
-
-
-            if (
-                paymentMethod === "revolut"
-            ) {
-
-                return res.json({
-
-                    success: true,
-
-                    orderId:
-                        order.id,
-
-                    paymentMethod:
-                        "revolut",
-
-                    checkoutUrl:
-                        "/payment-demo.html?order=" +
-                        encodeURIComponent(
-                            order.id
-                        )
-
-                });
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Checkout error:",
-                error
-            );
-
-            res.status(500).json({
-
-                error:
-                    "Internal server error."
-
-            });
-
-        }
-
-    }
-);
-
-
-// ==========================================
-// GET ORDERS
-// OWNER PANEL
-// ==========================================
-
-app.get(
-    "/api/orders",
-    (req, res) => {
-
-        const orders =
-            readOrders();
-
-        res.json(orders);
-
-    }
-);
-
-
-// ==========================================
-// GET SINGLE ORDER
-// ==========================================
-
-app.get(
-    "/api/orders/:id",
-    (req, res) => {
-
-        const orders =
-            readOrders();
-
-        const order =
-            orders.find(
-                item =>
-                    item.id ===
-                    req.params.id
-            );
-
-        if (!order) {
-
-            return res.status(404).json({
-
-                error:
-                    "Order not found."
-
-            });
-
-        }
-
-        res.json(order);
-
-    }
-);
-
-
-// ==========================================
-// UPDATE ORDER STATUS
-// OWNER PANEL
-// ==========================================
-
-app.patch(
-    "/api/orders/:id",
-    (req, res) => {
-
         const {
-            status
+            customerName,
+            customerEmail,
+            items,
+            total,
+            paymentMethod
         } = req.body;
 
-        const allowedStatuses = [
-
-            "PENDING",
-            "PAID",
-            "CANCELLED",
-            "COMPLETED"
-
-        ];
-
-        if (
-            !allowedStatuses
-                .includes(status)
-        ) {
+        if (!customerName ||
+            !customerEmail ||
+            !items ||
+            !items.length ||
+            !total ||
+            !paymentMethod) {
 
             return res.status(400).json({
-
-                error:
-                    "Invalid status."
-
+                success: false,
+                message: "Missing order information."
             });
-
         }
 
+        const orders = loadOrders();
 
-        const orders =
-            readOrders();
+        const order = {
+            id: createOrderId(),
+            customerName,
+            customerEmail,
+            items,
+            total,
+            paymentMethod,
+            status: "pending",
+            createdAt: new Date().toISOString()
+        };
 
-        const order =
-            orders.find(
-                item =>
-                    item.id ===
-                    req.params.id
-            );
-
-
-        if (!order) {
-
-            return res.status(404).json({
-
-                error:
-                    "Order not found."
-
-            });
-
-        }
-
-
-        order.status =
-            status;
-
-
-        order.updatedAt =
-            new Date()
-                .toISOString();
-
+        orders.push(order);
 
         saveOrders(orders);
 
-
         res.json({
-
             success: true,
-
-            order:
-                order
-
+            orderId: order.id
         });
 
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error."
+        });
     }
-);
+});
 
+// Προβολή παραγγελίας
+app.get("/api/orders/:id", (req, res) => {
 
-// ==========================================
-// SUCCESS PAGE
-// ==========================================
+    const orders = loadOrders();
 
-app.get(
-    "/payment/success",
-    (req, res) => {
+    const order = orders.find(
+        o => o.id === req.params.id
+    );
 
-        res.sendFile(
-            path.join(
-                __dirname,
-                "success.html"
-            )
-        );
-
+    if (!order) {
+        return res.status(404).json({
+            success: false,
+            message: "Order not found."
+        });
     }
-);
 
+    res.json({
+        success: true,
+        order
+    });
+});
 
-// ==========================================
-// CANCEL PAGE
-// ==========================================
+// Owner Panel - όλες οι παραγγελίες
+app.get("/api/orders", (req, res) => {
 
-app.get(
-    "/payment/cancel",
-    (req, res) => {
+    const orders = loadOrders();
 
-        res.sendFile(
-            path.join(
-                __dirname,
-                "cancel.html"
-            )
-        );
+    res.json({
+        success: true,
+        orders
+    });
+});
 
+// Αλλαγή status παραγγελίας
+app.patch("/api/orders/:id", (req, res) => {
+
+    const orders = loadOrders();
+
+    const order = orders.find(
+        o => o.id === req.params.id
+    );
+
+    if (!order) {
+        return res.status(404).json({
+            success: false,
+            message: "Order not found."
+        });
     }
-);
 
-
-// ==========================================
-// START SERVER
-// ==========================================
-
-app.listen(
-    PORT,
-    () => {
-
-        console.log(
-            "================================="
-        );
-
-        console.log(
-            "Discord Bot Marketplace"
-        );
-
-        console.log(
-            "Server running on:"
-        );
-
-        console.log(
-            `http://localhost:${PORT}`
-        );
-
-        console.log(
-            "================================="
-        );
-
+    if (req.body.status) {
+        order.status = req.body.status;
     }
-);
-```
+
+    saveOrders(orders);
+
+    res.json({
+        success: true,
+        order
+    });
+});
+
+app.get("*", (req, res) => {
+
+    res.sendFile(
+        path.join(__dirname, "public", "index.html")
+    );
+
+});
+
+app.listen(PORT, () => {
+
+    console.log(`
+========================================
+ Discord Bot Marketplace
+ Server running
+ http://localhost:${PORT}
+========================================
+`);
+
+});
