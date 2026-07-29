@@ -1,314 +1,319 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="el">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Cart | Discord Bot Marketplace</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<title>🛒 Cart | Discord Board Marketplace</title>
+    body {
+      background: #0f1117;
+      color: white;
+      min-height: 100vh;
+    }
 
-<style>
+    header {
+      background: #171a23;
+      border-bottom: 1px solid #292d38;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #03040a;
-    color: white;
-}
+    header h1 {
+      font-size: 24px;
+    }
 
-nav {
-    padding: 20px;
-    background: #0d0f19;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
+    header a {
+      color: white;
+      text-decoration: none;
+      background: #5865f2;
+      padding: 10px 18px;
+      border-radius: 8px;
+    }
 
-nav a {
-    color: white;
-    text-decoration: none;
-}
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 50px 20px;
-}
+    .cart-box {
+      background: #171a23;
+      border: 1px solid #292d38;
+      border-radius: 14px;
+      padding: 25px;
+    }
 
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #111421;
-    padding: 20px;
-    margin-bottom: 12px;
-    border-radius: 15px;
-}
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #292d38;
+      gap: 20px;
+    }
 
-.actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
 
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
-    cursor: pointer;
-    color: white;
-    background: #5865f2;
-}
+    .product-info p {
+      color: #aeb4c0;
+    }
 
-.delete {
-    background: #d83c4a;
-}
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.total {
-    margin-top: 30px;
-    padding: 25px;
-    background: #111421;
-    border-radius: 15px;
-}
+    .quantity button {
+      width: 35px;
+      height: 35px;
+      border: none;
+      border-radius: 6px;
+      background: #5865f2;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-.checkout {
-    width: 100%;
-    margin-top: 15px;
-    background: #5865f2;
-}
+    .remove {
+      background: #e74c3c !important;
+      padding: 8px 12px;
+      width: auto !important;
+      font-size: 14px !important;
+    }
 
-</style>
+    .summary {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
+    .total {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .checkout {
+      background: #43b581;
+      color: white;
+      text-decoration: none;
+      padding: 14px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #aeb4c0;
+    }
+
+    @media (max-width: 700px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .summary {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
+<header>
+  <h1>🛒 Discord Bot Marketplace</h1>
+  <a href="index.html">🏠 Home</a>
+</header>
 
-<a href="index.html">🏠 Home</a>
+<main>
 
-<a href="bots.html">🤖 Bots</a>
+  <div class="cart-box">
 
-<a href="hosting.html">☁️ Hosting</a>
+    <h2>🛒 Το καλάθι σου</h2>
 
-<a href="support.html">🎧 Support</a>
+    <div id="cartItems"></div>
 
-<a href="cart.html">🛒 Cart</a>
+    <div class="summary">
 
-</nav>
+      <div class="total">
+        Σύνολο: €<span id="total">0.00</span>
+      </div>
 
+      <button class="checkout" onclick="goToCheckout()">
+        💳 Checkout
+      </button>
 
-<div class="container">
+    </div>
 
-<h1>🛒 Your Cart</h1>
+  </div>
 
-<div id="cartContainer"></div>
-
-<div class="total">
-
-<h2>
-Total: €<span id="total">0.00</span>
-</h2>
-
-<button
-class="checkout"
-onclick="checkout()"
->
-💳 Proceed to Checkout
-</button>
-
-</div>
-
-</div>
-
+</main>
 
 <script>
 
-let cart =
-JSON.parse(
-localStorage.getItem("DBM_CART")
-) || [];
+let cart = JSON.parse(localStorage.getItem("DBM_CART")) || [];
 
+function saveCart() {
+  localStorage.setItem("DBM_CART", JSON.stringify(cart));
+}
 
 function renderCart() {
 
-const container =
-document.getElementById(
-"cartContainer"
-);
+  const container = document.getElementById("cartItems");
 
-container.innerHTML = "";
+  container.innerHTML = "";
 
+  if (cart.length === 0) {
 
-if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <h3>Το καλάθι σου είναι άδειο.</h3>
+        <p>Πήγαινε στα Bots ή στα Hosting και πρόσθεσε ένα προϊόν.</p>
+      </div>
+    `;
 
-container.innerHTML =
-"<p>Your cart is empty.</p>";
+    document.getElementById("total").textContent = "0.00";
 
-document.getElementById(
-"total"
-).textContent = "0.00";
+    return;
+  }
 
-return;
+  let total = 0;
 
-}
+  cart.forEach((item, index) => {
 
+    const price = Number(item.price) || 0;
 
-let total = 0;
+    const quantity = Number(item.quantity) || 1;
 
+    total += price * quantity;
 
-cart.forEach((item, index) => {
+    container.innerHTML += `
 
-total +=
-item.price *
-item.quantity;
+      <div class="cart-item">
 
+        <div class="product-info">
 
-const div =
-document.createElement("div");
+          <h3>${escapeHTML(item.name)}</h3>
 
-div.className = "item";
+          <p>
+            Τιμή: €${price.toFixed(2)}
+          </p>
 
+        </div>
 
-div.innerHTML = `
+        <div class="quantity">
 
-<div>
+          <button onclick="changeQuantity(${index}, -1)">
+            −
+          </button>
 
-<h3>
-${item.type === "bot" ? "🤖" : "☁️"}
-${escapeHTML(item.name)}
-</h3>
+          <span>${quantity}</span>
 
-<p>
-€${Number(item.price).toFixed(2)}
-</p>
+          <button onclick="changeQuantity(${index}, 1)">
+            +
+          </button>
 
-</div>
+        </div>
 
+        <strong>
+          €${(price * quantity).toFixed(2)}
+        </strong>
 
-<div class="actions">
+        <button
+          class="remove"
+          onclick="removeItem(${index})">
+          Διαγραφή
+        </button>
 
-<button
-onclick="changeQuantity(${index}, -1)"
->
-−
-</button>
+      </div>
 
-<span>
-${item.quantity}
-</span>
+    `;
 
-<button
-onclick="changeQuantity(${index}, 1)"
->
-+
-</button>
+  });
 
-<button
-class="delete"
-onclick="removeItem(${index})"
->
-🗑️
-</button>
-
-</div>
-
-`;
-
-
-container.appendChild(div);
-
-});
-
-
-document.getElementById(
-"total"
-).textContent =
-total.toFixed(2);
+  document.getElementById("total").textContent =
+    total.toFixed(2);
 
 }
-
 
 function changeQuantity(index, amount) {
 
-cart[index].quantity += amount;
+  cart[index].quantity =
+    (Number(cart[index].quantity) || 1) + amount;
 
+  if (cart[index].quantity <= 0) {
 
-if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
 
-cart.splice(index, 1);
+  }
+
+  saveCart();
+
+  renderCart();
 
 }
-
-
-saveCart();
-
-renderCart();
-
-}
-
 
 function removeItem(index) {
 
-cart.splice(index, 1);
+  cart.splice(index, 1);
 
-saveCart();
+  saveCart();
 
-renderCart();
-
-}
-
-
-function saveCart() {
-
-localStorage.setItem(
-"DBM_CART",
-JSON.stringify(cart)
-);
+  renderCart();
 
 }
 
+function goToCheckout() {
 
-function checkout() {
+  if (cart.length === 0) {
 
-if (cart.length === 0) {
+    alert("Το καλάθι είναι άδειο.");
 
-alert("Your cart is empty.");
+    return;
 
-return;
+  }
 
-}
-
-
-window.location.href =
-"checkout.html";
+  window.location.href = "checkout.html";
 
 }
-
 
 function escapeHTML(text) {
 
-return String(text)
+  const div = document.createElement("div");
 
-.replace(/&/g, "&amp;")
+  div.textContent = text;
 
-.replace(/</g, "&lt;")
-
-.replace(/>/g, "&gt;")
-
-.replace(/"/g, "&quot;")
-
-.replace(/'/g, "&#039;");
+  return div.innerHTML;
 
 }
-
 
 renderCart();
 
 </script>
 
 </body>
-
 </html>
+```
