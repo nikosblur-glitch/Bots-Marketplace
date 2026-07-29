@@ -732,3 +732,146 @@ function addToCart(product) {
 </body>
 </html>
 ```
+<script>
+
+const products =
+
+JSON.parse(
+
+    localStorage.getItem(
+        "DBM_PRODUCTS"
+    )
+
+) || [];
+
+
+const hostingProducts =
+
+products.filter(
+
+    product =>
+
+    product.type === "hosting"
+
+);
+
+
+const container =
+
+document.getElementById(
+    "hostingProducts"
+);
+
+
+hostingProducts.forEach(
+
+    product => {
+
+        const card =
+
+        document.createElement(
+            "div"
+        );
+
+
+        card.className =
+        "product";
+
+
+        card.innerHTML = `
+
+            ${
+                product.image
+                ?
+                `<img src="${product.image}">`
+                :
+                ""
+            }
+
+            <h2>
+                ${product.name}
+            </h2>
+
+            <p>
+                ${product.description}
+            </p>
+
+            <div class="price">
+
+                €${product.price.toFixed(2)}
+
+            </div>
+
+            <p>
+
+                Stock:
+                ${product.stock}
+
+            </p>
+
+            <button
+                onclick="addToCart(${product.id})"
+            >
+
+                🛒 Add to Cart
+
+            </button>
+
+        `;
+
+
+        container.appendChild(
+            card
+        );
+
+    }
+
+);
+
+
+function addToCart(id) {
+
+    const product =
+
+    products.find(
+
+        item =>
+
+        item.id === id
+
+    );
+
+
+    if (!product) return;
+
+
+    let cart =
+
+    JSON.parse(
+
+        localStorage.getItem(
+            "DBM_CART"
+        )
+
+    ) || [];
+
+
+    cart.push(product);
+
+
+    localStorage.setItem(
+
+        "DBM_CART",
+
+        JSON.stringify(cart)
+
+    );
+
+
+    alert(
+        "Hosting added to cart!"
+    );
+
+}
+
+</script>
