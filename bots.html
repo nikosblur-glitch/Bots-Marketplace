@@ -1,1234 +1,261 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discord Board Marketplace — Bots</title>
+<title>🤖 Bots | Discord Board Marketplace</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    min-height: 100vh;
-    font-family: Inter, Arial, sans-serif;
-    color: white;
+    margin: 0;
+    font-family: Arial;
     background: #03040a;
-    overflow-x: hidden;
+    color: white;
 }
 
-/* BACKGROUND */
-
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    background:
-        radial-gradient(circle at 15% 10%, rgba(88,101,242,.18), transparent 30%),
-        radial-gradient(circle at 85% 60%, rgba(139,92,246,.15), transparent 30%),
-        #03040a;
-}
-
-.aurora {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: .18;
-}
-
-.aurora.one {
-    background: #5865f2;
-    top: -300px;
-    left: -200px;
-}
-
-.aurora.two {
-    background: #8b5cf6;
-    right: -300px;
-    top: 40%;
-}
-
-/* NAVBAR */
-
-.navbar {
-    position: sticky;
-    top: 15px;
-    z-index: 1000;
-
-    width: 92%;
-    max-width: 1250px;
-
-    margin: 15px auto;
-
-    padding: 15px 20px;
-
+nav {
+    padding: 20px;
+    background: #0d0f19;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 20px;
-
-    border-radius: 18px;
-
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.12);
-
-    backdrop-filter: blur(25px);
-}
-
-.logo {
-    font-size: 19px;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.logo span {
-    color: #7280ff;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     flex-wrap: wrap;
 }
 
-.nav-links a {
-    color: rgba(255,255,255,.7);
+nav a {
+    color: white;
     text-decoration: none;
-    padding: 9px 13px;
-    border-radius: 10px;
-    transition: .3s;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-    color: white;
-    background: rgba(255,255,255,.1);
-}
-
-.cart-button {
-    background: linear-gradient(135deg,#5865f2,#8b5cf6);
-    color: white !important;
-}
-
-/* HEADER */
-
-.page-header {
-    width: 92%;
-    max-width: 1200px;
+.container {
+    max-width: 1100px;
     margin: auto;
-    padding: 90px 0 45px;
-    text-align: center;
+    padding: 50px 20px;
 }
 
-.page-header h1 {
-    font-size: clamp(42px,7vw,75px);
-    margin-bottom: 20px;
-}
-
-.page-header h1 span {
-    color: #7280ff;
-    text-shadow: 0 0 50px rgba(88,101,242,.5);
-}
-
-.page-header p {
-    max-width: 650px;
-    margin: auto;
-    color: rgba(255,255,255,.55);
-    line-height: 1.7;
-}
-
-/* CONTROLS */
-
-.controls {
-    width: 92%;
-    max-width: 1200px;
-    margin: 0 auto 40px;
-
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.search {
-    flex: 1;
-    min-width: 220px;
-
-    padding: 14px 17px;
-
-    color: white;
-
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.12);
-
-    border-radius: 12px;
-    outline: none;
-}
-
-.search:focus {
-    border-color: #7280ff;
-}
-
-.filter {
-    padding: 14px 17px;
-
-    color: white;
-
-    background: #11131e;
-    border: 1px solid rgba(255,255,255,.12);
-
-    border-radius: 12px;
-    outline: none;
-}
-
-/* PRODUCTS */
-
-.products {
-    width: 92%;
-    max-width: 1200px;
-    margin: auto;
-    padding-bottom: 100px;
-
+.grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-.product-card {
-    overflow: hidden;
-
-    border-radius: 22px;
-
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.07),
-        rgba(255,255,255,.025)
-    );
-
-    border: 1px solid rgba(255,255,255,.12);
-
-    backdrop-filter: blur(20px);
-
-    transition: .35s;
+.card {
+    background: #111421;
+    border: 1px solid #252a40;
+    padding: 20px;
+    border-radius: 18px;
 }
 
-.product-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(114,128,255,.5);
-    box-shadow: 0 25px 70px rgba(0,0,0,.4);
-}
-
-.product-image {
+.card img {
     width: 100%;
-    height: 190px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(circle,rgba(88,101,242,.25),transparent 60%),
-        #080a13;
-
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
+    height: 180px;
     object-fit: cover;
+    border-radius: 12px;
 }
 
-.default-icon {
-    font-size: 70px;
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #5865f2;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.product-content {
-    padding: 24px;
-}
-
-.product-content h3 {
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-
-.description {
-    color: rgba(255,255,255,.55);
-    line-height: 1.6;
-    min-height: 50px;
-}
-
-.product-info {
-    margin: 20px 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+button:hover {
+    background: #4752c4;
 }
 
 .price {
-    font-size: 23px;
-    font-weight: 800;
-    color: #8f99ff;
+    font-size: 22px;
+    color: #7280ff;
 }
 
-.stock {
-    color: rgba(255,255,255,.5);
-    font-size: 14px;
-}
-
-.stock.out {
-    color: #ff7070;
-}
-
-.actions {
-    display: flex;
-    gap: 8px;
-}
-
-.btn {
-    flex: 1;
-
-    padding: 12px;
-
-    border: none;
-    border-radius: 11px;
-
-    color: white;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: .3s;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg,#5865f2,#8b5cf6);
-}
-
-.btn-secondary {
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.1);
-}
-
-.btn:disabled {
-    opacity: .4;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* EMPTY */
-
-.empty {
-    grid-column: 1 / -1;
-
-    padding: 70px 20px;
-
-    text-align: center;
-
-    border-radius: 20px;
-
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.1);
-}
-
-.empty h2 {
-    margin-bottom: 12px;
-}
-
-.empty p {
-    color: rgba(255,255,255,.5);
-}
-
-/* MODAL */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.75);
-    backdrop-filter: blur(15px);
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-box {
-    width: 100%;
-    max-width: 600px;
-
-    padding: 30px;
-
-    border-radius: 22px;
-
-    background: #0c0e18;
-    border: 1px solid rgba(255,255,255,.15);
-
-    box-shadow: 0 30px 100px rgba(0,0,0,.6);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 20px;
-}
-
-.close {
-    width: 38px;
-    height: 38px;
-
-    border: none;
-    border-radius: 10px;
-
-    color: white;
-    background: rgba(255,255,255,.08);
-
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.modal-image {
-    width: 100%;
-    height: 220px;
-
-    object-fit: cover;
-
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-.modal-description {
-    color: rgba(255,255,255,.6);
-    line-height: 1.7;
-    margin-bottom: 20px;
-}
-
-.modal-price {
-    font-size: 25px;
-    font-weight: 800;
-    color: #8f99ff;
-    margin-bottom: 20px;
-}
-
-/* TOAST */
-
-.toast {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-
-    z-index: 6000;
-
-    padding: 15px 20px;
-
-    border-radius: 12px;
-
-    background: #151827;
-    border: 1px solid rgba(255,255,255,.12);
-
-    transform: translateY(100px);
-    opacity: 0;
-
-    transition: .3s;
-}
-
-.toast.show {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-/* FOOTER */
-
-footer {
-    padding: 50px 20px;
-
-    text-align: center;
-
-    border-top: 1px solid rgba(255,255,255,.08);
-
-    color: rgba(255,255,255,.4);
-}
-
-/* MOBILE */
-
-@media(max-width:700px) {
-
-    .navbar {
-        flex-direction: column;
-    }
-
-    .nav-links {
-        justify-content: center;
-    }
-
-    .page-header {
-        padding-top: 60px;
-    }
-
-    .actions {
-        flex-direction: column;
-    }
-}
 </style>
 
 </head>
 
 <body>
 
-<div class="background">
-    <div class="aurora one"></div>
-    <div class="aurora two"></div>
-</div>
+<nav>
 
-<!-- NAVBAR -->
+<a href="index.html">🏠 Home</a>
 
-<nav class="navbar">
+<a href="bots.html">🤖 Bots</a>
 
-```
-<div class="logo">
-    Discord <span>Board</span> Marketplace
-</div>
+<a href="hosting.html">☁️ Hosting</a>
 
-<div class="nav-links">
+<a href="support.html">🎧 Support</a>
 
-    <a href="index.html">Home</a>
-
-    <a href="bots.html" class="active">Bots</a>
-
-    <a href="hosting.html">Hosting</a>
-
-    <a href="support.html">Support</a>
-
-    <a href="cart.html" class="cart-button">
-        🛒 Cart
-        <span id="cartCount">0</span>
-    </a>
-
-</div>
-```
+<a href="cart.html">🛒 Cart</a>
 
 </nav>
 
-<!-- HEADER -->
 
-<header class="page-header">
+<div class="container">
 
-```
-<h1>
-    Discord <span>Bots</span>
-</h1>
+<h1>🤖 Discord Bots</h1>
 
-<p>
-    Discover premium Discord bots for moderation,
-    automation, security and community management.
-</p>
-```
-
-</header>
-
-<!-- SEARCH -->
-
-<div class="controls">
-
-```
-<input
-    type="text"
-    id="searchInput"
-    class="search"
-    placeholder="🔎 Search bots..."
-    oninput="renderBots()"
->
-
-<select
-    id="filterSelect"
-    class="filter"
-    onchange="renderBots()"
->
-
-    <option value="all">
-        All Bots
-    </option>
-
-    <option value="available">
-        Available
-    </option>
-
-    <option value="out">
-        Out of Stock
-    </option>
-
-</select>
-```
-
-</div>
-
-<!-- PRODUCTS -->
-
-<main
-    id="products"
-    class="products"
->
-</main>
-
-<!-- DETAILS MODAL -->
+<p>Premium bots for your Discord server.</p>
 
 <div
-    class="modal"
-    id="detailsModal"
+id="botsContainer"
+class="grid"
 >
-
-```
-<div class="modal-box">
-
-    <div class="modal-header">
-
-        <h2 id="modalTitle">
-            Bot Details
-        </h2>
-
-        <button
-            class="close"
-            onclick="closeModal()"
-        >
-            ×
-        </button>
-
-    </div>
-
-    <img
-        id="modalImage"
-        class="modal-image"
-        alt="Bot"
-    >
-
-    <p
-        id="modalDescription"
-        class="modal-description"
-    ></p>
-
-    <div
-        id="modalPrice"
-        class="modal-price"
-    ></div>
-
-    <button
-        id="modalCartButton"
-        class="btn btn-primary"
-    >
-        🛒 Add to Cart
-    </button>
-
 </div>
-```
 
 </div>
 
-<!-- TOAST -->
-
-<div
-    id="toast"
-    class="toast"
->
-    Added to cart!
-</div>
-
-<footer>
-
-```
-<p>
-    © 2026 Discord Board Marketplace. All rights reserved.
-</p>
-```
-
-</footer>
 
 <script>
 
-/* =====================================================
-   LOAD BOTS FROM OWNER PANEL
-===================================================== */
-
-let bots = JSON.parse(
-    localStorage.getItem("DBM_BOTS")
+const bots =
+JSON.parse(
+localStorage.getItem("DBM_BOTS")
 ) || [];
 
 
-/* =====================================================
-   LOAD CART
-===================================================== */
+const container =
+document.getElementById("botsContainer");
 
-let cart = JSON.parse(
-    localStorage.getItem("DBM_CART")
-) || [];
 
+if (bots.length === 0) {
 
-/* =====================================================
-   RENDER BOTS
-===================================================== */
-
-function renderBots() {
-
-    const container =
-        document.getElementById("products");
-
-    const search =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
-
-    const filter =
-        document
-        .getElementById("filterSelect")
-        .value;
-
-
-    let filteredBots =
-        bots.filter(bot => {
-
-            const matchesSearch =
-                bot.name
-                .toLowerCase()
-                .includes(search) ||
-
-                (bot.description || "")
-                .toLowerCase()
-                .includes(search);
-
-
-            const matchesFilter =
-                filter === "all" ||
-
-                (
-                    filter === "available" &&
-                    bot.stock > 0
-                ) ||
-
-                (
-                    filter === "out" &&
-                    bot.stock <= 0
-                );
-
-
-            return (
-                matchesSearch &&
-                matchesFilter
-            );
-
-        });
-
-
-    container.innerHTML = "";
-
-
-    if(filteredBots.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <h2>
-                    🤖 No Bots Found
-                </h2>
-
-                <p>
-                    No bots are currently available.
-                    Add products from your Owner Panel.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    filteredBots.forEach(bot => {
-
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "product-card";
-
-
-        const imageHTML =
-            bot.image
-
-            ? `
-                <img
-                    src="${escapeHTML(bot.image)}"
-                    alt="${escapeHTML(bot.name)}"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-                >
-
-                <div
-                    class="default-icon"
-                    style="display:none"
-                >
-                    🤖
-                </div>
-              `
-
-            : `
-                <div class="default-icon">
-                    🤖
-                </div>
-              `;
-
-
-        const stockText =
-            bot.stock > 0
-
-            ? `Stock: ${bot.stock}`
-
-            : "Out of Stock";
-
-
-        const stockClass =
-            bot.stock > 0
-            ? ""
-            : "out";
-
-
-        card.innerHTML = `
-
-            <div class="product-image">
-
-                ${imageHTML}
-
-            </div>
-
-
-            <div class="product-content">
-
-                <h3>
-                    ${escapeHTML(bot.name)}
-                </h3>
-
-
-                <p class="description">
-
-                    ${escapeHTML(
-                        bot.description ||
-                        "Premium Discord bot."
-                    )}
-
-                </p>
-
-
-                <div class="product-info">
-
-                    <span class="price">
-
-                        €${Number(bot.price).toFixed(2)}
-
-                    </span>
-
-
-                    <span class="stock ${stockClass}">
-
-                        ${stockText}
-
-                    </span>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="btn btn-secondary"
-                        onclick="showDetails(${bot.id})"
-                    >
-                        View Details
-                    </button>
-
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="addToCart(${bot.id})"
-                        ${bot.stock <= 0 ? "disabled" : ""}
-                    >
-                        🛒 Add
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
+container.innerHTML =
+"<p>No Bots available yet.</p>";
 
 }
 
 
-/* =====================================================
-   ADD TO CART
-===================================================== */
+bots.forEach(bot => {
+
+const card =
+document.createElement("div");
+
+card.className = "card";
+
+
+card.innerHTML = `
+
+${
+bot.image
+?
+`<img src="${bot.image}" alt="Bot">`
+:
+""
+}
+
+<h2>🤖 ${escapeHTML(bot.name)}</h2>
+
+<p>
+${escapeHTML(bot.description || "Premium Discord Bot")}
+</p>
+
+<p class="price">
+€${Number(bot.price).toFixed(2)}
+</p>
+
+<p>
+Stock: ${bot.stock}
+</p>
+
+<button
+onclick="addToCart(${bot.id})"
+>
+🛒 Add to Cart
+</button>
+
+`;
+
+
+container.appendChild(card);
+
+});
+
 
 function addToCart(id) {
 
-    const bot =
-        bots.find(
-            item => item.id === id
-        );
+const bot =
+bots.find(
+item => item.id === id
+);
 
 
-    if(!bot) {
-
-        return;
-
-    }
+if (!bot) return;
 
 
-    if(bot.stock <= 0) {
-
-        alert(
-            "This product is out of stock."
-        );
-
-        return;
-
-    }
+let cart =
+JSON.parse(
+localStorage.getItem("DBM_CART")
+) || [];
 
 
-    const existing =
-        cart.find(
-            item =>
-            item.id === bot.id &&
-            item.type === "bot"
-        );
+const existing =
+cart.find(
+item =>
+item.productId === bot.id &&
+item.type === "bot"
+);
 
 
-    if(existing) {
+if (existing) {
 
-        if(
-            existing.quantity <
-            bot.stock
-        ) {
+existing.quantity++;
 
-            existing.quantity++;
+} else {
 
-        } else {
+cart.push({
 
-            alert(
-                "You cannot add more than the available stock."
-            );
+productId: bot.id,
 
-            return;
+type: "bot",
 
-        }
+name: bot.name,
 
-    } else {
+price: bot.price,
 
-        cart.push({
+quantity: 1
 
-            id:
-                bot.id,
-
-            type:
-                "bot",
-
-            name:
-                bot.name,
-
-            price:
-                Number(bot.price),
-
-            quantity:
-                1,
-
-            image:
-                bot.image || "",
-
-            botId:
-                bot.botId
-
-        });
-
-    }
-
-
-    localStorage.setItem(
-        "DBM_CART",
-        JSON.stringify(cart)
-    );
-
-
-    updateCartCount();
-
-    showToast(
-        "🤖 Bot added to cart!"
-    );
+});
 
 }
 
 
-/* =====================================================
-   SHOW DETAILS
-===================================================== */
-
-function showDetails(id) {
-
-    const bot =
-        bots.find(
-            item => item.id === id
-        );
+localStorage.setItem(
+"DBM_CART",
+JSON.stringify(cart)
+);
 
 
-    if(!bot) {
-
-        return;
-
-    }
-
-
-    document
-        .getElementById("modalTitle")
-        .textContent =
-        bot.name;
-
-
-    document
-        .getElementById("modalDescription")
-        .textContent =
-        bot.description ||
-        "Premium Discord bot.";
-
-
-    document
-        .getElementById("modalPrice")
-        .textContent =
-        "€" +
-        Number(bot.price).toFixed(2);
-
-
-    const image =
-        document
-        .getElementById("modalImage");
-
-
-    if(bot.image) {
-
-        image.src =
-            bot.image;
-
-        image.style.display =
-            "block";
-
-    } else {
-
-        image.style.display =
-            "none";
-
-    }
-
-
-    const button =
-        document
-        .getElementById(
-            "modalCartButton"
-        );
-
-
-    button.onclick =
-        function() {
-
-            addToCart(bot.id);
-
-        };
-
-
-    document
-        .getElementById(
-            "detailsModal"
-        )
-        .classList
-        .add("active");
+alert("🤖 Bot added to cart!");
 
 }
 
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-function closeModal() {
-
-    document
-        .getElementById(
-            "detailsModal"
-        )
-        .classList
-        .remove("active");
-
-}
-
-
-/* =====================================================
-   UPDATE CART COUNT
-===================================================== */
-
-function updateCartCount() {
-
-    const total =
-        cart.reduce(
-
-            (sum,item) =>
-
-            sum +
-            Number(
-                item.quantity || 1
-            ),
-
-            0
-
-        );
-
-
-    document
-        .getElementById(
-            "cartCount"
-        )
-        .textContent =
-        total;
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(message) {
-
-    const toast =
-        document
-        .getElementById("toast");
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList
-        .add("show");
-
-
-    setTimeout(
-
-        () => {
-
-            toast.classList
-                .remove("show");
-
-        },
-
-        2500
-
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
 
 function escapeHTML(text) {
 
-    return String(text || "")
+return String(text)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+.replace(/&/g, "&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+.replace(/</g, "&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+.replace(/>/g, "&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+.replace(/"/g, "&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+.replace(/'/g, "&#039;");
 
 }
-
-
-/* =====================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-===================================================== */
-
-document
-    .getElementById("detailsModal")
-    .addEventListener(
-        "click",
-        function(event) {
-
-            if(
-                event.target ===
-                this
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-renderBots();
-
-updateCartCount();
 
 </script>
 
 </body>
+
 </html>
