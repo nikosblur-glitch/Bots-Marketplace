@@ -1,560 +1,1349 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discord Board Marketplace — Cart</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Discord Board Marketplace | Cart
+</title>
+
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    min-height:100vh;
-    font-family:Inter,Arial,sans-serif;
-    color:#fff;
-    background:#03040a;
-    overflow-x:hidden;
-}
 
-/* =========================
-   ANIMATED BACKGROUND
-========================= */
+body {
 
-.background{
-    position:fixed;
-    inset:0;
-    z-index:-10;
-    overflow:hidden;
+    min-height: 100vh;
+
+    font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color: white;
+
     background:
-        radial-gradient(circle at 15% 20%,rgba(88,101,242,.20),transparent 30%),
-        radial-gradient(circle at 85% 70%,rgba(139,92,246,.18),transparent 30%),
-        #03040a;
+    #03040a;
+
+    overflow-x: hidden;
+
 }
 
-.orb{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(120px);
-    opacity:.25;
-    animation:moveOrb 18s infinite alternate ease-in-out;
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 10%,
+        rgba(88,101,242,0.20),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 85% 70%,
+        rgba(139,92,246,0.15),
+        transparent 30%
+    ),
+
+    #03040a;
+
 }
 
-.orb.one{
-    top:-250px;
-    left:-200px;
-    background:#5865f2;
+
+.aurora {
+
+    position: absolute;
+
+    width: 650px;
+
+    height: 650px;
+
+    border-radius: 50%;
+
+    filter: blur(130px);
+
+    opacity: 0.22;
+
+    animation:
+    moveAurora
+    18s
+    infinite
+    alternate
+    ease-in-out;
+
 }
 
-.orb.two{
-    right:-250px;
-    top:30%;
-    background:#8b5cf6;
-    animation-delay:4s;
+
+.aurora-one {
+
+    top: -350px;
+
+    left: -250px;
+
+    background: #5865f2;
+
 }
 
-.orb.three{
-    bottom:-300px;
-    left:35%;
-    background:#06b6d4;
-    animation-delay:8s;
+
+.aurora-two {
+
+    right: -350px;
+
+    bottom: -250px;
+
+    background: #8b5cf6;
+
+    animation-delay: 5s;
+
 }
 
-@keyframes moveOrb{
-    0%{
-        transform:translate(0,0) scale(1);
+
+@keyframes moveAurora {
+
+    0% {
+        transform:
+        translate(0,0)
+        scale(1);
     }
 
-    50%{
-        transform:translate(100px,80px) scale(1.2);
+    50% {
+        transform:
+        translate(100px,80px)
+        scale(1.2);
     }
 
-    100%{
-        transform:translate(-80px,120px) scale(.9);
+    100% {
+        transform:
+        translate(-80px,100px)
+        scale(0.9);
     }
+
 }
 
-/* =========================
+
+/* =====================================================
    NAVBAR
-========================= */
+===================================================== */
 
-.navbar{
-    position:fixed;
-    top:18px;
-    left:50%;
-    transform:translateX(-50%);
-    width:92%;
-    max-width:1250px;
-    padding:14px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    z-index:1000;
+.navbar {
 
-    border-radius:20px;
+    position: sticky;
 
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.13);
+    top: 18px;
 
-    backdrop-filter:blur(25px) saturate(150%);
-    -webkit-backdrop-filter:blur(25px) saturate(150%);
+    width: 92%;
 
-    box-shadow:0 20px 70px rgba(0,0,0,.35);
-}
+    max-width: 1250px;
 
-.logo{
-    font-size:19px;
-    font-weight:900;
-}
+    margin: 18px auto;
 
-.logo span{
-    color:#7280ff;
-}
+    padding: 14px 20px;
 
-.nav-links{
-    display:flex;
-    gap:5px;
-    align-items:center;
-}
+    display: flex;
 
-.nav-links a{
-    color:rgba(255,255,255,.65);
-    text-decoration:none;
-    padding:9px 13px;
-    border-radius:10px;
-    transition:.3s;
-}
+    align-items: center;
 
-.nav-links a:hover{
-    color:#fff;
-    background:rgba(255,255,255,.09);
-    transform:translateY(-2px);
-}
+    justify-content: space-between;
 
-.cart-active{
-    background:linear-gradient(
-        135deg,
-        rgba(88,101,242,.9),
-        rgba(139,92,246,.9)
-    ) !important;
+    gap: 20px;
 
-    color:#fff !important;
-}
+    z-index: 1000;
 
-/* =========================
-   MAIN
-========================= */
-
-.main{
-    width:92%;
-    max-width:1100px;
-    margin:auto;
-    padding:150px 0 80px;
-}
-
-.page-title{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.page-title h1{
-    font-size:clamp(40px,7vw,70px);
-    letter-spacing:-3px;
-    margin-bottom:15px;
-}
-
-.page-title h1 span{
-    color:#7280ff;
-    text-shadow:0 0 50px rgba(88,101,242,.5);
-}
-
-.page-title p{
-    color:rgba(255,255,255,.55);
-}
-
-/* =========================
-   CHECKOUT STEPS
-========================= */
-
-.steps{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    margin-bottom:35px;
-}
-
-.step{
-    padding:10px 18px;
-    border-radius:50px;
-    color:rgba(255,255,255,.45);
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.step.active{
-    color:#fff;
-    background:rgba(88,101,242,.25);
-    border-color:rgba(114,128,255,.5);
-}
-
-/* =========================
-   GLASS LAYOUT
-========================= */
-
-.checkout-layout{
-    display:grid;
-    grid-template-columns:1.5fr .8fr;
-    gap:22px;
-}
-
-.glass{
-    padding:30px;
-    border-radius:25px;
+    border-radius: 20px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.025)
-        );
+    rgba(255,255,255,0.045);
 
-    border:1px solid rgba(255,255,255,.12);
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
 
-    backdrop-filter:blur(25px) saturate(140%);
-    -webkit-backdrop-filter:blur(25px) saturate(140%);
+    backdrop-filter:
+    blur(25px)
+    saturate(150%);
 
-    box-shadow:0 25px 90px rgba(0,0,0,.3);
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(150%);
+
+    box-shadow:
+    0 20px 70px
+    rgba(0,0,0,0.35);
+
 }
 
-/* =========================
-   CART ITEMS
-========================= */
 
-.cart-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+.logo {
 
-    padding:18px;
-    margin-bottom:12px;
+    font-size: 19px;
 
-    border-radius:16px;
-    background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.08);
+    font-weight: 900;
+
+    white-space: nowrap;
+
 }
 
-.product-info{
-    flex:1;
+
+.logo span {
+
+    color: #7280ff;
+
 }
 
-.product-info h3{
-    margin-bottom:6px;
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
 }
 
-.product-info p{
-    color:rgba(255,255,255,.5);
-    font-size:14px;
+
+.nav-links a {
+
+    color:
+    rgba(255,255,255,0.65);
+
+    text-decoration: none;
+
+    padding: 9px 13px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+
 }
 
-.product-price{
-    color:#9ca7ff;
-    font-weight:800;
+
+.nav-links a:hover {
+
+    color: white;
+
+    background:
+    rgba(255,255,255,0.09);
+
+    transform:
+    translateY(-2px);
+
 }
 
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:8px;
+
+.cart-link {
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(88,101,242,0.8),
+        rgba(139,92,246,0.8)
+    );
+
+    color: white !important;
+
 }
 
-.quantity button{
-    width:32px;
-    height:32px;
-    border:0;
-    border-radius:8px;
-    color:#fff;
-    background:rgba(255,255,255,.09);
-    cursor:pointer;
-    transition:.25s;
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container {
+
+    width: 92%;
+
+    max-width: 1150px;
+
+    margin: 0 auto;
+
+    padding: 70px 0 100px;
+
 }
 
-.quantity button:hover{
-    background:#5865f2;
+
+.page-header {
+
+    text-align: center;
+
+    margin-bottom: 50px;
+
 }
 
-.remove{
-    border:0;
-    border-radius:8px;
-    padding:9px 11px;
-    color:#fff;
-    background:rgba(220,60,70,.18);
-    cursor:pointer;
+
+.page-header h1 {
+
+    font-size:
+    clamp(
+        40px,
+        7vw,
+        70px
+    );
+
+    letter-spacing: -3px;
+
+    margin-bottom: 15px;
+
 }
 
-.empty{
-    text-align:center;
-    padding:60px 20px;
-    color:rgba(255,255,255,.5);
+
+.page-header p {
+
+    color:
+    rgba(255,255,255,0.55);
+
+    font-size: 17px;
+
 }
 
-/* =========================
-   SUMMARY
-========================= */
 
-.summary h2{
-    margin-bottom:25px;
+/* =====================================================
+   CART LAYOUT
+===================================================== */
+
+.cart-layout {
+
+    display: grid;
+
+    grid-template-columns:
+    1fr
+    360px;
+
+    gap: 25px;
+
+    align-items: start;
+
 }
 
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    margin:15px 0;
-    color:rgba(255,255,255,.6);
+
+/* =====================================================
+   GLASS CARD
+===================================================== */
+
+.glass-card {
+
+    padding: 25px;
+
+    border-radius: 24px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,0.07),
+        rgba(255,255,255,0.025)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    box-shadow:
+    0 20px 70px
+    rgba(0,0,0,0.25);
+
 }
 
-.summary-total{
-    display:flex;
-    justify-content:space-between;
-    margin-top:25px;
-    padding-top:20px;
-    border-top:1px solid rgba(255,255,255,.1);
-    font-size:22px;
-    font-weight:800;
+
+/* =====================================================
+   CART ITEM
+===================================================== */
+
+.cart-items {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
 }
 
-.total-price{
-    color:#9ca7ff;
+
+.cart-item {
+
+    display: grid;
+
+    grid-template-columns:
+    75px
+    1fr
+    auto
+    auto;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border-radius: 17px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+
 }
 
-/* =========================
-   BUTTON
-========================= */
 
-.btn{
-    width:100%;
-    padding:15px;
-    margin-top:20px;
+.cart-item:hover {
 
-    border:0;
-    border-radius:13px;
+    background:
+    rgba(255,255,255,0.07);
 
-    color:#fff;
-    font-size:15px;
-    font-weight:800;
+    transform:
+    translateY(-2px);
 
-    cursor:pointer;
+}
 
-    background:linear-gradient(
+
+.product-image {
+
+    width: 75px;
+
+    height: 75px;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    background:
+    rgba(255,255,255,0.06);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.product-placeholder {
+
+    font-size: 30px;
+
+}
+
+
+.product-info h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.product-info p {
+
+    color:
+    rgba(255,255,255,0.45);
+
+    font-size: 13px;
+
+}
+
+
+.product-price {
+
+    color: #9da5ff;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   QUANTITY
+===================================================== */
+
+.quantity {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.quantity button {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: 1px solid
+    rgba(255,255,255,0.12);
+
+    border-radius: 9px;
+
+    background:
+    rgba(255,255,255,0.06);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition: 0.2s;
+
+}
+
+
+.quantity button:hover {
+
+    background:
+    rgba(88,101,242,0.5);
+
+}
+
+
+.quantity span {
+
+    min-width: 25px;
+
+    text-align: center;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+.remove-button {
+
+    width: 36px;
+
+    height: 36px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+    rgba(220,60,70,0.15);
+
+    color: #ff8c95;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.remove-button:hover {
+
+    background:
+    rgba(220,60,70,0.35);
+
+    transform:
+    scale(1.05);
+
+}
+
+
+/* =====================================================
+   EMPTY CART
+===================================================== */
+
+.empty-cart {
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+}
+
+
+.empty-cart-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.empty-cart h2 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.empty-cart p {
+
+    color:
+    rgba(255,255,255,0.5);
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.btn-primary {
+
+    background:
+    linear-gradient(
         135deg,
         #5865f2,
         #8b5cf6
     );
 
-    box-shadow:0 15px 45px rgba(88,101,242,.25);
+    box-shadow:
+    0 12px 40px
+    rgba(88,101,242,0.25);
 
-    transition:.3s;
 }
 
-.btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 20px 60px rgba(88,101,242,.45);
+
+.btn-primary:hover {
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 18px 60px
+    rgba(88,101,242,0.45);
+
 }
 
-.back-btn{
-    display:inline-block;
-    margin-top:20px;
-    color:rgba(255,255,255,.55);
-    text-decoration:none;
+
+.btn-glass {
+
+    background:
+    rgba(255,255,255,0.06);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
 }
 
-/* =========================
-   CHECKOUT PAGE
-========================= */
 
-#checkoutPage{
-    display:none;
+.btn-glass:hover {
+
+    background:
+    rgba(255,255,255,0.11);
+
 }
 
-.form-group{
-    margin-bottom:18px;
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary h2 {
+
+    margin-bottom: 25px;
+
 }
 
-.form-group label{
-    display:block;
-    margin-bottom:8px;
-    color:rgba(255,255,255,.65);
-    font-size:14px;
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    color:
+    rgba(255,255,255,0.6);
+
 }
 
-.input{
-    width:100%;
-    padding:14px;
 
-    color:#fff;
-    background:rgba(255,255,255,.055);
+.summary-row.total {
 
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:11px;
+    margin-top: 20px;
 
-    outline:none;
+    padding-top: 20px;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
 }
 
-.input:focus{
-    border-color:#7280ff;
-    box-shadow:0 0 25px rgba(88,101,242,.15);
+
+.summary-buttons {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
 }
 
-/* =========================
+
+.full-button {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+.checkout {
+
+    display: none;
+
+}
+
+
+.checkout.active {
+
+    display: block;
+
+}
+
+
+.checkout-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+
+}
+
+
+.checkout-steps {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.step {
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    color:
+    rgba(255,255,255,0.45);
+
+    background:
+    rgba(255,255,255,0.05);
+
+}
+
+
+.step.active {
+
+    color: white;
+
+    background:
+    rgba(88,101,242,0.4);
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.form-group.full {
+
+    grid-column:
+    1 / -1;
+
+}
+
+
+.form-group label {
+
+    color:
+    rgba(255,255,255,0.6);
+
+    font-size: 13px;
+
+}
+
+
+.form-input {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    background:
+    rgba(255,255,255,0.05);
+
+    color: white;
+
+    outline: none;
+
+}
+
+
+.form-input:focus {
+
+    border-color:
+    rgba(114,128,255,0.7);
+
+    box-shadow:
+    0 0 25px
+    rgba(88,101,242,0.15);
+
+}
+
+
+.form-input::placeholder {
+
+    color:
+    rgba(255,255,255,0.3);
+
+}
+
+
+/* =====================================================
    PAYMENT
-========================= */
+===================================================== */
 
-.payment-options{
-    display:grid;
-    gap:12px;
-    margin-top:20px;
+.payment-options {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+
 }
 
-.payment-option{
-    display:flex;
-    align-items:center;
-    gap:15px;
 
-    padding:18px;
+.payment-option {
 
-    border-radius:15px;
+    position: relative;
 
-    background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.1);
-
-    cursor:pointer;
-    transition:.3s;
 }
 
-.payment-option:hover{
-    border-color:rgba(114,128,255,.5);
-    transform:translateY(-2px);
+
+.payment-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
 }
 
-.payment-option input{
-    accent-color:#5865f2;
+
+.payment-label {
+
+    display: block;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    background:
+    rgba(255,255,255,0.04);
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
 }
 
-.payment-logo{
-    font-size:25px;
+
+.payment-label:hover {
+
+    background:
+    rgba(255,255,255,0.08);
+
 }
 
-.payment-info strong{
-    display:block;
+
+.payment-option input:checked
++ .payment-label {
+
+    border-color:
+    #7280ff;
+
+    background:
+    rgba(88,101,242,0.15);
+
+    box-shadow:
+    0 0 30px
+    rgba(88,101,242,0.12);
+
 }
 
-.payment-info span{
-    color:rgba(255,255,255,.45);
-    font-size:13px;
+
+.payment-icon {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
 }
 
-/* =========================
+
+.payment-label strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+}
+
+
+.payment-label span {
+
+    color:
+    rgba(255,255,255,0.45);
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   CHECKOUT ACTIONS
+===================================================== */
+
+.checkout-actions {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+}
+
+
+/* =====================================================
+   ORDER REVIEW
+===================================================== */
+
+.review-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+}
+
+
+.review-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+}
+
+
+.review-item span:first-child {
+
+    color:
+    rgba(255,255,255,0.6);
+
+}
+
+
+.customer-box {
+
+    margin-top: 25px;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+}
+
+
+.customer-box p {
+
+    margin-top: 7px;
+
+    color:
+    rgba(255,255,255,0.55);
+
+}
+
+
+/* =====================================================
    SUCCESS
-========================= */
+===================================================== */
 
-#successPage{
-    display:none;
-    text-align:center;
+.success {
+
+    display: none;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
 }
 
-.success-icon{
-    font-size:70px;
-    margin-bottom:20px;
+
+.success.active {
+
+    display: block;
+
 }
 
-.success-box{
-    max-width:650px;
-    margin:auto;
+
+.success-icon {
+
+    font-size: 70px;
+
+    margin-bottom: 20px;
+
 }
 
-.success-box h2{
-    font-size:35px;
-    margin-bottom:15px;
+
+.success h2 {
+
+    margin-bottom: 12px;
+
 }
 
-.success-box p{
-    color:rgba(255,255,255,.55);
-    line-height:1.7;
+
+.success p {
+
+    color:
+    rgba(255,255,255,0.55);
+
+    line-height: 1.7;
+
 }
 
-/* =========================
+
+/* =====================================================
    RESPONSIVE
-========================= */
+===================================================== */
 
-@media(max-width:800px){
+@media
+(max-width: 850px) {
 
-    .navbar{
-        flex-direction:column;
-        gap:12px;
+    .cart-layout {
+
+        grid-template-columns: 1fr;
+
     }
 
-    .nav-links{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .checkout-layout{
-        grid-template-columns:1fr;
-    }
-
-    .cart-item{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .steps{
-        flex-wrap:wrap;
-    }
 }
+
+
+@media
+(max-width: 650px) {
+
+    .navbar {
+
+        flex-direction: column;
+
+    }
+
+
+    .cart-item {
+
+        grid-template-columns:
+        60px
+        1fr;
+
+    }
+
+
+    .product-image {
+
+        width: 60px;
+
+        height: 60px;
+
+    }
+
+
+    .product-price,
+    .quantity,
+    .remove-button {
+
+        grid-column:
+        2;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .form-group.full {
+
+        grid-column: auto;
+
+    }
+
+
+    .payment-options {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .checkout-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+
+    .checkout-actions .btn {
+
+        width: 100%;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="background">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+
+    <div class="aurora aurora-one"></div>
+
+    <div class="aurora aurora-two"></div>
+
 </div>
 
-<!-- NAVBAR -->
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <nav class="navbar">
 
     <div class="logo">
-        Discord <span>Board</span> Marketplace
+
+        Discord
+        <span>Board</span>
+        Marketplace
+
     </div>
+
 
     <div class="nav-links">
 
-        <a href="index.html">Home</a>
+        <a href="index.html">
+            Home
+        </a>
 
-        <a href="bots.html">Bots</a>
+        <a href="bots.html">
+            Bots
+        </a>
 
-        <a href="hosting.html">Hosting</a>
+        <a href="hosting.html">
+            Hosting
+        </a>
 
-        <a href="support.html">Support</a>
+        <a href="support.html">
+            Support
+        </a>
 
-        <a href="cart.html" class="cart-active">
+        <a
+        href="cart.html"
+        class="cart-link"
+        >
             🛒 Cart
-            <span id="cartCount">0</span>
         </a>
 
     </div>
@@ -562,604 +1351,930 @@ body{
 </nav>
 
 
-<main class="main">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<!-- =========================
+<main class="container">
+
+
+<!-- =====================================================
+     PAGE HEADER
+===================================================== -->
+
+<div class="page-header">
+
+    <h1>
+        Your Cart
+    </h1>
+
+    <p>
+        Review your products before checkout.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
      CART PAGE
-========================= -->
+===================================================== -->
 
-<section id="cartPage">
+<section
+id="cartPage"
+>
 
-    <div class="page-title">
 
-        <h1>
-            Your <span>Cart</span>
-        </h1>
+<div class="cart-layout">
 
-        <p>
-            Review your products before continuing to checkout.
-        </p>
 
-    </div>
+<!-- CART ITEMS -->
 
+<div class="glass-card">
 
-    <div class="steps">
+    <div
+    id="cartItems"
+    class="cart-items"
+    ></div>
 
-        <div class="step active">
-            1. Cart
-        </div>
 
-        <div class="step">
-            2. Checkout
-        </div>
+    <div
+    id="emptyCart"
+    class="empty-cart"
+    style="display:none;"
+    >
 
-        <div class="step">
-            3. Complete
-        </div>
-
-    </div>
-
-
-    <div class="checkout-layout">
-
-        <div class="glass">
-
-            <h2>
-                🛒 Your Products
-            </h2>
-
-            <br>
-
-            <div id="cartItems"></div>
-
-        </div>
-
-
-        <div class="glass summary">
-
-            <h2>
-                Order Summary
-            </h2>
-
-            <div class="summary-row">
-
-                <span>
-                    Products
-                </span>
-
-                <span id="subtotal">
-                    €0.00
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span>
-                    Service Fee
-                </span>
-
-                <span>
-                    €0.00
-                </span>
-
-            </div>
-
-
-            <div class="summary-total">
-
-                <span>
-                    Total
-                </span>
-
-                <span class="total-price" id="total">
-                    €0.00
-                </span>
-
-            </div>
-
-
-            <button
-                class="btn"
-                onclick="goToCheckout()"
-            >
-                Continue to Checkout →
-            </button>
-
-            <a
-                href="bots.html"
-                class="back-btn"
-            >
-                ← Continue Shopping
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     CHECKOUT PAGE
-========================= -->
-
-<section id="checkoutPage">
-
-    <div class="page-title">
-
-        <h1>
-            Secure <span>Checkout</span>
-        </h1>
-
-        <p>
-            Complete your details and select your payment method.
-        </p>
-
-    </div>
-
-
-    <div class="steps">
-
-        <div class="step">
-            1. Cart
-        </div>
-
-        <div class="step active">
-            2. Checkout
-        </div>
-
-        <div class="step">
-            3. Complete
-        </div>
-
-    </div>
-
-
-    <div class="checkout-layout">
-
-
-        <!-- CUSTOMER DETAILS -->
-
-        <div class="glass">
-
-            <h2>
-                👤 Customer Information
-            </h2>
-
-            <br>
-
-
-            <div class="form-group">
-
-                <label>
-                    Full Name
-                </label>
-
-                <input
-                    id="customerName"
-                    class="input"
-                    type="text"
-                    placeholder="Your name"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Email Address
-                </label>
-
-                <input
-                    id="customerEmail"
-                    class="input"
-                    type="email"
-                    placeholder="you@example.com"
-                >
-
-            </div>
-
-
-            <h2 style="margin-top:30px;">
-                💳 Payment Method
-            </h2>
-
-
-            <div class="payment-options">
-
-
-                <label class="payment-option">
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        value="paypal"
-                    >
-
-                    <div class="payment-logo">
-                        🅿️
-                    </div>
-
-                    <div class="payment-info">
-
-                        <strong>
-                            PayPal
-                        </strong>
-
-                        <span>
-                            Pay securely with PayPal
-                        </span>
-
-                    </div>
-
-                </label>
-
-
-                <label class="payment-option">
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        value="revolut"
-                    >
-
-                    <div class="payment-logo">
-                        💙
-                    </div>
-
-                    <div class="payment-info">
-
-                        <strong>
-                            Revolut
-                        </strong>
-
-                        <span>
-                            Pay using Revolut
-                        </span>
-
-                    </div>
-
-                </label>
-
-
-            </div>
-
-
-            <button
-                class="btn"
-                onclick="placeOrder()"
-            >
-                Complete Order
-            </button>
-
-
-            <button
-                class="btn"
-                style="background:rgba(255,255,255,.07);box-shadow:none;"
-                onclick="backToCart()"
-            >
-                ← Back to Cart
-            </button>
-
-        </div>
-
-
-        <!-- CHECKOUT SUMMARY -->
-
-        <div class="glass summary">
-
-            <h2>
-                Order Summary
-            </h2>
-
-            <div id="checkoutSummary"></div>
-
-
-            <div class="summary-total">
-
-                <span>
-                    Total
-                </span>
-
-                <span
-                    class="total-price"
-                    id="checkoutTotal"
-                >
-                    €0.00
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     SUCCESS PAGE
-========================= -->
-
-<section id="successPage">
-
-    <div class="glass success-box">
-
-        <div class="success-icon">
-            🎉
+        <div class="empty-cart-icon">
+            🛒
         </div>
 
         <h2>
-            Order Created!
+            Your cart is empty
         </h2>
 
         <p>
-            Your order has been received successfully.
-            You selected <strong id="selectedPayment"></strong>
-            as your payment method.
+            Add some bots or hosting products
+            to continue.
         </p>
 
-        <button
-            class="btn"
-            onclick="finishOrder()"
+        <a
+        href="bots.html"
+        class="btn btn-primary"
         >
-            Return to Marketplace
+            Browse Products
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- SUMMARY -->
+
+<div
+class="glass-card summary"
+>
+
+    <h2>
+        Order Summary
+    </h2>
+
+
+    <div class="summary-row">
+
+        <span>
+            Items
+        </span>
+
+        <strong id="summaryItems">
+            0
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            Subtotal
+        </span>
+
+        <strong id="summarySubtotal">
+            €0.00
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            Delivery
+        </span>
+
+        <strong>
+            Digital
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row total">
+
+        <span>
+            Total
+        </span>
+
+        <strong id="summaryTotal">
+            €0.00
+        </strong>
+
+    </div>
+
+
+    <div class="summary-buttons">
+
+        <button
+        class="btn btn-primary full-button"
+        onclick="startCheckout()"
+        >
+
+            Proceed to Checkout
+
+        </button>
+
+
+        <button
+        class="btn btn-glass full-button"
+        onclick="clearCart()"
+        >
+
+            🗑️ Clear Cart
+
         </button>
 
     </div>
 
+</div>
+
+
+</div>
+
 </section>
+
+
+<!-- =====================================================
+     CHECKOUT
+===================================================== -->
+
+<section
+id="checkoutPage"
+class="checkout"
+>
+
+
+<div class="glass-card">
+
+
+<div class="checkout-header">
+
+    <h2>
+        Checkout
+    </h2>
+
+
+    <div class="checkout-steps">
+
+        <span
+        id="stepOneIndicator"
+        class="step active"
+        >
+            1. Details
+        </span>
+
+        <span
+        id="stepTwoIndicator"
+        class="step"
+        >
+            2. Review
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STEP 1
+===================================================== -->
+
+<div
+id="checkoutStepOne"
+>
+
+
+<h3>
+Customer Information
+</h3>
+
+
+<br>
+
+
+<div class="form-grid">
+
+
+<div class="form-group">
+
+    <label>
+        Full Name
+    </label>
+
+    <input
+    id="customerName"
+    class="form-input"
+    type="text"
+    placeholder="Your full name"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label>
+        Email
+    </label>
+
+    <input
+    id="customerEmail"
+    class="form-input"
+    type="email"
+    placeholder="you@example.com"
+    >
+
+</div>
+
+
+<div class="form-group full">
+
+    <label>
+        Discord Username
+    </label>
+
+    <input
+    id="discordUsername"
+    class="form-input"
+    type="text"
+    placeholder="username"
+    >
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<h3>
+Payment Method
+</h3>
+
+
+<div class="payment-options">
+
+
+<div class="payment-option">
+
+    <input
+    type="radio"
+    id="paypal"
+    name="payment"
+    value="PayPal"
+    >
+
+    <label
+    for="paypal"
+    class="payment-label"
+    >
+
+        <div class="payment-icon">
+            🅿️
+        </div>
+
+        <strong>
+            PayPal
+        </strong>
+
+        <span>
+            Pay securely with PayPal.
+        </span>
+
+    </label>
+
+</div>
+
+
+<div class="payment-option">
+
+    <input
+    type="radio"
+    id="revolut"
+    name="payment"
+    value="Revolut"
+    >
+
+    <label
+    for="revolut"
+    class="payment-label"
+    >
+
+        <div class="payment-icon">
+            💳
+        </div>
+
+        <strong>
+            Revolut
+        </strong>
+
+        <span>
+            Pay using Revolut.
+        </span>
+
+    </label>
+
+</div>
+
+
+</div>
+
+
+<div class="checkout-actions">
+
+    <button
+    class="btn btn-glass"
+    onclick="backToCart()"
+    >
+        ← Back to Cart
+    </button>
+
+
+    <button
+    class="btn btn-primary"
+    onclick="goToReview()"
+    >
+        Continue →
+    </button>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     STEP 2
+===================================================== -->
+
+<div
+id="checkoutStepTwo"
+style="display:none;"
+>
+
+
+<h3>
+Review Your Order
+</h3>
+
+
+<div
+id="reviewList"
+class="review-list"
+></div>
+
+
+<div
+class="customer-box"
+>
+
+    <strong>
+        Customer Details
+    </strong>
+
+    <p id="reviewName">
+    </p>
+
+    <p id="reviewEmail">
+    </p>
+
+    <p id="reviewDiscord">
+    </p>
+
+    <p id="reviewPayment">
+    </p>
+
+</div>
+
+
+<div class="summary-row total">
+
+    <span>
+        Total
+    </span>
+
+    <strong id="reviewTotal">
+        €0.00
+    </strong>
+
+</div>
+
+
+<div class="checkout-actions">
+
+    <button
+    class="btn btn-glass"
+    onclick="backToDetails()"
+    >
+        ← Back
+    </button>
+
+
+    <button
+    class="btn btn-primary"
+    onclick="placeOrder()"
+    >
+        Confirm Order
+    </button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SUCCESS
+===================================================== -->
+
+<section
+id="successPage"
+class="glass-card success"
+>
+
+
+<div class="success-icon">
+    ✅
+</div>
+
+
+<h2>
+    Order Created!
+</h2>
+
+
+<p>
+
+Your order has been created successfully.
+
+<br>
+
+Payment integration will be connected
+in the next step.
+
+</p>
+
+
+<br>
+
+
+<a
+href="index.html"
+class="btn btn-primary"
+>
+    Back to Home
+</a>
+
+
+</section>
+
 
 </main>
 
 
 <script>
 
-/* =========================
+/* =====================================================
    CART DATA
-========================= */
+===================================================== */
 
-let cart = JSON.parse(
-    localStorage.getItem("DBM_CART")
+let cart =
+
+JSON.parse(
+
+    localStorage.getItem(
+        "DBM_CART"
+    )
+
 ) || [];
 
 
-/* =========================
+/* =====================================================
    RENDER CART
-========================= */
+===================================================== */
 
-function renderCart(){
+function renderCart() {
 
     const container =
-        document.getElementById("cartItems");
 
-    const count =
-        document.getElementById("cartCount");
+    document.getElementById(
+        "cartItems"
+    );
+
+
+    const emptyCart =
+
+    document.getElementById(
+        "emptyCart"
+    );
+
 
     container.innerHTML = "";
 
-    let totalItems = 0;
 
-    cart.forEach(item => {
+    if (
+        cart.length === 0
+    ) {
 
-        totalItems += item.quantity;
+        emptyCart.style.display =
+        "block";
 
-        const element =
-            document.createElement("div");
+        updateSummary();
 
-        element.className =
-            "cart-item";
-
-        element.innerHTML = `
-
-            <div class="product-info">
-
-                <h3>
-                    ${escapeHTML(item.name)}
-                </h3>
-
-                <p>
-                    ${escapeHTML(item.type || "Digital Product")}
-                </p>
-
-            </div>
-
-            <div class="product-price">
-
-                €${Number(item.price).toFixed(2)}
-
-            </div>
-
-            <div class="quantity">
-
-                <button
-                    onclick="changeQuantity(${item.id},-1)"
-                >
-                    −
-                </button>
-
-                <strong>
-                    ${item.quantity}
-                </strong>
-
-                <button
-                    onclick="changeQuantity(${item.id},1)"
-                >
-                    +
-                </button>
-
-            </div>
-
-            <button
-                class="remove"
-                onclick="removeItem(${item.id})"
-            >
-                🗑️
-            </button>
-
-        `;
-
-        container.appendChild(element);
-
-    });
-
-
-    count.textContent =
-        totalItems;
-
-
-    if(cart.length === 0){
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div style="font-size:50px;">
-                    🛒
-                </div>
-
-                <br>
-
-                Your cart is empty.
-
-                <br><br>
-
-                <a
-                    href="bots.html"
-                    class="back-btn"
-                >
-                    Browse Products
-                </a>
-
-            </div>
-
-        `;
+        return;
 
     }
 
 
-    updateTotals();
+    emptyCart.style.display =
+    "none";
 
-}
+
+    cart.forEach(
+
+        (item, index) => {
 
 
-/* =========================
-   CHANGE QUANTITY
-========================= */
+            if (
+                !item.quantity
+            ) {
 
-function changeQuantity(id, amount){
+                item.quantity = 1;
 
-    const item =
-        cart.find(
-            product => product.id === id
-        );
+            }
 
-    if(!item) return;
 
-    item.quantity += amount;
+            const card =
 
-    if(item.quantity <= 0){
-
-        cart =
-            cart.filter(
-                product => product.id !== id
+            document.createElement(
+                "div"
             );
 
-    }
 
-    saveCart();
-
-    renderCart();
-
-}
+            card.className =
+            "cart-item";
 
 
-/* =========================
-   REMOVE ITEM
-========================= */
+            card.innerHTML = `
 
-function removeItem(id){
+                <div class="product-image">
 
-    cart =
-        cart.filter(
-            item => item.id !== id
-        );
+                    ${
+                        item.image
 
-    saveCart();
+                        ?
 
-    renderCart();
+                        `<img
+                        src="${escapeHTML(item.image)}"
+                        alt="${escapeHTML(item.name)}"
+                        >`
 
-}
+                        :
+
+                        `<div
+                        class="product-placeholder"
+                        >
+                        ${item.type === "hosting"
+                            ? "☁️"
+                            : "🤖"
+                        }
+                        </div>`
+                    }
+
+                </div>
 
 
-/* =========================
-   TOTALS
-========================= */
+                <div class="product-info">
 
-function getTotal(){
+                    <h3>
+                        ${escapeHTML(item.name)}
+                    </h3>
 
-    return cart.reduce(
+                    <p>
+                        ${item.type === "hosting"
+                            ? "Hosting"
+                            : "Discord Bot"
+                        }
+                    </p>
 
-        (total,item) =>
+                </div>
 
-        total +
-        (
-            Number(item.price) *
-            Number(item.quantity)
-        ),
 
-        0
+                <div class="product-price">
+
+                    €${(
+                        item.price *
+                        item.quantity
+                    ).toFixed(2)}
+
+                </div>
+
+
+                <div class="quantity">
+
+                    <button
+                    onclick="changeQuantity(
+                        ${index},
+                        -1
+                    )"
+                    >
+                        −
+                    </button>
+
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+
+                    <button
+                    onclick="changeQuantity(
+                        ${index},
+                        1
+                    )"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <button
+                class="remove-button"
+                onclick="removeItem(${index})"
+                >
+
+                    🗑️
+
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
 
     );
 
-}
 
+    saveCart();
 
-function updateTotals(){
-
-    const total =
-        getTotal();
-
-    document.getElementById(
-        "subtotal"
-    ).textContent =
-        "€" + total.toFixed(2);
-
-    document.getElementById(
-        "total"
-    ).textContent =
-        "€" + total.toFixed(2);
+    updateSummary();
 
 }
 
 
-/* =========================
+/* =====================================================
+   CHANGE QUANTITY
+===================================================== */
+
+function changeQuantity(
+    index,
+    change
+) {
+
+    const item =
+    cart[index];
+
+
+    if (!item) return;
+
+
+    const newQuantity =
+
+    item.quantity +
+    change;
+
+
+    if (
+        newQuantity <= 0
+    ) {
+
+        removeItem(index);
+
+        return;
+
+    }
+
+
+    if (
+        item.stock !== undefined &&
+        newQuantity > item.stock
+    ) {
+
+        alert(
+            "You cannot add more than the available stock."
+        );
+
+        return;
+
+    }
+
+
+    item.quantity =
+    newQuantity;
+
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =====================================================
+   REMOVE ITEM
+===================================================== */
+
+function removeItem(
+    index
+) {
+
+    cart.splice(
+        index,
+        1
+    );
+
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =====================================================
+   CLEAR CART
+===================================================== */
+
+function clearCart() {
+
+    if (
+        cart.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            "Are you sure you want to clear your cart?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    cart = [];
+
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =====================================================
    SAVE CART
-========================= */
+===================================================== */
 
-function saveCart(){
+function saveCart() {
 
     localStorage.setItem(
 
         "DBM_CART",
 
-        JSON.stringify(cart)
+        JSON.stringify(
+            cart
+        )
 
     );
 
 }
 
 
-/* =========================
-   CHECKOUT
-========================= */
+/* =====================================================
+   SUMMARY
+===================================================== */
 
-function goToCheckout(){
+function updateSummary() {
 
-    if(cart.length === 0){
+    let itemCount = 0;
+
+    let total = 0;
+
+
+    cart.forEach(
+
+        item => {
+
+            const quantity =
+            item.quantity || 1;
+
+
+            itemCount +=
+            quantity;
+
+
+            total +=
+
+            item.price *
+            quantity;
+
+        }
+
+    );
+
+
+    document
+    .getElementById(
+        "summaryItems"
+    )
+    .textContent =
+    itemCount;
+
+
+    document
+    .getElementById(
+        "summarySubtotal"
+    )
+    .textContent =
+
+    `€${total.toFixed(2)}`;
+
+
+    document
+    .getElementById(
+        "summaryTotal"
+    )
+    .textContent =
+
+    `€${total.toFixed(2)}`;
+
+
+    document
+    .getElementById(
+        "reviewTotal"
+    )
+    .textContent =
+
+    `€${total.toFixed(2)}`;
+
+}
+
+
+/* =====================================================
+   START CHECKOUT
+===================================================== */
+
+function startCheckout() {
+
+    if (
+        cart.length === 0
+    ) {
 
         alert(
             "Your cart is empty."
@@ -1169,115 +2284,106 @@ function goToCheckout(){
 
     }
 
-    document.getElementById(
+
+    document
+    .getElementById(
         "cartPage"
-    ).style.display = "none";
+    )
+    .style.display =
+    "none";
 
-    document.getElementById(
+
+    document
+    .getElementById(
         "checkoutPage"
-    ).style.display = "block";
-
-    renderCheckoutSummary();
-
-    window.scrollTo(0,0);
-
-}
-
-
-/* =========================
-   CHECKOUT SUMMARY
-========================= */
-
-function renderCheckoutSummary(){
-
-    const container =
-        document.getElementById(
-            "checkoutSummary"
-        );
-
-    container.innerHTML = "";
-
-    cart.forEach(item => {
-
-        const row =
-            document.createElement("div");
-
-        row.className =
-            "summary-row";
-
-        row.innerHTML = `
-
-            <span>
-                ${escapeHTML(item.name)}
-                × ${item.quantity}
-            </span>
-
-            <span>
-                €${(
-                    Number(item.price) *
-                    Number(item.quantity)
-                ).toFixed(2)}
-            </span>
-
-        `;
-
-        container.appendChild(row);
-
-    });
-
-    document.getElementById(
-        "checkoutTotal"
-    ).textContent =
-        "€" + getTotal().toFixed(2);
+    )
+    .classList
+    .add(
+        "active"
+    );
 
 }
 
 
-/* =========================
+/* =====================================================
    BACK TO CART
-========================= */
+===================================================== */
 
-function backToCart(){
+function backToCart() {
 
-    document.getElementById(
+    document
+    .getElementById(
         "checkoutPage"
-    ).style.display = "none";
+    )
+    .classList
+    .remove(
+        "active"
+    );
 
-    document.getElementById(
+
+    document
+    .getElementById(
         "cartPage"
-    ).style.display = "block";
-
-    window.scrollTo(0,0);
+    )
+    .style.display =
+    "block";
 
 }
 
 
-/* =========================
-   PLACE ORDER
-========================= */
+/* =====================================================
+   GO TO REVIEW
+===================================================== */
 
-function placeOrder(){
+function goToReview() {
 
     const name =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
+
+    document
+    .getElementById(
+        "customerName"
+    )
+    .value
+    .trim();
+
 
     const email =
-        document.getElementById(
-            "customerEmail"
-        ).value.trim();
+
+    document
+    .getElementById(
+        "customerEmail"
+    )
+    .value
+    .trim();
+
+
+    const discord =
+
+    document
+    .getElementById(
+        "discordUsername"
+    )
+    .value
+    .trim();
+
 
     const payment =
-        document.querySelector(
-            'input[name="payment"]:checked'
-        );
+
+    document
+    .querySelector(
+        'input[name="payment"]:checked'
+    );
 
 
-    if(!name){
+    if (
+        !name ||
+        !email ||
+        !discord ||
+        !payment
+    ) {
 
         alert(
-            "Please enter your name."
+            "Please complete all fields and select a payment method."
         );
 
         return;
@@ -1285,18 +2391,206 @@ function placeOrder(){
     }
 
 
-    if(!email || !email.includes("@")){
+    document
+    .getElementById(
+        "reviewName"
+    )
+    .textContent =
 
-        alert(
-            "Please enter a valid email."
-        );
-
-        return;
-
-    }
+    "Name: " +
+    name;
 
 
-    if(!payment){
+    document
+    .getElementById(
+        "reviewEmail"
+    )
+    .textContent =
+
+    "Email: " +
+    email;
+
+
+    document
+    .getElementById(
+        "reviewDiscord"
+    )
+    .textContent =
+
+    "Discord: " +
+    discord;
+
+
+    document
+    .getElementById(
+        "reviewPayment"
+    )
+    .textContent =
+
+    "Payment: " +
+    payment.value;
+
+
+    const reviewList =
+
+    document
+    .getElementById(
+        "reviewList"
+    );
+
+
+    reviewList.innerHTML = "";
+
+
+    cart.forEach(
+
+        item => {
+
+            const quantity =
+            item.quantity || 1;
+
+
+            const row =
+
+            document
+            .createElement(
+                "div"
+            );
+
+
+            row.className =
+            "review-item";
+
+
+            row.innerHTML = `
+
+                <span>
+
+                    ${escapeHTML(item.name)}
+
+                    × ${quantity}
+
+                </span>
+
+
+                <strong>
+
+                    €${(
+                        item.price *
+                        quantity
+                    ).toFixed(2)}
+
+                </strong>
+
+            `;
+
+
+            reviewList.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+
+    document
+    .getElementById(
+        "checkoutStepOne"
+    )
+    .style.display =
+    "none";
+
+
+    document
+    .getElementById(
+        "checkoutStepTwo"
+    )
+    .style.display =
+    "block";
+
+
+    document
+    .getElementById(
+        "stepOneIndicator"
+    )
+    .classList
+    .remove(
+        "active"
+    );
+
+
+    document
+    .getElementById(
+        "stepTwoIndicator"
+    )
+    .classList
+    .add(
+        "active"
+    );
+
+}
+
+
+/* =====================================================
+   BACK TO DETAILS
+===================================================== */
+
+function backToDetails() {
+
+    document
+    .getElementById(
+        "checkoutStepTwo"
+    )
+    .style.display =
+    "none";
+
+
+    document
+    .getElementById(
+        "checkoutStepOne"
+    )
+    .style.display =
+    "block";
+
+
+    document
+    .getElementById(
+        "stepTwoIndicator"
+    )
+    .classList
+    .remove(
+        "active"
+    );
+
+
+    document
+    .getElementById(
+        "stepOneIndicator"
+    )
+    .classList
+    .add(
+        "active"
+    );
+
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+function placeOrder() {
+
+    const payment =
+
+    document
+    .querySelector(
+        'input[name="payment"]:checked'
+    );
+
+
+    if (!payment) {
 
         alert(
             "Please select a payment method."
@@ -1307,106 +2601,137 @@ function placeOrder(){
     }
 
 
-    document.getElementById(
-        "checkoutPage"
-    ).style.display = "none";
+    const order = {
 
-    document.getElementById(
-        "successPage"
-    ).style.display = "block";
+        id:
+        "DBM-" +
+        Date.now(),
+
+        customer: {
+
+            name:
+            document
+            .getElementById(
+                "customerName"
+            )
+            .value,
+
+            email:
+            document
+            .getElementById(
+                "customerEmail"
+            )
+            .value,
+
+            discord:
+            document
+            .getElementById(
+                "discordUsername"
+            )
+            .value
+
+        },
+
+        payment:
+        payment.value,
+
+        products:
+        cart,
+
+        createdAt:
+        new Date()
+        .toISOString()
+
+    };
 
 
-    document.getElementById(
-        "selectedPayment"
-    ).textContent =
+    localStorage.setItem(
 
-        payment.value === "paypal"
+        "DBM_LAST_ORDER",
 
-        ? "PayPal"
+        JSON.stringify(
+            order
+        )
 
-        : "Revolut";
-
-
-    /*
-       IMPORTANT:
-
-       Εδώ αργότερα θα συνδεθεί
-       το πραγματικό PayPal API
-       ή Revolut API.
-
-       Το συγκεκριμένο demo
-       δεν πραγματοποιεί πραγματική
-       χρηματική συναλλαγή.
-    */
-
-
-    localStorage.removeItem(
-        "DBM_CART"
     );
+
 
     cart = [];
 
-    window.scrollTo(0,0);
+
+    saveCart();
+
+
+    document
+    .getElementById(
+        "checkoutPage"
+    )
+    .classList
+    .remove(
+        "active"
+    );
+
+
+    document
+    .getElementById(
+        "successPage"
+    )
+    .classList
+    .add(
+        "active"
+    );
 
 }
 
 
-/* =========================
-   FINISH
-========================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-function finishOrder(){
-
-    window.location.href =
-        "index.html";
-
-}
-
-
-/* =========================
-   SECURITY
-========================= */
-
-function escapeHTML(text){
+function escapeHTML(
+    text
+) {
 
     return String(text)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
 renderCart();
 
 </script>
 
+
 </body>
+
 </html>
 ```
