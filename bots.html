@@ -1,11 +1,11 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discord Bots | Discord Board Marketplace</title>
+<title>Discord Board Marketplace — Bots</title>
 
 <style>
 * {
@@ -16,9 +16,9 @@
 
 body {
     min-height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: Inter, Arial, sans-serif;
     color: white;
-    background: #05060b;
+    background: #03040a;
     overflow-x: hidden;
 }
 
@@ -27,74 +27,65 @@ body {
 .background {
     position: fixed;
     inset: 0;
-    z-index: -2;
+    z-index: -10;
     background:
-        radial-gradient(circle at 15% 20%, rgba(88,101,242,.22), transparent 30%),
-        radial-gradient(circle at 85% 70%, rgba(139,92,246,.18), transparent 30%),
-        #05060b;
+        radial-gradient(circle at 15% 10%, rgba(88,101,242,.18), transparent 30%),
+        radial-gradient(circle at 85% 60%, rgba(139,92,246,.15), transparent 30%),
+        #03040a;
 }
 
-.orb {
+.aurora {
     position: absolute;
-    width: 550px;
-    height: 550px;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: .25;
-    animation: move 15s infinite alternate ease-in-out;
+    filter: blur(140px);
+    opacity: .18;
 }
 
-.orb.one {
+.aurora.one {
     background: #5865f2;
-    top: -250px;
+    top: -300px;
     left: -200px;
 }
 
-.orb.two {
+.aurora.two {
     background: #8b5cf6;
-    right: -250px;
-    bottom: -200px;
-}
-
-@keyframes move {
-    from {
-        transform: translate(0,0) scale(1);
-    }
-
-    to {
-        transform: translate(100px,80px) scale(1.2);
-    }
+    right: -300px;
+    top: 40%;
 }
 
 /* NAVBAR */
 
 .navbar {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: sticky;
+    top: 15px;
+    z-index: 1000;
 
-    width: 94%;
+    width: 92%;
     max-width: 1250px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 15px auto;
 
     padding: 15px 20px;
 
-    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
 
-    background: rgba(255,255,255,.06);
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.12);
 
     backdrop-filter: blur(25px);
-
-    z-index: 1000;
 }
 
 .logo {
+    font-size: 19px;
     font-weight: 900;
+    white-space: nowrap;
 }
 
 .logo span {
@@ -103,154 +94,190 @@ body {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 6px;
     flex-wrap: wrap;
 }
 
 .nav-links a {
-    color: rgba(255,255,255,.65);
+    color: rgba(255,255,255,.7);
     text-decoration: none;
-
     padding: 9px 13px;
     border-radius: 10px;
-
     transition: .3s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
     color: white;
     background: rgba(255,255,255,.1);
 }
 
-.cart {
+.cart-button {
     background: linear-gradient(135deg,#5865f2,#8b5cf6);
     color: white !important;
 }
 
-/* PAGE */
+/* HEADER */
 
-.page {
+.page-header {
     width: 92%;
     max-width: 1200px;
-
     margin: auto;
-
-    padding:
-        170px 0
-        100px;
-}
-
-.header {
+    padding: 90px 0 45px;
     text-align: center;
-    margin-bottom: 60px;
 }
 
-.header h1 {
-    font-size: clamp(45px,7vw,80px);
+.page-header h1 {
+    font-size: clamp(42px,7vw,75px);
     margin-bottom: 20px;
 }
 
-.header h1 span {
+.page-header h1 span {
     color: #7280ff;
+    text-shadow: 0 0 50px rgba(88,101,242,.5);
 }
 
-.header p {
+.page-header p {
+    max-width: 650px;
+    margin: auto;
     color: rgba(255,255,255,.55);
-    font-size: 18px;
+    line-height: 1.7;
 }
 
-/* BOT GRID */
+/* CONTROLS */
 
-.bot-grid {
+.controls {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search {
+    flex: 1;
+    min-width: 220px;
+
+    padding: 14px 17px;
+
+    color: white;
+
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 12px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: #7280ff;
+}
+
+.filter {
+    padding: 14px 17px;
+
+    color: white;
+
+    background: #11131e;
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 12px;
+    outline: none;
+}
+
+/* PRODUCTS */
+
+.products {
+    width: 92%;
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 100px;
+
     display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(260px,1fr)
-        );
-
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
     gap: 22px;
 }
 
-/* BOT CARD */
-
-.bot-card {
+.product-card {
     overflow: hidden;
 
-    border-radius: 24px;
+    border-radius: 22px;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.08),
-            rgba(255,255,255,.025)
-        );
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.07),
+        rgba(255,255,255,.025)
+    );
 
-    border:
-        1px solid
-        rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.12);
 
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(20px);
 
-    transition: .4s;
+    transition: .35s;
 }
 
-.bot-card:hover {
-    transform: translateY(-10px);
-
-    border-color:
-        rgba(114,128,255,.5);
-
-    box-shadow:
-        0 25px 80px
-        rgba(0,0,0,.4);
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(114,128,255,.5);
+    box-shadow: 0 25px 70px rgba(0,0,0,.4);
 }
 
-.bot-image {
-    height: 180px;
+.product-image {
+    width: 100%;
+    height: 190px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(88,101,242,.3),
-            rgba(139,92,246,.2)
-        );
+        radial-gradient(circle,rgba(88,101,242,.25),transparent 60%),
+        #080a13;
 
-    font-size: 65px;
+    overflow: hidden;
 }
 
-.bot-content {
-    padding: 25px;
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.bot-content h3 {
-    font-size: 23px;
+.default-icon {
+    font-size: 70px;
+}
+
+.product-content {
+    padding: 24px;
+}
+
+.product-content h3 {
+    font-size: 22px;
     margin-bottom: 10px;
 }
 
-.bot-description {
+.description {
     color: rgba(255,255,255,.55);
     line-height: 1.6;
     min-height: 50px;
 }
 
-.bot-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.product-info {
+    margin: 20px 0;
 
-    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .price {
-    font-size: 22px;
-    font-weight: 900;
-    color: #8d96ff;
+    font-size: 23px;
+    font-weight: 800;
+    color: #8f99ff;
 }
 
 .stock {
@@ -258,41 +285,47 @@ body {
     font-size: 14px;
 }
 
-.buy-button {
-    display: block;
+.stock.out {
+    color: #ff7070;
+}
 
-    width: 100%;
+.actions {
+    display: flex;
+    gap: 8px;
+}
 
-    margin-top: 18px;
+.btn {
+    flex: 1;
 
-    padding: 13px;
+    padding: 12px;
 
     border: none;
-    border-radius: 12px;
+    border-radius: 11px;
 
     color: white;
+    font-weight: 700;
 
     cursor: pointer;
-
-    font-weight: 800;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5865f2,
-            #8b5cf6
-        );
-
     transition: .3s;
 }
 
-.buy-button:hover {
-    transform: translateY(-3px);
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.buy-button:disabled {
-    background: #333642;
+.btn-primary {
+    background: linear-gradient(135deg,#5865f2,#8b5cf6);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.btn:disabled {
+    opacity: .4;
     cursor: not-allowed;
+    transform: none;
 }
 
 /* EMPTY */
@@ -300,21 +333,142 @@ body {
 .empty {
     grid-column: 1 / -1;
 
-    padding: 60px;
+    padding: 70px 20px;
 
     text-align: center;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
-    background:
-        rgba(255,255,255,.04);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+}
 
-    border:
-        1px solid
-        rgba(255,255,255,.1);
+.empty h2 {
+    margin-bottom: 12px;
+}
 
-    color:
-        rgba(255,255,255,.5);
+.empty p {
+    color: rgba(255,255,255,.5);
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(15px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 600px;
+
+    padding: 30px;
+
+    border-radius: 22px;
+
+    background: #0c0e18;
+    border: 1px solid rgba(255,255,255,.15);
+
+    box-shadow: 0 30px 100px rgba(0,0,0,.6);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.close {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: white;
+    background: rgba(255,255,255,.08);
+
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.modal-image {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-description {
+    color: rgba(255,255,255,.6);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.modal-price {
+    font-size: 25px;
+    font-weight: 800;
+    color: #8f99ff;
+    margin-bottom: 20px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 6000;
+
+    padding: 15px 20px;
+
+    border-radius: 12px;
+
+    background: #151827;
+    border: 1px solid rgba(255,255,255,.12);
+
+    transform: translateY(100px);
+    opacity: 0;
+
+    transition: .3s;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+
+    color: rgba(255,255,255,.4);
 }
 
 /* MOBILE */
@@ -323,201 +477,424 @@ body {
 
     .navbar {
         flex-direction: column;
-        gap: 10px;
     }
 
-    .page {
-        padding-top: 210px;
+    .nav-links {
+        justify-content: center;
     }
 
+    .page-header {
+        padding-top: 60px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="background">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
+    <div class="aurora one"></div>
+    <div class="aurora two"></div>
 </div>
+
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
-    <div class="logo">
-        Discord
-        <span>Board</span>
-        Marketplace
-    </div>
+```
+<div class="logo">
+    Discord <span>Board</span> Marketplace
+</div>
 
-    <div class="nav-links">
+<div class="nav-links">
 
-        <a href="index.html">
-            Home
-        </a>
+    <a href="index.html">Home</a>
 
-        <a href="bots.html">
-            🤖 Bots
-        </a>
+    <a href="bots.html" class="active">Bots</a>
 
-        <a href="hosting.html">
-            ☁️ Hosting
-        </a>
+    <a href="hosting.html">Hosting</a>
 
-        <a href="support.html">
-            🎧 Support
-        </a>
+    <a href="support.html">Support</a>
 
-        <a href="cart.html" class="cart">
-            🛒 Cart
-        </a>
+    <a href="cart.html" class="cart-button">
+        🛒 Cart
+        <span id="cartCount">0</span>
+    </a>
 
-    </div>
+</div>
+```
 
 </nav>
 
-<main class="page">
+<!-- HEADER -->
 
-    <div class="header">
+<header class="page-header">
 
-        <h1>
-            Discord <span>Bots</span>
-        </h1>
+```
+<h1>
+    Discord <span>Bots</span>
+</h1>
 
-        <p>
-            Discover premium Discord bots
-            for your community.
-        </p>
+<p>
+    Discover premium Discord bots for moderation,
+    automation, security and community management.
+</p>
+```
+
+</header>
+
+<!-- SEARCH -->
+
+<div class="controls">
+
+```
+<input
+    type="text"
+    id="searchInput"
+    class="search"
+    placeholder="🔎 Search bots..."
+    oninput="renderBots()"
+>
+
+<select
+    id="filterSelect"
+    class="filter"
+    onchange="renderBots()"
+>
+
+    <option value="all">
+        All Bots
+    </option>
+
+    <option value="available">
+        Available
+    </option>
+
+    <option value="out">
+        Out of Stock
+    </option>
+
+</select>
+```
+
+</div>
+
+<!-- PRODUCTS -->
+
+<main
+    id="products"
+    class="products"
+>
+</main>
+
+<!-- DETAILS MODAL -->
+
+<div
+    class="modal"
+    id="detailsModal"
+>
+
+```
+<div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2 id="modalTitle">
+            Bot Details
+        </h2>
+
+        <button
+            class="close"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
 
     </div>
 
-    <div
-        class="bot-grid"
-        id="botGrid"
+    <img
+        id="modalImage"
+        class="modal-image"
+        alt="Bot"
     >
 
-    </div>
+    <p
+        id="modalDescription"
+        class="modal-description"
+    ></p>
 
-</main>
+    <div
+        id="modalPrice"
+        class="modal-price"
+    ></div>
+
+    <button
+        id="modalCartButton"
+        class="btn btn-primary"
+    >
+        🛒 Add to Cart
+    </button>
+
+</div>
+```
+
+</div>
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    Added to cart!
+</div>
+
+<footer>
+
+```
+<p>
+    © 2026 Discord Board Marketplace. All rights reserved.
+</p>
+```
+
+</footer>
 
 <script>
 
-const bots =
-    JSON.parse(
-        localStorage.getItem("DBM_BOTS")
-    ) || [];
+/* =====================================================
+   LOAD BOTS FROM OWNER PANEL
+===================================================== */
 
-const botGrid =
-    document.getElementById("botGrid");
+let bots = JSON.parse(
+    localStorage.getItem("DBM_BOTS")
+) || [];
 
 
-function escapeHTML(text) {
+/* =====================================================
+   LOAD CART
+===================================================== */
 
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+let cart = JSON.parse(
+    localStorage.getItem("DBM_CART")
+) || [];
 
-}
 
+/* =====================================================
+   RENDER BOTS
+===================================================== */
 
 function renderBots() {
 
-    botGrid.innerHTML = "";
+    const container =
+        document.getElementById("products");
 
-    if (bots.length === 0) {
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
 
-        botGrid.innerHTML = `
+    const filter =
+        document
+        .getElementById("filterSelect")
+        .value;
+
+
+    let filteredBots =
+        bots.filter(bot => {
+
+            const matchesSearch =
+                bot.name
+                .toLowerCase()
+                .includes(search) ||
+
+                (bot.description || "")
+                .toLowerCase()
+                .includes(search);
+
+
+            const matchesFilter =
+                filter === "all" ||
+
+                (
+                    filter === "available" &&
+                    bot.stock > 0
+                ) ||
+
+                (
+                    filter === "out" &&
+                    bot.stock <= 0
+                );
+
+
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
+
+        });
+
+
+    container.innerHTML = "";
+
+
+    if(filteredBots.length === 0) {
+
+        container.innerHTML = `
+
             <div class="empty">
 
                 <h2>
-                    🤖 No Bots Available
+                    🤖 No Bots Found
                 </h2>
 
-                <p style="margin-top:10px;">
-                    New bots will appear here soon.
+                <p>
+                    No bots are currently available.
+                    Add products from your Owner Panel.
                 </p>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
-    bots.forEach(bot => {
+    filteredBots.forEach(bot => {
 
         const card =
             document.createElement("div");
 
         card.className =
-            "bot-card";
+            "product-card";
 
 
-        const image =
+        const imageHTML =
             bot.image
-            ? `<img
-                src="${escapeHTML(bot.image)}"
-                style="width:100%;height:100%;object-fit:cover;"
-              >`
-            : "🤖";
+
+            ? `
+                <img
+                    src="${escapeHTML(bot.image)}"
+                    alt="${escapeHTML(bot.name)}"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                >
+
+                <div
+                    class="default-icon"
+                    style="display:none"
+                >
+                    🤖
+                </div>
+              `
+
+            : `
+                <div class="default-icon">
+                    🤖
+                </div>
+              `;
+
+
+        const stockText =
+            bot.stock > 0
+
+            ? `Stock: ${bot.stock}`
+
+            : "Out of Stock";
+
+
+        const stockClass =
+            bot.stock > 0
+            ? ""
+            : "out";
 
 
         card.innerHTML = `
 
-            <div class="bot-image">
-                ${image}
+            <div class="product-image">
+
+                ${imageHTML}
+
             </div>
 
-            <div class="bot-content">
+
+            <div class="product-content">
 
                 <h3>
                     ${escapeHTML(bot.name)}
                 </h3>
 
-                <p class="bot-description">
+
+                <p class="description">
+
                     ${escapeHTML(
                         bot.description ||
-                        "Premium Discord Bot."
+                        "Premium Discord bot."
                     )}
+
                 </p>
 
-                <div class="bot-info">
+
+                <div class="product-info">
 
                     <span class="price">
+
                         €${Number(bot.price).toFixed(2)}
+
                     </span>
 
-                    <span class="stock">
-                        Stock: ${bot.stock}
+
+                    <span class="stock ${stockClass}">
+
+                        ${stockText}
+
                     </span>
 
                 </div>
 
-                <button
-                    class="buy-button"
-                    ${bot.stock <= 0 ? "disabled" : ""}
-                    onclick="addToCart(${bot.id})"
-                >
 
-                    ${
-                        bot.stock > 0
-                        ? "🛒 Add to Cart"
-                        : "Out of Stock"
-                    }
+                <div class="actions">
 
-                </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="showDetails(${bot.id})"
+                    >
+                        View Details
+                    </button>
+
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="addToCart(${bot.id})"
+                        ${bot.stock <= 0 ? "disabled" : ""}
+                    >
+                        🛒 Add
+                    </button>
+
+                </div>
 
             </div>
+
         `;
 
-        botGrid.appendChild(card);
+
+        container.appendChild(card);
 
     });
 
 }
 
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
 
 function addToCart(id) {
 
@@ -526,93 +903,332 @@ function addToCart(id) {
             item => item.id === id
         );
 
-    if (!bot) return;
+
+    if(!bot) {
+
+        return;
+
+    }
 
 
-    let cart =
-        JSON.parse(
-            localStorage.getItem("DBM_CART")
-        ) || [];
+    if(bot.stock <= 0) {
 
+        alert(
+            "This product is out of stock."
+        );
 
-    cart.push({
+        return;
 
-        id: bot.id,
+    }
 
-        name: bot.name,
-
-        price: bot.price,
-
-        image: bot.image
-
-    });
-
-
-    localStorage.setItem(
-        "DBM_CART",
-        JSON.stringify(cart)
-    );
-
-
-    alert(
-        bot.name +
-        " was added to your cart!"
-    );
-
-}
-
-
-renderBots();
-
-</script>
-
-</body>
-</html>
-```
-function addToCart(product) {
-
-    let cart =
-        JSON.parse(
-            localStorage.getItem("DBM_CART")
-        ) || [];
 
     const existing =
         cart.find(
-            item => item.id === product.id
+            item =>
+            item.id === bot.id &&
+            item.type === "bot"
         );
 
-    if(existing){
 
-        existing.quantity++;
+    if(existing) {
 
-    }else{
+        if(
+            existing.quantity <
+            bot.stock
+        ) {
+
+            existing.quantity++;
+
+        } else {
+
+            alert(
+                "You cannot add more than the available stock."
+            );
+
+            return;
+
+        }
+
+    } else {
 
         cart.push({
 
-            id: product.id,
+            id:
+                bot.id,
 
-            name: product.name,
+            type:
+                "bot",
 
-            price: Number(product.price),
+            name:
+                bot.name,
 
-            type: product.type || "Digital Product",
+            price:
+                Number(bot.price),
 
-            quantity: 1
+            quantity:
+                1,
+
+            image:
+                bot.image || "",
+
+            botId:
+                bot.botId
 
         });
 
     }
 
+
     localStorage.setItem(
-
         "DBM_CART",
-
         JSON.stringify(cart)
-
     );
 
-    alert(
-        product.name + " added to cart!"
+
+    updateCartCount();
+
+    showToast(
+        "🤖 Bot added to cart!"
     );
 
 }
+
+
+/* =====================================================
+   SHOW DETAILS
+===================================================== */
+
+function showDetails(id) {
+
+    const bot =
+        bots.find(
+            item => item.id === id
+        );
+
+
+    if(!bot) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("modalTitle")
+        .textContent =
+        bot.name;
+
+
+    document
+        .getElementById("modalDescription")
+        .textContent =
+        bot.description ||
+        "Premium Discord bot.";
+
+
+    document
+        .getElementById("modalPrice")
+        .textContent =
+        "€" +
+        Number(bot.price).toFixed(2);
+
+
+    const image =
+        document
+        .getElementById("modalImage");
+
+
+    if(bot.image) {
+
+        image.src =
+            bot.image;
+
+        image.style.display =
+            "block";
+
+    } else {
+
+        image.style.display =
+            "none";
+
+    }
+
+
+    const button =
+        document
+        .getElementById(
+            "modalCartButton"
+        );
+
+
+    button.onclick =
+        function() {
+
+            addToCart(bot.id);
+
+        };
+
+
+    document
+        .getElementById(
+            "detailsModal"
+        )
+        .classList
+        .add("active");
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeModal() {
+
+    document
+        .getElementById(
+            "detailsModal"
+        )
+        .classList
+        .remove("active");
+
+}
+
+
+/* =====================================================
+   UPDATE CART COUNT
+===================================================== */
+
+function updateCartCount() {
+
+    const total =
+        cart.reduce(
+
+            (sum,item) =>
+
+            sum +
+            Number(
+                item.quantity || 1
+            ),
+
+            0
+
+        );
+
+
+    document
+        .getElementById(
+            "cartCount"
+        )
+        .textContent =
+        total;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message) {
+
+    const toast =
+        document
+        .getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList
+        .add("show");
+
+
+    setTimeout(
+
+        () => {
+
+            toast.classList
+                .remove("show");
+
+        },
+
+        2500
+
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text || "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+===================================================== */
+
+document
+    .getElementById("detailsModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if(
+                event.target ===
+                this
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+renderBots();
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
