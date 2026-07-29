@@ -1,0 +1,1412 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Discord Board Marketplace — Cart</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:Inter,Arial,sans-serif;
+    color:#fff;
+    background:#03040a;
+    overflow-x:hidden;
+}
+
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(88,101,242,.20),transparent 30%),
+        radial-gradient(circle at 85% 70%,rgba(139,92,246,.18),transparent 30%),
+        #03040a;
+}
+
+.orb{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.25;
+    animation:moveOrb 18s infinite alternate ease-in-out;
+}
+
+.orb.one{
+    top:-250px;
+    left:-200px;
+    background:#5865f2;
+}
+
+.orb.two{
+    right:-250px;
+    top:30%;
+    background:#8b5cf6;
+    animation-delay:4s;
+}
+
+.orb.three{
+    bottom:-300px;
+    left:35%;
+    background:#06b6d4;
+    animation-delay:8s;
+}
+
+@keyframes moveOrb{
+    0%{
+        transform:translate(0,0) scale(1);
+    }
+
+    50%{
+        transform:translate(100px,80px) scale(1.2);
+    }
+
+    100%{
+        transform:translate(-80px,120px) scale(.9);
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:92%;
+    max-width:1250px;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:1000;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.13);
+
+    backdrop-filter:blur(25px) saturate(150%);
+    -webkit-backdrop-filter:blur(25px) saturate(150%);
+
+    box-shadow:0 20px 70px rgba(0,0,0,.35);
+}
+
+.logo{
+    font-size:19px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#7280ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:5px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:rgba(255,255,255,.65);
+    text-decoration:none;
+    padding:9px 13px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+    background:rgba(255,255,255,.09);
+    transform:translateY(-2px);
+}
+
+.cart-active{
+    background:linear-gradient(
+        135deg,
+        rgba(88,101,242,.9),
+        rgba(139,92,246,.9)
+    ) !important;
+
+    color:#fff !important;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    width:92%;
+    max-width:1100px;
+    margin:auto;
+    padding:150px 0 80px;
+}
+
+.page-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.page-title h1{
+    font-size:clamp(40px,7vw,70px);
+    letter-spacing:-3px;
+    margin-bottom:15px;
+}
+
+.page-title h1 span{
+    color:#7280ff;
+    text-shadow:0 0 50px rgba(88,101,242,.5);
+}
+
+.page-title p{
+    color:rgba(255,255,255,.55);
+}
+
+/* =========================
+   CHECKOUT STEPS
+========================= */
+
+.steps{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:35px;
+}
+
+.step{
+    padding:10px 18px;
+    border-radius:50px;
+    color:rgba(255,255,255,.45);
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.step.active{
+    color:#fff;
+    background:rgba(88,101,242,.25);
+    border-color:rgba(114,128,255,.5);
+}
+
+/* =========================
+   GLASS LAYOUT
+========================= */
+
+.checkout-layout{
+    display:grid;
+    grid-template-columns:1.5fr .8fr;
+    gap:22px;
+}
+
+.glass{
+    padding:30px;
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(25px) saturate(140%);
+    -webkit-backdrop-filter:blur(25px) saturate(140%);
+
+    box-shadow:0 25px 90px rgba(0,0,0,.3);
+}
+
+/* =========================
+   CART ITEMS
+========================= */
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+
+    padding:18px;
+    margin-bottom:12px;
+
+    border-radius:16px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.product-info{
+    flex:1;
+}
+
+.product-info h3{
+    margin-bottom:6px;
+}
+
+.product-info p{
+    color:rgba(255,255,255,.5);
+    font-size:14px;
+}
+
+.product-price{
+    color:#9ca7ff;
+    font-weight:800;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.quantity button{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:8px;
+    color:#fff;
+    background:rgba(255,255,255,.09);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.quantity button:hover{
+    background:#5865f2;
+}
+
+.remove{
+    border:0;
+    border-radius:8px;
+    padding:9px 11px;
+    color:#fff;
+    background:rgba(220,60,70,.18);
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:rgba(255,255,255,.5);
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary h2{
+    margin-bottom:25px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    color:rgba(255,255,255,.6);
+}
+
+.summary-total{
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.1);
+    font-size:22px;
+    font-weight:800;
+}
+
+.total-price{
+    color:#9ca7ff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+
+    border:0;
+    border-radius:13px;
+
+    color:#fff;
+    font-size:15px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    box-shadow:0 15px 45px rgba(88,101,242,.25);
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 20px 60px rgba(88,101,242,.45);
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    color:rgba(255,255,255,.55);
+    text-decoration:none;
+}
+
+/* =========================
+   CHECKOUT PAGE
+========================= */
+
+#checkoutPage{
+    display:none;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    color:rgba(255,255,255,.65);
+    font-size:14px;
+}
+
+.input{
+    width:100%;
+    padding:14px;
+
+    color:#fff;
+    background:rgba(255,255,255,.055);
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:11px;
+
+    outline:none;
+}
+
+.input:focus{
+    border-color:#7280ff;
+    box-shadow:0 0 25px rgba(88,101,242,.15);
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-options{
+    display:grid;
+    gap:12px;
+    margin-top:20px;
+}
+
+.payment-option{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.1);
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.payment-option:hover{
+    border-color:rgba(114,128,255,.5);
+    transform:translateY(-2px);
+}
+
+.payment-option input{
+    accent-color:#5865f2;
+}
+
+.payment-logo{
+    font-size:25px;
+}
+
+.payment-info strong{
+    display:block;
+}
+
+.payment-info span{
+    color:rgba(255,255,255,.45);
+    font-size:13px;
+}
+
+/* =========================
+   SUCCESS
+========================= */
+
+#successPage{
+    display:none;
+    text-align:center;
+}
+
+.success-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.success-box{
+    max-width:650px;
+    margin:auto;
+}
+
+.success-box h2{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.success-box p{
+    color:rgba(255,255,255,.55);
+    line-height:1.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .checkout-layout{
+        grid-template-columns:1fr;
+    }
+
+    .cart-item{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .steps{
+        flex-wrap:wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Discord <span>Board</span> Marketplace
+    </div>
+
+    <div class="nav-links">
+
+        <a href="index.html">Home</a>
+
+        <a href="bots.html">Bots</a>
+
+        <a href="hosting.html">Hosting</a>
+
+        <a href="support.html">Support</a>
+
+        <a href="cart.html" class="cart-active">
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="main">
+
+<!-- =========================
+     CART PAGE
+========================= -->
+
+<section id="cartPage">
+
+    <div class="page-title">
+
+        <h1>
+            Your <span>Cart</span>
+        </h1>
+
+        <p>
+            Review your products before continuing to checkout.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step active">
+            1. Cart
+        </div>
+
+        <div class="step">
+            2. Checkout
+        </div>
+
+        <div class="step">
+            3. Complete
+        </div>
+
+    </div>
+
+
+    <div class="checkout-layout">
+
+        <div class="glass">
+
+            <h2>
+                🛒 Your Products
+            </h2>
+
+            <br>
+
+            <div id="cartItems"></div>
+
+        </div>
+
+
+        <div class="glass summary">
+
+            <h2>
+                Order Summary
+            </h2>
+
+            <div class="summary-row">
+
+                <span>
+                    Products
+                </span>
+
+                <span id="subtotal">
+                    €0.00
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Service Fee
+                </span>
+
+                <span>
+                    €0.00
+                </span>
+
+            </div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span class="total-price" id="total">
+                    €0.00
+                </span>
+
+            </div>
+
+
+            <button
+                class="btn"
+                onclick="goToCheckout()"
+            >
+                Continue to Checkout →
+            </button>
+
+            <a
+                href="bots.html"
+                class="back-btn"
+            >
+                ← Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CHECKOUT PAGE
+========================= -->
+
+<section id="checkoutPage">
+
+    <div class="page-title">
+
+        <h1>
+            Secure <span>Checkout</span>
+        </h1>
+
+        <p>
+            Complete your details and select your payment method.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+            1. Cart
+        </div>
+
+        <div class="step active">
+            2. Checkout
+        </div>
+
+        <div class="step">
+            3. Complete
+        </div>
+
+    </div>
+
+
+    <div class="checkout-layout">
+
+
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="glass">
+
+            <h2>
+                👤 Customer Information
+            </h2>
+
+            <br>
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    id="customerName"
+                    class="input"
+                    type="text"
+                    placeholder="Your name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    id="customerEmail"
+                    class="input"
+                    type="email"
+                    placeholder="you@example.com"
+                >
+
+            </div>
+
+
+            <h2 style="margin-top:30px;">
+                💳 Payment Method
+            </h2>
+
+
+            <div class="payment-options">
+
+
+                <label class="payment-option">
+
+                    <input
+                        type="radio"
+                        name="payment"
+                        value="paypal"
+                    >
+
+                    <div class="payment-logo">
+                        🅿️
+                    </div>
+
+                    <div class="payment-info">
+
+                        <strong>
+                            PayPal
+                        </strong>
+
+                        <span>
+                            Pay securely with PayPal
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+                <label class="payment-option">
+
+                    <input
+                        type="radio"
+                        name="payment"
+                        value="revolut"
+                    >
+
+                    <div class="payment-logo">
+                        💙
+                    </div>
+
+                    <div class="payment-info">
+
+                        <strong>
+                            Revolut
+                        </strong>
+
+                        <span>
+                            Pay using Revolut
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+            </div>
+
+
+            <button
+                class="btn"
+                onclick="placeOrder()"
+            >
+                Complete Order
+            </button>
+
+
+            <button
+                class="btn"
+                style="background:rgba(255,255,255,.07);box-shadow:none;"
+                onclick="backToCart()"
+            >
+                ← Back to Cart
+            </button>
+
+        </div>
+
+
+        <!-- CHECKOUT SUMMARY -->
+
+        <div class="glass summary">
+
+            <h2>
+                Order Summary
+            </h2>
+
+            <div id="checkoutSummary"></div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span
+                    class="total-price"
+                    id="checkoutTotal"
+                >
+                    €0.00
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SUCCESS PAGE
+========================= -->
+
+<section id="successPage">
+
+    <div class="glass success-box">
+
+        <div class="success-icon">
+            🎉
+        </div>
+
+        <h2>
+            Order Created!
+        </h2>
+
+        <p>
+            Your order has been received successfully.
+            You selected <strong id="selectedPayment"></strong>
+            as your payment method.
+        </p>
+
+        <button
+            class="btn"
+            onclick="finishOrder()"
+        >
+            Return to Marketplace
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =========================
+   CART DATA
+========================= */
+
+let cart = JSON.parse(
+    localStorage.getItem("DBM_CART")
+) || [];
+
+
+/* =========================
+   RENDER CART
+========================= */
+
+function renderCart(){
+
+    const container =
+        document.getElementById("cartItems");
+
+    const count =
+        document.getElementById("cartCount");
+
+    container.innerHTML = "";
+
+    let totalItems = 0;
+
+    cart.forEach(item => {
+
+        totalItems += item.quantity;
+
+        const element =
+            document.createElement("div");
+
+        element.className =
+            "cart-item";
+
+        element.innerHTML = `
+
+            <div class="product-info">
+
+                <h3>
+                    ${escapeHTML(item.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(item.type || "Digital Product")}
+                </p>
+
+            </div>
+
+            <div class="product-price">
+
+                €${Number(item.price).toFixed(2)}
+
+            </div>
+
+            <div class="quantity">
+
+                <button
+                    onclick="changeQuantity(${item.id},-1)"
+                >
+                    −
+                </button>
+
+                <strong>
+                    ${item.quantity}
+                </strong>
+
+                <button
+                    onclick="changeQuantity(${item.id},1)"
+                >
+                    +
+                </button>
+
+            </div>
+
+            <button
+                class="remove"
+                onclick="removeItem(${item.id})"
+            >
+                🗑️
+            </button>
+
+        `;
+
+        container.appendChild(element);
+
+    });
+
+
+    count.textContent =
+        totalItems;
+
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div style="font-size:50px;">
+                    🛒
+                </div>
+
+                <br>
+
+                Your cart is empty.
+
+                <br><br>
+
+                <a
+                    href="bots.html"
+                    class="back-btn"
+                >
+                    Browse Products
+                </a>
+
+            </div>
+
+        `;
+
+    }
+
+
+    updateTotals();
+
+}
+
+
+/* =========================
+   CHANGE QUANTITY
+========================= */
+
+function changeQuantity(id, amount){
+
+    const item =
+        cart.find(
+            product => product.id === id
+        );
+
+    if(!item) return;
+
+    item.quantity += amount;
+
+    if(item.quantity <= 0){
+
+        cart =
+            cart.filter(
+                product => product.id !== id
+            );
+
+    }
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =========================
+   REMOVE ITEM
+========================= */
+
+function removeItem(id){
+
+    cart =
+        cart.filter(
+            item => item.id !== id
+        );
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =========================
+   TOTALS
+========================= */
+
+function getTotal(){
+
+    return cart.reduce(
+
+        (total,item) =>
+
+        total +
+        (
+            Number(item.price) *
+            Number(item.quantity)
+        ),
+
+        0
+
+    );
+
+}
+
+
+function updateTotals(){
+
+    const total =
+        getTotal();
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        "€" + total.toFixed(2);
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        "€" + total.toFixed(2);
+
+}
+
+
+/* =========================
+   SAVE CART
+========================= */
+
+function saveCart(){
+
+    localStorage.setItem(
+
+        "DBM_CART",
+
+        JSON.stringify(cart)
+
+    );
+
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function goToCheckout(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+    document.getElementById(
+        "cartPage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "checkoutPage"
+    ).style.display = "block";
+
+    renderCheckoutSummary();
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   CHECKOUT SUMMARY
+========================= */
+
+function renderCheckoutSummary(){
+
+    const container =
+        document.getElementById(
+            "checkoutSummary"
+        );
+
+    container.innerHTML = "";
+
+    cart.forEach(item => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "summary-row";
+
+        row.innerHTML = `
+
+            <span>
+                ${escapeHTML(item.name)}
+                × ${item.quantity}
+            </span>
+
+            <span>
+                €${(
+                    Number(item.price) *
+                    Number(item.quantity)
+                ).toFixed(2)}
+            </span>
+
+        `;
+
+        container.appendChild(row);
+
+    });
+
+    document.getElementById(
+        "checkoutTotal"
+    ).textContent =
+        "€" + getTotal().toFixed(2);
+
+}
+
+
+/* =========================
+   BACK TO CART
+========================= */
+
+function backToCart(){
+
+    document.getElementById(
+        "checkoutPage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "cartPage"
+    ).style.display = "block";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   PLACE ORDER
+========================= */
+
+function placeOrder(){
+
+    const name =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "customerEmail"
+        ).value.trim();
+
+    const payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+
+    if(!name){
+
+        alert(
+            "Please enter your name."
+        );
+
+        return;
+
+    }
+
+
+    if(!email || !email.includes("@")){
+
+        alert(
+            "Please enter a valid email."
+        );
+
+        return;
+
+    }
+
+
+    if(!payment){
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "checkoutPage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "successPage"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "selectedPayment"
+    ).textContent =
+
+        payment.value === "paypal"
+
+        ? "PayPal"
+
+        : "Revolut";
+
+
+    /*
+       IMPORTANT:
+
+       Εδώ αργότερα θα συνδεθεί
+       το πραγματικό PayPal API
+       ή Revolut API.
+
+       Το συγκεκριμένο demo
+       δεν πραγματοποιεί πραγματική
+       χρηματική συναλλαγή.
+    */
+
+
+    localStorage.removeItem(
+        "DBM_CART"
+    );
+
+    cart = [];
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   FINISH
+========================= */
+
+function finishOrder(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================
+   INIT
+========================= */
+
+renderCart();
+
+</script>
+
+</body>
+</html>
+```
