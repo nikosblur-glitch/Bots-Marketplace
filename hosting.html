@@ -1,388 +1,695 @@
-```html
 <!DOCTYPE html>
+
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discord Bot Marketplace - Hosting</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  <title>Hosting | Discord Bot Marketplace</title>
 
-body {
-    font-family: Arial, sans-serif;
-    background: #0b0f19;
-    color: white;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-header {
-    background: #111827;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #263043;
-}
+    body {
+      background: #0b0f19;
+      color: white;
+      min-height: 100vh;
+    }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+    header {
+      background: #111827;
+      border-bottom: 1px solid #263044;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-}
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #5865f2;
+    }
 
-nav a:hover {
-    color: #7289da;
-}
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-.hero {
-    text-align: center;
-    padding: 60px 20px 40px;
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
 
-.hero h1 {
-    font-size: 42px;
-    margin-bottom: 15px;
-}
+    nav a:hover,
+    nav a.active {
+      background: #5865f2;
+    }
 
-.hero p {
-    color: #aeb7c7;
-}
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+    }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-}
+    .hero h1 {
+      font-size: 44px;
+      margin-bottom: 15px;
+    }
 
-.hosting-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    padding: 30px 0 60px;
-}
+    .hero h1 span {
+      color: #5865f2;
+    }
 
-.card {
-    background: #151c2c;
-    border: 1px solid #273249;
-    border-radius: 15px;
-    padding: 25px;
-    transition: 0.3s;
-}
+    .hero p {
+      color: #aeb7ca;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #7289da;
-}
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px 80px;
+    }
 
-.card h2 {
-    margin-bottom: 10px;
-}
+    .hosting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+    }
 
-.description {
-    color: #aeb7c7;
-    min-height: 50px;
-    margin-bottom: 15px;
-}
+    .hosting-card {
+      background: #111827;
+      border: 1px solid #263044;
+      border-radius: 16px;
+      padding: 25px;
+      transition: 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
 
-.price {
-    font-size: 25px;
-    font-weight: bold;
-    margin: 15px 0;
-}
+    .hosting-card:hover {
+      transform: translateY(-6px);
+      border-color: #5865f2;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+    }
 
-.features {
-    list-style: none;
-    margin-bottom: 20px;
-}
+    .hosting-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
 
-.features li {
-    margin: 8px 0;
-    color: #cbd5e1;
-}
+    .hosting-card h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
 
-.views {
-    color: #9ca3af;
-    margin-bottom: 15px;
-}
+    .hosting-card p {
+      color: #aeb7ca;
+      line-height: 1.5;
+      min-height: 70px;
+    }
 
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #5865f2;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
+    .price {
+      font-size: 26px;
+      font-weight: bold;
+      color: #5865f2;
+      margin: 20px 0;
+    }
 
-button:hover {
-    background: #4752c4;
-}
+    .price small {
+      font-size: 14px;
+      color: #8e98ad;
+      font-weight: normal;
+    }
 
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #111827;
-    color: #8b95a7;
-}
-</style>
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 9px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .view-btn {
+      background: #5865f2;
+      color: white;
+      flex: 1;
+    }
+
+    .cart-btn {
+      background: #202938;
+      color: white;
+    }
+
+    .view-btn:hover {
+      background: #4752c4;
+    }
+
+    .cart-btn:hover {
+      background: #303b4e;
+    }
+
+    #modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #111827;
+      border: 1px solid #263044;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      background: transparent;
+      color: white;
+      font-size: 25px;
+    }
+
+    .modal-box h2 {
+      color: #5865f2;
+      margin-bottom: 15px;
+    }
+
+    .modal-box p {
+      color: #b8c0d0;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .modal-price {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .add-modal {
+      width: 100%;
+      background: #5865f2;
+      color: white;
+    }
+
+    .cart-count {
+      background: #5865f2;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #263044;
+      color: #7f8ba3;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      nav {
+        justify-content: center;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Discord Bot Marketplace</div>
 
-    <nav>
-        <a href="index.html">🏠 Home</a>
-        <a href="bots.html">🤖 Bots</a>
-        <a href="hosting.html">🖥️ Hosting</a>
-        <a href="cart.html">🛒 Cart</a>
-        <a href="support.html">🎫 Support</a>
-    </nav>
+  <div class="logo">
+    Discord Bot Marketplace
+  </div>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="bots.html">🤖 Bots</a>
+    <a href="hosting.html" class="active">🖥️ Hosting</a>
+    <a href="support.html">🎧 Support</a>
+    <a href="cart.html">🛒 Cart <span class="cart-count" id="cartCount">0</span></a>
+  </nav>
+
 </header>
 
 <section class="hero">
-    <h1>🖥️ Premium Hosting</h1>
-    <p>Βρες το κατάλληλο hosting για το Discord Bot ή το project σου.</p>
+
+  <h1>🖥️ Discord <span>Hosting</span></h1>
+
+  <p>
+    Βρες το κατάλληλο Hosting για τα Discord Bots και τα projects σου.
+    Διάλεξε ένα πακέτο, δες τις πληροφορίες του και πρόσθεσέ το στο καλάθι.
+  </p>
+
 </section>
 
-<div class="container">
-    <div class="hosting-grid" id="hostingGrid"></div>
+<main class="container">
+
+  <div class="hosting-grid" id="hostingGrid"></div>
+
+</main>
+
+<div id="modal">
+
+  <div class="modal-box">
+
+```
+<button class="close" onclick="closeModal()">×</button>
+
+<h2 id="modalTitle"></h2>
+
+<p id="modalDescription"></p>
+
+<div class="modal-price" id="modalPrice"></div>
+
+<button class="add-modal" id="modalAdd">
+  🛒 Add to Cart
+</button>
+```
+
+  </div>
+
 </div>
 
 <footer>
-    © 2026 Discord Bot Marketplace
+  © 2026 Discord Bot Marketplace — All Rights Reserved.
 </footer>
 
 <script>
 
 const hostingProducts = [
 
-{
-id: "hosting-1",
-name: "Starter Hosting",
-price: 2.99,
-description: "Ιδανικό για μικρά Discord Bots.",
-features: ["1GB RAM", "1 CPU Core", "10GB SSD", "24/7 Uptime"]
-},
+  {
+    id: "hosting-01",
+    name: "Starter Hosting",
+    icon: "🟢",
+    description: "Ιδανικό για μικρά Discord Bots και απλά projects.",
+    price: 2.99
+  },
 
-{
-id: "hosting-2",
-name: "Basic Hosting",
-price: 3.99,
-description: "Οικονομικό hosting για μικρά projects.",
-features: ["2GB RAM", "1 CPU Core", "20GB SSD", "24/7 Uptime"]
-},
+  {
+    id: "hosting-02",
+    name: "Basic Hosting",
+    icon: "🔵",
+    description: "Σταθερό Hosting για καθημερινή χρήση Discord Bots.",
+    price: 4.99
+  },
 
-{
-id: "hosting-3",
-name: "Bot Hosting",
-price: 4.99,
-description: "Hosting ειδικά για Discord Bots.",
-features: ["2GB RAM", "2 CPU Cores", "25GB SSD", "Node.js Support"]
-},
+  {
+    id: "hosting-03",
+    name: "Bot Hosting",
+    icon: "🤖",
+    description: "Ειδικά σχεδιασμένο για Discord Bots που χρειάζονται 24/7 λειτουργία.",
+    price: 5.99
+  },
 
-{
-id: "hosting-4",
-name: "Premium Bot Hosting",
-price: 6.99,
-description: "Περισσότερη ισχύς για μεγαλύτερα bots.",
-features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Node.js Support"]
-},
+  {
+    id: "hosting-04",
+    name: "Premium Bot Hosting",
+    icon: "⭐",
+    description: "Premium πακέτο για απαιτητικά Discord Bots.",
+    price: 9.99
+  },
 
-{
-id: "hosting-5",
-name: "Advanced Hosting",
-price: 7.99,
-description: "Για απαιτητικά Discord projects.",
-features: ["4GB RAM", "4 CPU Cores", "60GB SSD", "24/7 Uptime"]
-},
+  {
+    id: "hosting-05",
+    name: "Advanced Hosting",
+    icon: "🚀",
+    description: "Περισσότεροι πόροι και καλύτερη απόδοση για μεγάλα projects.",
+    price: 14.99
+  },
 
-{
-id: "hosting-6",
-name: "Pro Hosting",
-price: 9.99,
-description: "Ισχυρό hosting για επαγγελματικά projects.",
-features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Premium Support"]
-},
+  {
+    id: "hosting-06",
+    name: "Pro Hosting",
+    icon: "💎",
+    description: "Επαγγελματικό Hosting για μεγάλα Discord Communities.",
+    price: 19.99
+  },
 
-{
-id: "hosting-7",
-name: "Ultimate Hosting",
-price: 14.99,
-description: "Μέγιστη απόδοση για απαιτητικούς χρήστες.",
-features: ["16GB RAM", "6 CPU Cores", "150GB SSD", "Priority Support"]
-},
+  {
+    id: "hosting-07",
+    name: "Game Server Hosting",
+    icon: "🎮",
+    description: "Hosting για gaming projects και communities.",
+    price: 24.99
+  },
 
-{
-id: "hosting-8",
-name: "Minecraft Hosting",
-price: 7.99,
-description: "Hosting για Minecraft servers.",
-features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Java Support"]
-},
+  {
+    id: "hosting-08",
+    name: "Minecraft Hosting",
+    icon: "⛏️",
+    description: "Hosting για Minecraft servers και gaming communities.",
+    price: 12.99
+  },
 
-{
-id: "hosting-9",
-name: "Minecraft Premium",
-price: 14.99,
-description: "Premium hosting για Minecraft.",
-features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "DDoS Protection"]
-},
+  {
+    id: "hosting-09",
+    name: "Web Hosting",
+    icon: "🌐",
+    description: "Hosting για websites και web projects.",
+    price: 7.99
+  },
 
-{
-id: "hosting-10",
-name: "Game Hosting",
-price: 11.99,
-description: "Hosting για gaming projects.",
-features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "24/7 Uptime"]
-},
+  {
+    id: "hosting-10",
+    name: "Developer Hosting",
+    icon: "👨‍💻",
+    description: "Για developers που χρειάζονται αξιόπιστο περιβάλλον για projects.",
+    price: 17.99
+  },
 
-{
-id: "hosting-11",
-name: "Web Hosting",
-price: 3.99,
-description: "Απλό και γρήγορο web hosting.",
-features: ["2GB Storage", "SSL", "Custom Domain", "Email Support"]
-},
+  {
+    id: "hosting-11",
+    name: "High Performance Hosting",
+    icon: "⚡",
+    description: "Υψηλή απόδοση για απαιτητικές εφαρμογές και bots.",
+    price: 29.99
+  },
 
-{
-id: "hosting-12",
-name: "Business Hosting",
-price: 12.99,
-description: "Hosting για επαγγελματικές ιστοσελίδες.",
-features: ["10GB Storage", "SSL", "Daily Backup", "Priority Support"]
-},
+  {
+    id: "hosting-12",
+    name: "Enterprise Hosting",
+    icon: "🏢",
+    description: "Μεγάλο πακέτο για επαγγελματικά projects και communities.",
+    price: 49.99
+  },
 
-{
-id: "hosting-13",
-name: "Developer Hosting",
-price: 8.99,
-description: "Για developers και projects.",
-features: ["4GB RAM", "Git Support", "Node.js", "Docker Support"]
-},
+  {
+    id: "hosting-13",
+    name: "24/7 Hosting",
+    icon: "🕐",
+    description: "Συνεχής λειτουργία για Discord Bots και εφαρμογές.",
+    price: 8.99
+  },
 
-{
-id: "hosting-14",
-name: "Node.js Hosting",
-price: 5.99,
-description: "Βελτιστοποιημένο για Node.js εφαρμογές.",
-features: ["2GB RAM", "Node.js", "NPM Support", "24/7 Uptime"]
-},
+  {
+    id: "hosting-14",
+    name: "Unlimited Hosting",
+    icon: "♾️",
+    description: "Ισχυρό πακέτο για μεγαλύτερα projects.",
+    price: 34.99
+  },
 
-{
-id: "hosting-15",
-name: "Python Hosting",
-price: 5.99,
-description: "Hosting για Python applications.",
-features: ["2GB RAM", "Python Support", "Pip Support", "SSD Storage"]
-},
+  {
+    id: "hosting-15",
+    name: "Ultimate Hosting",
+    icon: "👑",
+    description: "Το κορυφαίο πακέτο Hosting για επαγγελματική χρήση.",
+    price: 59.99
+  },
 
-{
-id: "hosting-16",
-name: "VPS Starter",
-price: 9.99,
-description: "Virtual Private Server για μικρά projects.",
-features: ["2GB RAM", "2 CPU Cores", "40GB SSD", "Root Access"]
-},
+  {
+    id: "hosting-16",
+    name: "Economy Hosting",
+    icon: "💰",
+    description: "Οικονομική επιλογή για μικρά projects.",
+    price: 1.99
+  },
 
-{
-id: "hosting-17",
-name: "VPS Pro",
-price: 19.99,
-description: "Ισχυρό VPS για επαγγελματική χρήση.",
-features: ["8GB RAM", "4 CPU Cores", "120GB SSD", "Root Access"]
-},
+  {
+    id: "hosting-17",
+    name: "Cloud Hosting",
+    icon: "☁️",
+    description: "Cloud Hosting για ευέλικτα και σύγχρονα projects.",
+    price: 15.99
+  },
 
-{
-id: "hosting-18",
-name: "Cloud Hosting",
-price: 15.99,
-description: "Ευέλικτο cloud hosting.",
-features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Cloud Infrastructure"]
-},
+  {
+    id: "hosting-18",
+    name: "Premium Cloud",
+    icon: "🌩️",
+    description: "Premium Cloud λύση με περισσότερους πόρους.",
+    price: 25.99
+  },
 
-{
-id: "hosting-19",
-name: "Enterprise Hosting",
-price: 29.99,
-description: "Hosting για μεγάλα projects.",
-features: ["16GB RAM", "8 CPU Cores", "250GB SSD", "Priority Support"]
-},
+  {
+    id: "hosting-19",
+    name: "Community Hosting",
+    icon: "👥",
+    description: "Κατάλληλο για Discord Communities και μεγάλα servers.",
+    price: 10.99
+  },
 
-{
-id: "hosting-20",
-name: "Ultimate Enterprise",
-price: 49.99,
-description: "Η απόλυτη λύση hosting.",
-features: ["32GB RAM", "12 CPU Cores", "500GB SSD", "Premium Support"]
-}
+  {
+    id: "hosting-20",
+    name: "Ultimate Server",
+    icon: "🔥",
+    description: "Το πιο δυνατό πακέτο για απαιτητικούς χρήστες.",
+    price: 79.99
+  }
 
 ];
 
-const grid = document.getElementById("hostingGrid");
 
-hostingProducts.forEach(product => {
+const hostingGrid = document.getElementById("hostingGrid");
 
-    const views = localStorage.getItem("views_" + product.id) || 0;
+
+function loadHosting() {
+
+  hostingGrid.innerHTML = "";
+
+  hostingProducts.forEach(product => {
 
     const card = document.createElement("div");
 
-    card.className = "card";
+    card.className = "hosting-card";
 
     card.innerHTML = `
-        <h2>🖥️ ${product.name}</h2>
 
-        <p class="description">
-            ${product.description}
-        </p>
+      <div class="hosting-icon">
+        ${product.icon}
+      </div>
 
-        <div class="price">
-            €${product.price.toFixed(2)} / month
-        </div>
+      <h2>
+        ${product.name}
+      </h2>
 
-        <ul class="features">
-            ${product.features.map(feature => `<li>✅ ${feature}</li>`).join("")}
-        </ul>
+      <p>
+        ${product.description}
+      </p>
 
-        <div class="views">
-            👁️ ${views} Views
-        </div>
+      <div class="price">
+        €${product.price.toFixed(2)}
+        <small>/ month</small>
+      </div>
 
-        <button onclick="viewHosting('${product.id}')">
-            View Details
+      <div class="buttons">
+
+        <button
+          class="view-btn"
+          onclick="viewHosting('${product.id}')">
+          👁️ View
         </button>
+
+        <button
+          class="cart-btn"
+          onclick="addToCart('${product.id}')">
+          🛒
+        </button>
+
+      </div>
+
     `;
 
-    grid.appendChild(card);
+    hostingGrid.appendChild(card);
 
-});
+  });
+
+}
+
 
 function viewHosting(id) {
 
-    let views = Number(localStorage.getItem("views_" + id) || 0);
+  const product = hostingProducts.find(
+    item => item.id === id
+  );
 
-    views++;
+  if (!product) return;
 
-    localStorage.setItem("views_" + id, views);
+  document.getElementById("modalTitle").textContent =
+    product.icon + " " + product.name;
 
-    window.location.href =
-        "hosting-details.html?id=" + encodeURIComponent(id);
+  document.getElementById("modalDescription").textContent =
+    product.description;
+
+  document.getElementById("modalPrice").textContent =
+    "€" + product.price.toFixed(2) + " / month";
+
+  document.getElementById("modalAdd").onclick =
+    function() {
+
+      addToCart(product.id);
+
+      closeModal();
+
+    };
+
+  document.getElementById("modal").style.display =
+    "flex";
+
 }
+
+
+function closeModal() {
+
+  document.getElementById("modal").style.display =
+    "none";
+
+}
+
+
+function getCart() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem("DBM_CART")
+    ) || [];
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+function saveCart(cart) {
+
+  localStorage.setItem(
+    "DBM_CART",
+    JSON.stringify(cart)
+  );
+
+}
+
+
+function addToCart(id) {
+
+  const product = hostingProducts.find(
+    item => item.id === id
+  );
+
+  if (!product) return;
+
+  const cart = getCart();
+
+  const existing = cart.find(
+    item => item.id === product.id
+  );
+
+  if (existing) {
+
+    existing.quantity += 1;
+
+  } else {
+
+    cart.push({
+
+      id: product.id,
+
+      name: product.name,
+
+      type: "hosting",
+
+      price: product.price,
+
+      quantity: 1
+
+    });
+
+  }
+
+  saveCart(cart);
+
+  updateCartCount();
+
+  alert(
+    product.name + " προστέθηκε στο καλάθι!"
+  );
+
+}
+
+
+function updateCartCount() {
+
+  const cart = getCart();
+
+  const total = cart.reduce(
+    (sum, item) =>
+      sum + Number(item.quantity || 0),
+    0
+  );
+
+  document.getElementById(
+    "cartCount"
+  ).textContent = total;
+
+}
+
+
+loadHosting();
+
+updateCartCount();
+
+
+window.onclick = function(event) {
+
+  const modal =
+    document.getElementById("modal");
+
+  if (event.target === modal) {
+
+    closeModal();
+
+  }
+
+};
 
 </script>
 
 </body>
 </html>
-```
