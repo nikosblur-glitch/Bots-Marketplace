@@ -1,0 +1,367 @@
+```html
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hosting Details</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f19;
+    color: white;
+}
+
+header {
+    background: #111827;
+    padding: 20px 5%;
+    border-bottom: 1px solid #263043;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+.product {
+    background: #151c2c;
+    padding: 40px;
+    border-radius: 18px;
+    border: 1px solid #273249;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+.description {
+    color: #aeb7c7;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.views {
+    color: #aeb7c7;
+    margin-bottom: 25px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin: 12px 0;
+}
+
+button {
+    margin-top: 25px;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #5865f2;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4752c4;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="bots.html">🤖 Bots</a>
+    <a href="hosting.html">🖥️ Hosting</a>
+    <a href="cart.html">🛒 Cart</a>
+    <a href="support.html">🎫 Support</a>
+</nav>
+
+</header>
+
+<div class="container">
+
+<div class="product" id="productDetails">
+
+Loading...
+
+</div>
+
+</div>
+
+<script>
+
+const hostingProducts = {
+
+"hosting-1": {
+name: "Starter Hosting",
+price: 2.99,
+description: "Ιδανικό για μικρά Discord Bots.",
+features: ["1GB RAM", "1 CPU Core", "10GB SSD", "24/7 Uptime"]
+},
+
+"hosting-2": {
+name: "Basic Hosting",
+price: 3.99,
+description: "Οικονομικό hosting για μικρά projects.",
+features: ["2GB RAM", "1 CPU Core", "20GB SSD", "24/7 Uptime"]
+},
+
+"hosting-3": {
+name: "Bot Hosting",
+price: 4.99,
+description: "Hosting ειδικά για Discord Bots.",
+features: ["2GB RAM", "2 CPU Cores", "25GB SSD", "Node.js Support"]
+},
+
+"hosting-4": {
+name: "Premium Bot Hosting",
+price: 6.99,
+description: "Περισσότερη ισχύς για μεγαλύτερα bots.",
+features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Node.js Support"]
+},
+
+"hosting-5": {
+name: "Advanced Hosting",
+price: 7.99,
+description: "Για απαιτητικά Discord projects.",
+features: ["4GB RAM", "4 CPU Cores", "60GB SSD", "24/7 Uptime"]
+},
+
+"hosting-6": {
+name: "Pro Hosting",
+price: 9.99,
+description: "Ισχυρό hosting για επαγγελματικά projects.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Premium Support"]
+},
+
+"hosting-7": {
+name: "Ultimate Hosting",
+price: 14.99,
+description: "Μέγιστη απόδοση για απαιτητικούς χρήστες.",
+features: ["16GB RAM", "6 CPU Cores", "150GB SSD", "Priority Support"]
+},
+
+"hosting-8": {
+name: "Minecraft Hosting",
+price: 7.99,
+description: "Hosting για Minecraft servers.",
+features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Java Support"]
+},
+
+"hosting-9": {
+name: "Minecraft Premium",
+price: 14.99,
+description: "Premium hosting για Minecraft.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "DDoS Protection"]
+},
+
+"hosting-10": {
+name: "Game Hosting",
+price: 11.99,
+description: "Hosting για gaming projects.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "24/7 Uptime"]
+},
+
+"hosting-11": {
+name: "Web Hosting",
+price: 3.99,
+description: "Απλό και γρήγορο web hosting.",
+features: ["2GB Storage", "SSL", "Custom Domain", "Email Support"]
+},
+
+"hosting-12": {
+name: "Business Hosting",
+price: 12.99,
+description: "Hosting για επαγγελματικές ιστοσελίδες.",
+features: ["10GB Storage", "SSL", "Daily Backup", "Priority Support"]
+},
+
+"hosting-13": {
+name: "Developer Hosting",
+price: 8.99,
+description: "Για developers και projects.",
+features: ["4GB RAM", "Git Support", "Node.js", "Docker Support"]
+},
+
+"hosting-14": {
+name: "Node.js Hosting",
+price: 5.99,
+description: "Βελτιστοποιημένο για Node.js εφαρμογές.",
+features: ["2GB RAM", "Node.js", "NPM Support", "24/7 Uptime"]
+},
+
+"hosting-15": {
+name: "Python Hosting",
+price: 5.99,
+description: "Hosting για Python applications.",
+features: ["2GB RAM", "Python Support", "Pip Support", "SSD Storage"]
+},
+
+"hosting-16": {
+name: "VPS Starter",
+price: 9.99,
+description: "Virtual Private Server για μικρά projects.",
+features: ["2GB RAM", "2 CPU Cores", "40GB SSD", "Root Access"]
+},
+
+"hosting-17": {
+name: "VPS Pro",
+price: 19.99,
+description: "Ισχυρό VPS για επαγγελματική χρήση.",
+features: ["8GB RAM", "4 CPU Cores", "120GB SSD", "Root Access"]
+},
+
+"hosting-18": {
+name: "Cloud Hosting",
+price: 15.99,
+description: "Ευέλικτο cloud hosting.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Cloud Infrastructure"]
+},
+
+"hosting-19": {
+name: "Enterprise Hosting",
+price: 29.99,
+description: "Hosting για μεγάλα projects.",
+features: ["16GB RAM", "8 CPU Cores", "250GB SSD", "Priority Support"]
+},
+
+"hosting-20": {
+name: "Ultimate Enterprise",
+price: 49.99,
+description: "Η απόλυτη λύση hosting.",
+features: ["32GB RAM", "12 CPU Cores", "500GB SSD", "Premium Support"]
+}
+
+};
+
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+const product = hostingProducts[id];
+
+const details = document.getElementById("productDetails");
+
+if (!product) {
+
+    details.innerHTML = `
+        <h1>❌ Hosting Not Found</h1>
+        <p>Το προϊόν που ζητήσατε δεν υπάρχει.</p>
+        <button onclick="location.href='hosting.html'">
+            Back to Hosting
+        </button>
+    `;
+
+} else {
+
+    const views =
+        localStorage.getItem("views_" + id) || 0;
+
+    details.innerHTML = `
+
+        <h1>🖥️ ${product.name}</h1>
+
+        <p class="description">
+            ${product.description}
+        </p>
+
+        <div class="price">
+            €${product.price.toFixed(2)} / month
+        </div>
+
+        <div class="views">
+            👁️ ${views} Views
+        </div>
+
+        <h2>Features</h2>
+
+        <ul>
+            ${product.features
+                .map(feature => `<li>✅ ${feature}</li>`)
+                .join("")}
+        </ul>
+
+        <button onclick="addToCart()">
+            🛒 Add to Cart
+        </button>
+
+        <button onclick="location.href='hosting.html'">
+            ← Back to Hosting
+        </button>
+
+    `;
+
+}
+
+function addToCart() {
+
+    let cart =
+        JSON.parse(localStorage.getItem("DBM_CART") || "[]");
+
+    const existing =
+        cart.find(item => item.id === id);
+
+    if (existing) {
+
+        existing.quantity++;
+
+    } else {
+
+        cart.push({
+
+            id: id,
+
+            name: product.name,
+
+            price: product.price,
+
+            type: "hosting",
+
+            quantity: 1
+
+        });
+
+    }
+
+    localStorage.setItem(
+        "DBM_CART",
+        JSON.stringify(cart)
+    );
+
+    alert("Το Hosting προστέθηκε στο καλάθι!");
+
+}
+
+</script>
+
+</body>
+</html>
+```
