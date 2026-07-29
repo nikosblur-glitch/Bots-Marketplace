@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💳 Checkout</title>
+
+<style>
+
+body {
+    font-family: Arial;
+    background: #03040a;
+    color: white;
+    padding: 30px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background: #111421;
+    border: 1px solid #292d42;
+    color: white;
+    border-radius: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #5865f2;
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💳 Checkout</h1>
+
+<p>Complete your order information.</p>
+
+<input
+id="name"
+placeholder="Full Name"
+>
+
+<input
+id="email"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="discord"
+placeholder="Discord Username"
+>
+
+<button onclick="placeOrder()">
+Continue to Payment
+</button>
+
+</div>
+
+
+<script>
+
+function placeOrder() {
+
+const name =
+document.getElementById("name").value.trim();
+
+const email =
+document.getElementById("email").value.trim();
+
+const discord =
+document.getElementById("discord").value.trim();
+
+
+if (!name || !email || !discord) {
+
+alert(
+"Please complete all fields."
+);
+
+return;
+
+}
+
+
+const order = {
+
+id:
+"DBM-" +
+Date.now(),
+
+name: name,
+
+email: email,
+
+discord: discord,
+
+cart:
+JSON.parse(
+localStorage.getItem("DBM_CART")
+) || [],
+
+status:
+"Pending",
+
+created:
+new Date().toISOString()
+
+};
+
+
+let orders =
+JSON.parse(
+localStorage.getItem("DBM_ORDERS")
+) || [];
+
+
+orders.push(order);
+
+
+localStorage.setItem(
+"DBM_ORDERS",
+JSON.stringify(orders)
+);
+
+
+localStorage.setItem(
+"DBM_CURRENT_ORDER",
+JSON.stringify(order)
+);
+
+
+window.location.href =
+"payment.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
