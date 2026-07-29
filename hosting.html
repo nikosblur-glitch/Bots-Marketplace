@@ -1,263 +1,388 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="el">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>☁️ Hosting | Discord Board Marketplace</title>
+<title>Discord Bot Marketplace - Hosting</title>
 
 <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #03040a;
+    font-family: Arial, sans-serif;
+    background: #0b0f19;
     color: white;
 }
 
-nav {
-    padding: 20px;
-    background: #0d0f19;
+header {
+    background: #111827;
+    padding: 20px 5%;
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #263043;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 nav a {
     color: white;
     text-decoration: none;
+    margin-left: 20px;
+}
+
+nav a:hover {
+    color: #7289da;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #aeb7c7;
 }
 
 .container {
-    max-width: 1100px;
+    width: 90%;
+    max-width: 1200px;
     margin: auto;
-    padding: 50px 20px;
 }
 
-.grid {
+.hosting-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 30px 0 60px;
 }
 
 .card {
-    background: #111421;
-    border: 1px solid #252a40;
-    padding: 20px;
-    border-radius: 18px;
+    background: #151c2c;
+    border: 1px solid #273249;
+    border-radius: 15px;
+    padding: 25px;
+    transition: 0.3s;
 }
 
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #7289da;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #aeb7c7;
+    min-height: 50px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.features li {
+    margin: 8px 0;
+    color: #cbd5e1;
+}
+
+.views {
+    color: #9ca3af;
+    margin-bottom: 15px;
 }
 
 button {
     width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #5865f2;
     color: white;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.price {
-    font-size: 22px;
-    color: #7280ff;
+button:hover {
+    background: #4752c4;
 }
 
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #111827;
+    color: #8b95a7;
+}
 </style>
-
 </head>
 
 <body>
 
-<nav>
+<header>
+    <div class="logo">Discord Bot Marketplace</div>
 
-<a href="index.html">🏠 Home</a>
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="bots.html">🤖 Bots</a>
+        <a href="hosting.html">🖥️ Hosting</a>
+        <a href="cart.html">🛒 Cart</a>
+        <a href="support.html">🎫 Support</a>
+    </nav>
+</header>
 
-<a href="bots.html">🤖 Bots</a>
-
-<a href="hosting.html">☁️ Hosting</a>
-
-<a href="support.html">🎧 Support</a>
-
-<a href="cart.html">🛒 Cart</a>
-
-</nav>
-
+<section class="hero">
+    <h1>🖥️ Premium Hosting</h1>
+    <p>Βρες το κατάλληλο hosting για το Discord Bot ή το project σου.</p>
+</section>
 
 <div class="container">
-
-<h1>☁️ Bot Hosting</h1>
-
-<p>Reliable hosting for your Discord bots.</p>
-
-<div
-id="hostingContainer"
-class="grid"
->
+    <div class="hosting-grid" id="hostingGrid"></div>
 </div>
 
-</div>
-
+<footer>
+    © 2026 Discord Bot Marketplace
+</footer>
 
 <script>
 
-const hosting =
-JSON.parse(
-localStorage.getItem("DBM_HOSTING")
-) || [];
+const hostingProducts = [
 
+{
+id: "hosting-1",
+name: "Starter Hosting",
+price: 2.99,
+description: "Ιδανικό για μικρά Discord Bots.",
+features: ["1GB RAM", "1 CPU Core", "10GB SSD", "24/7 Uptime"]
+},
 
-const container =
-document.getElementById(
-"hostingContainer"
-);
+{
+id: "hosting-2",
+name: "Basic Hosting",
+price: 3.99,
+description: "Οικονομικό hosting για μικρά projects.",
+features: ["2GB RAM", "1 CPU Core", "20GB SSD", "24/7 Uptime"]
+},
 
+{
+id: "hosting-3",
+name: "Bot Hosting",
+price: 4.99,
+description: "Hosting ειδικά για Discord Bots.",
+features: ["2GB RAM", "2 CPU Cores", "25GB SSD", "Node.js Support"]
+},
 
-if (hosting.length === 0) {
+{
+id: "hosting-4",
+name: "Premium Bot Hosting",
+price: 6.99,
+description: "Περισσότερη ισχύς για μεγαλύτερα bots.",
+features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Node.js Support"]
+},
 
-container.innerHTML =
-"<p>No Hosting products available yet.</p>";
+{
+id: "hosting-5",
+name: "Advanced Hosting",
+price: 7.99,
+description: "Για απαιτητικά Discord projects.",
+features: ["4GB RAM", "4 CPU Cores", "60GB SSD", "24/7 Uptime"]
+},
 
+{
+id: "hosting-6",
+name: "Pro Hosting",
+price: 9.99,
+description: "Ισχυρό hosting για επαγγελματικά projects.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Premium Support"]
+},
+
+{
+id: "hosting-7",
+name: "Ultimate Hosting",
+price: 14.99,
+description: "Μέγιστη απόδοση για απαιτητικούς χρήστες.",
+features: ["16GB RAM", "6 CPU Cores", "150GB SSD", "Priority Support"]
+},
+
+{
+id: "hosting-8",
+name: "Minecraft Hosting",
+price: 7.99,
+description: "Hosting για Minecraft servers.",
+features: ["4GB RAM", "2 CPU Cores", "50GB SSD", "Java Support"]
+},
+
+{
+id: "hosting-9",
+name: "Minecraft Premium",
+price: 14.99,
+description: "Premium hosting για Minecraft.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "DDoS Protection"]
+},
+
+{
+id: "hosting-10",
+name: "Game Hosting",
+price: 11.99,
+description: "Hosting για gaming projects.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "24/7 Uptime"]
+},
+
+{
+id: "hosting-11",
+name: "Web Hosting",
+price: 3.99,
+description: "Απλό και γρήγορο web hosting.",
+features: ["2GB Storage", "SSL", "Custom Domain", "Email Support"]
+},
+
+{
+id: "hosting-12",
+name: "Business Hosting",
+price: 12.99,
+description: "Hosting για επαγγελματικές ιστοσελίδες.",
+features: ["10GB Storage", "SSL", "Daily Backup", "Priority Support"]
+},
+
+{
+id: "hosting-13",
+name: "Developer Hosting",
+price: 8.99,
+description: "Για developers και projects.",
+features: ["4GB RAM", "Git Support", "Node.js", "Docker Support"]
+},
+
+{
+id: "hosting-14",
+name: "Node.js Hosting",
+price: 5.99,
+description: "Βελτιστοποιημένο για Node.js εφαρμογές.",
+features: ["2GB RAM", "Node.js", "NPM Support", "24/7 Uptime"]
+},
+
+{
+id: "hosting-15",
+name: "Python Hosting",
+price: 5.99,
+description: "Hosting για Python applications.",
+features: ["2GB RAM", "Python Support", "Pip Support", "SSD Storage"]
+},
+
+{
+id: "hosting-16",
+name: "VPS Starter",
+price: 9.99,
+description: "Virtual Private Server για μικρά projects.",
+features: ["2GB RAM", "2 CPU Cores", "40GB SSD", "Root Access"]
+},
+
+{
+id: "hosting-17",
+name: "VPS Pro",
+price: 19.99,
+description: "Ισχυρό VPS για επαγγελματική χρήση.",
+features: ["8GB RAM", "4 CPU Cores", "120GB SSD", "Root Access"]
+},
+
+{
+id: "hosting-18",
+name: "Cloud Hosting",
+price: 15.99,
+description: "Ευέλικτο cloud hosting.",
+features: ["8GB RAM", "4 CPU Cores", "100GB SSD", "Cloud Infrastructure"]
+},
+
+{
+id: "hosting-19",
+name: "Enterprise Hosting",
+price: 29.99,
+description: "Hosting για μεγάλα projects.",
+features: ["16GB RAM", "8 CPU Cores", "250GB SSD", "Priority Support"]
+},
+
+{
+id: "hosting-20",
+name: "Ultimate Enterprise",
+price: 49.99,
+description: "Η απόλυτη λύση hosting.",
+features: ["32GB RAM", "12 CPU Cores", "500GB SSD", "Premium Support"]
 }
 
+];
 
-hosting.forEach(item => {
+const grid = document.getElementById("hostingGrid");
 
-const card =
-document.createElement("div");
+hostingProducts.forEach(product => {
 
-card.className = "card";
+    const views = localStorage.getItem("views_" + product.id) || 0;
 
+    const card = document.createElement("div");
 
-card.innerHTML = `
+    card.className = "card";
 
-${
-item.image
-?
-`<img src="${item.image}" alt="Hosting">`
-:
-""
-}
+    card.innerHTML = `
+        <h2>🖥️ ${product.name}</h2>
 
-<h2>☁️ ${escapeHTML(item.name)}</h2>
+        <p class="description">
+            ${product.description}
+        </p>
 
-<p>
-${escapeHTML(item.description || "Premium Bot Hosting")}
-</p>
+        <div class="price">
+            €${product.price.toFixed(2)} / month
+        </div>
 
-<p>
-RAM: ${escapeHTML(item.ram || "Not specified")}
-</p>
+        <ul class="features">
+            ${product.features.map(feature => `<li>✅ ${feature}</li>`).join("")}
+        </ul>
 
-<p class="price">
-€${Number(item.price).toFixed(2)}
-</p>
+        <div class="views">
+            👁️ ${views} Views
+        </div>
 
-<p>
-Stock: ${item.stock}
-</p>
+        <button onclick="viewHosting('${product.id}')">
+            View Details
+        </button>
+    `;
 
-<button
-onclick="addToCart(${item.id})"
->
-🛒 Add to Cart
-</button>
-
-`;
-
-
-container.appendChild(card);
+    grid.appendChild(card);
 
 });
 
+function viewHosting(id) {
 
-function addToCart(id) {
+    let views = Number(localStorage.getItem("views_" + id) || 0);
 
-const item =
-hosting.find(
-product => product.id === id
-);
+    views++;
 
+    localStorage.setItem("views_" + id, views);
 
-if (!item) return;
-
-
-let cart =
-JSON.parse(
-localStorage.getItem("DBM_CART")
-) || [];
-
-
-const existing =
-cart.find(
-product =>
-product.productId === item.id &&
-product.type === "hosting"
-);
-
-
-if (existing) {
-
-existing.quantity++;
-
-} else {
-
-cart.push({
-
-productId: item.id,
-
-type: "hosting",
-
-name: item.name,
-
-price: item.price,
-
-quantity: 1
-
-});
-
-}
-
-
-localStorage.setItem(
-"DBM_CART",
-JSON.stringify(cart)
-);
-
-
-alert("☁️ Hosting added to cart!");
-
-}
-
-
-function escapeHTML(text) {
-
-return String(text)
-
-.replace(/&/g, "&amp;")
-
-.replace(/</g, "&lt;")
-
-.replace(/>/g, "&gt;")
-
-.replace(/"/g, "&quot;")
-
-.replace(/'/g, "&#039;");
-
+    window.location.href =
+        "hosting-details.html?id=" + encodeURIComponent(id);
 }
 
 </script>
 
 </body>
-
 </html>
+```
