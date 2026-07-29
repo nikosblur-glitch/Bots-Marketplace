@@ -12,14 +12,10 @@ content="width=device-width, initial-scale=1.0"
 >
 
 <title>
-Discord Board Marketplace — Owner Panel
+Owner Panel | Discord Board Marketplace
 </title>
 
 <style>
-
-/* =========================================
-   RESET
-========================================= */
 
 * {
     margin: 0;
@@ -27,16 +23,11 @@ Discord Board Marketplace — Owner Panel
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
 
     min-height: 100vh;
 
     font-family:
-    Inter,
     Arial,
     Helvetica,
     sans-serif;
@@ -44,440 +35,104 @@ body {
     color: white;
 
     background:
-    #05060d;
+    #03040a;
 
-    overflow-x: hidden;
+    padding: 30px 15px;
 
 }
 
 
-/* =========================================
-   ANIMATED BACKGROUND
-========================================= */
+/* ==============================
+   BACKGROUND
+============================== */
 
-body::before {
-
-    content: "";
+.background {
 
     position: fixed;
 
-    width: 700px;
+    inset: 0;
 
-    height: 700px;
-
-    top: -300px;
-
-    left: -250px;
-
-    border-radius: 50%;
+    z-index: -1;
 
     background:
-    #5865f2;
 
-    filter:
-    blur(180px);
+    radial-gradient(
+        circle at 20% 10%,
+        rgba(88,101,242,0.20),
+        transparent 30%
+    ),
 
-    opacity:
-    0.18;
+    radial-gradient(
+        circle at 80% 70%,
+        rgba(139,92,246,0.15),
+        transparent 30%
+    ),
 
-    animation:
-    moveGlow 15s
-    infinite
-    alternate;
-
-    pointer-events:
-    none;
-
-    z-index:
-    -1;
+    #03040a;
 
 }
 
-body::after {
 
-    content: "";
+/* ==============================
+   PANEL
+============================== */
 
-    position: fixed;
+.owner-panel {
 
-    width: 600px;
+    width: 100%;
 
-    height: 600px;
+    max-width: 1000px;
 
-    right: -250px;
+    margin: auto;
 
-    bottom: -250px;
+    padding: 30px;
 
-    border-radius: 50%;
+    border-radius: 25px;
 
     background:
-    #8b5cf6;
-
-    filter:
-    blur(180px);
-
-    opacity:
-    0.15;
-
-    animation:
-    moveGlow2 18s
-    infinite
-    alternate;
-
-    pointer-events:
-    none;
-
-    z-index:
-    -1;
-
-}
-
-
-@keyframes moveGlow {
-
-    from {
-        transform:
-        translate(0,0);
-    }
-
-    to {
-        transform:
-        translate(250px,150px);
-    }
-
-}
-
-
-@keyframes moveGlow2 {
-
-    from {
-        transform:
-        translate(0,0);
-    }
-
-    to {
-        transform:
-        translate(-200px,-150px);
-    }
-
-}
-
-
-/* =========================================
-   NAVBAR
-========================================= */
-
-.navbar {
-
-    position:
-    sticky;
-
-    top:
-    15px;
-
-    z-index:
-    100;
-
-    width:
-    94%;
-
-    max-width:
-    1400px;
-
-    margin:
-    15px auto;
-
-    padding:
-    15px 22px;
-
-    display:
-    flex;
-
-    align-items:
-    center;
-
-    justify-content:
-    space-between;
+    rgba(15,17,30,0.90);
 
     border:
     1px solid
     rgba(255,255,255,0.12);
 
-    border-radius:
-    20px;
-
-    background:
-    rgba(255,255,255,0.05);
-
     backdrop-filter:
     blur(25px);
 
     box-shadow:
-    0 20px 70px
-    rgba(0,0,0,0.4);
+    0 30px 100px
+    rgba(0,0,0,0.5);
 
 }
 
 
-.logo {
-
-    font-size:
-    20px;
-
-    font-weight:
-    900;
-
-}
-
-
-.logo span {
-
-    color:
-    #7280ff;
-
-}
-
-
-.nav-actions {
-
-    display:
-    flex;
-
-    gap:
-    10px;
-
-}
-
-
-.nav-btn {
-
-    padding:
-    10px 15px;
-
-    border-radius:
-    10px;
-
-    text-decoration:
-    none;
-
-    color:
-    white;
-
-    background:
-    rgba(255,255,255,0.06);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.1);
-
-    transition:
-    0.3s;
-
-}
-
-
-.nav-btn:hover {
-
-    transform:
-    translateY(-3px);
-
-    background:
-    rgba(88,101,242,0.3);
-
-}
-
-
-/* =========================================
-   LAYOUT
-========================================= */
-
-.dashboard {
-
-    width:
-    94%;
-
-    max-width:
-    1400px;
-
-    margin:
-    40px auto;
-
-    display:
-    grid;
-
-    grid-template-columns:
-    240px 1fr;
-
-    gap:
-    25px;
-
-}
-
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.sidebar {
-
-    padding:
-    20px;
-
-    height:
-    fit-content;
-
-    border-radius:
-    22px;
-
-    background:
-    rgba(255,255,255,0.045);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.1);
-
-    backdrop-filter:
-    blur(25px);
-
-}
-
-
-.sidebar h3 {
-
-    margin-bottom:
-    20px;
-
-}
-
-
-.menu-btn {
-
-    width:
-    100%;
-
-    padding:
-    13px;
-
-    margin-bottom:
-    8px;
-
-    text-align:
-    left;
-
-    color:
-    rgba(255,255,255,0.65);
-
-    background:
-    transparent;
-
-    border:
-    none;
-
-    border-radius:
-    12px;
-
-    cursor:
-    pointer;
-
-    transition:
-    0.3s;
-
-}
-
-
-.menu-btn:hover,
-.menu-btn.active {
-
-    color:
-    white;
-
-    background:
-    rgba(88,101,242,0.3);
-
-}
-
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.content {
-
-    min-width:
-    0;
-
-}
-
-
-.page {
-
-    display:
-    none;
-
-    animation:
-    pageIn
-    0.4s
-    ease;
-
-}
-
-
-.page.active {
-
-    display:
-    block;
-
-}
-
-
-@keyframes pageIn {
-
-    from {
-
-        opacity:
-        0;
-
-        transform:
-        translateY(15px);
-
-    }
-
-    to {
-
-        opacity:
-        1;
-
-        transform:
-        translateY(0);
-
-    }
-
-}
-
-
-/* =========================================
+/* ==============================
    HEADER
-========================================= */
+============================== */
 
-.page-header {
+.header {
 
-    margin-bottom:
-    25px;
+    display: flex;
 
-}
+    align-items: center;
 
+    justify-content: space-between;
 
-.page-header h1 {
+    gap: 15px;
 
-    font-size:
-    35px;
-
-    margin-bottom:
-    8px;
+    margin-bottom: 30px;
 
 }
 
+.header h1 {
 
-.page-header p {
+    font-size: 30px;
+
+}
+
+.header p {
+
+    margin-top: 6px;
 
     color:
     rgba(255,255,255,0.5);
@@ -485,220 +140,82 @@ body::after {
 }
 
 
-/* =========================================
-   STATS
-========================================= */
+/* ==============================
+   BACK BUTTON
+============================== */
 
-.stats {
+.back-button {
 
-    display:
-    grid;
+    padding: 11px 16px;
 
-    grid-template-columns:
-    repeat(
-        4,
-        1fr
-    );
+    border-radius: 10px;
 
-    gap:
-    15px;
+    text-decoration: none;
 
-    margin-bottom:
-    25px;
-
-}
-
-
-.stat {
-
-    padding:
-    22px;
-
-    border-radius:
-    18px;
+    color: white;
 
     background:
-    rgba(255,255,255,0.05);
+    rgba(255,255,255,0.07);
 
     border:
     1px solid
     rgba(255,255,255,0.1);
 
-    backdrop-filter:
-    blur(20px);
-
-    transition:
-    0.3s;
-
 }
 
 
-.stat:hover {
+/* ==============================
+   TABS
+============================== */
 
-    transform:
-    translateY(-5px);
+.tabs {
 
-    border-color:
-    rgba(114,128,255,0.4);
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
 
 }
 
+.tab-button {
 
-.stat span {
+    flex: 1;
 
-    display:
-    block;
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
 
     color:
-    rgba(255,255,255,0.5);
-
-    margin-bottom:
-    8px;
-
-}
-
-
-.stat strong {
-
-    font-size:
-    28px;
-
-    color:
-    #8790ff;
-
-}
-
-
-/* =========================================
-   GLASS PANEL
-========================================= */
-
-.panel {
-
-    padding:
-    25px;
-
-    margin-bottom:
-    25px;
-
-    border-radius:
-    22px;
-
-    background:
-    rgba(255,255,255,0.045);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.1);
-
-    backdrop-filter:
-    blur(25px);
-
-}
-
-
-.panel h2 {
-
-    margin-bottom:
-    20px;
-
-}
-
-
-/* =========================================
-   FORM
-========================================= */
-
-.form-grid {
-
-    display:
-    grid;
-
-    grid-template-columns:
-    repeat(
-        2,
-        1fr
-    );
-
-    gap:
-    12px;
-
-}
-
-
-.input {
-
-    width:
-    100%;
-
-    padding:
-    14px;
-
-    color:
-    white;
+    rgba(255,255,255,0.6);
 
     background:
     rgba(255,255,255,0.05);
 
-    border:
-    1px solid
-    rgba(255,255,255,0.12);
+    cursor: pointer;
 
-    border-radius:
-    11px;
+    font-size: 15px;
 
-    outline:
-    none;
+    font-weight: bold;
+
+    transition: 0.3s;
 
 }
 
+.tab-button:hover {
 
-.input:focus {
+    background:
+    rgba(255,255,255,0.1);
 
-    border-color:
-    #7280ff;
-
-    box-shadow:
-    0 0 25px
-    rgba(88,101,242,0.2);
+    color: white;
 
 }
 
+.tab-button.active {
 
-.full {
-
-    grid-column:
-    1 / -1;
-
-}
-
-
-/* =========================================
-   BUTTON
-========================================= */
-
-.primary {
-
-    padding:
-    13px 20px;
-
-    margin-top:
-    15px;
-
-    color:
-    white;
-
-    border:
-    none;
-
-    border-radius:
-    11px;
-
-    cursor:
-    pointer;
-
-    font-weight:
-    bold;
+    color: white;
 
     background:
     linear-gradient(
@@ -707,13 +224,175 @@ body::after {
         #8b5cf6
     );
 
-    transition:
-    0.3s;
+}
+
+
+/* ==============================
+   FORM
+============================== */
+
+.form-section {
+
+    display: none;
+
+}
+
+.form-section.active {
+
+    display: block;
 
 }
 
 
-.primary:hover {
+.form-title {
+
+    margin-bottom: 20px;
+
+}
+
+.form-title h2 {
+
+    font-size: 23px;
+
+}
+
+.form-title p {
+
+    margin-top: 7px;
+
+    color:
+    rgba(255,255,255,0.5);
+
+}
+
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap: 14px;
+
+}
+
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.input-group.full {
+
+    grid-column:
+    1 / -1;
+
+}
+
+
+.input-group label {
+
+    font-size: 13px;
+
+    color:
+    rgba(255,255,255,0.6);
+
+}
+
+
+.input-group input,
+
+.input-group textarea {
+
+    width: 100%;
+
+    padding: 14px;
+
+    color: white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: inherit;
+
+}
+
+
+.input-group textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+}
+
+
+.input-group input:focus,
+
+.input-group textarea:focus {
+
+    border-color:
+    #7280ff;
+
+    box-shadow:
+    0 0 20px
+    rgba(88,101,242,0.15);
+
+}
+
+
+/* ==============================
+   ADD BUTTON
+============================== */
+
+.add-button {
+
+    margin-top: 20px;
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    transition: 0.3s;
+
+}
+
+
+.add-button:hover {
 
     transform:
     translateY(-3px);
@@ -725,35 +404,51 @@ body::after {
 }
 
 
-/* =========================================
-   PRODUCTS
-========================================= */
+/* ==============================
+   INVENTORY
+============================== */
 
-.product {
+.inventory {
 
-    display:
-    flex;
+    margin-top: 45px;
 
-    align-items:
-    center;
+}
 
-    justify-content:
-    space-between;
 
-    gap:
-    20px;
+.inventory h2 {
 
-    padding:
-    18px;
+    margin-bottom: 15px;
 
-    margin-top:
-    12px;
+}
 
-    border-radius:
-    15px;
+
+.inventory-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.inventory-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 16px;
+
+    border-radius: 14px;
 
     background:
-    rgba(255,255,255,0.04);
+    rgba(255,255,255,0.045);
 
     border:
     1px solid
@@ -762,191 +457,94 @@ body::after {
 }
 
 
-.product-info h3 {
+.inventory-info strong {
 
-    margin-bottom:
-    5px;
+    display: block;
+
+    margin-bottom: 5px;
 
 }
 
 
-.product-info p {
+.inventory-info span {
 
     color:
     rgba(255,255,255,0.5);
 
-}
-
-
-.product-actions {
-
-    display:
-    flex;
-
-    gap:
-    8px;
+    font-size: 14px;
 
 }
 
 
-.small {
+.delete-button {
 
-    padding:
-    9px 12px;
+    padding: 9px 12px;
 
-    border:
-    none;
+    border: none;
 
-    border-radius:
-    9px;
+    border-radius: 9px;
 
-    color:
-    white;
-
-    cursor:
-    pointer;
+    color: white;
 
     background:
-    rgba(255,255,255,0.08);
+    rgba(220,60,70,0.2);
+
+    cursor: pointer;
 
 }
 
 
-.delete {
+.delete-button:hover {
 
     background:
-    rgba(255,60,70,0.2);
+    rgba(220,60,70,0.4);
 
 }
 
 
-/* =========================================
-   ORDERS
-========================================= */
-
-.order {
-
-    padding:
-    20px;
-
-    margin-top:
-    12px;
-
-    border-radius:
-    15px;
-
-    background:
-    rgba(255,255,255,0.04);
-
-    border:
-    1px solid
-    rgba(255,255,255,0.08);
-
-}
-
-
-.order strong {
-
-    color:
-    #8790ff;
-
-}
-
-
-.status {
-
-    display:
-    inline-block;
-
-    margin-top:
-    10px;
-
-    padding:
-    6px 10px;
-
-    border-radius:
-    8px;
-
-    font-size:
-    13px;
-
-    background:
-    rgba(40,200,130,0.15);
-
-    color:
-    #63e6be;
-
-}
-
-
-/* =========================================
+/* ==============================
    MOBILE
-========================================= */
+============================== */
 
-@media
-(max-width: 900px) {
+@media(max-width:700px) {
 
-    .dashboard {
+    .owner-panel {
 
-        grid-template-columns:
-        1fr;
+        padding: 20px;
 
     }
 
-    .stats {
+    .header {
 
-        grid-template-columns:
-        repeat(
-            2,
-            1fr
-        );
+        flex-direction: column;
 
-    }
-
-}
-
-
-@media
-(max-width: 600px) {
-
-    .navbar {
-
-        flex-direction:
-        column;
-
-        gap:
-        12px;
-
-    }
-
-    .stats {
-
-        grid-template-columns:
-        1fr;
+        align-items: flex-start;
 
     }
 
     .form-grid {
 
-        grid-template-columns:
-        1fr;
+        grid-template-columns: 1fr;
 
     }
 
-    .full {
+    .input-group.full {
 
-        grid-column:
-        auto;
+        grid-column: auto;
 
     }
 
-    .product {
+    .tabs {
 
-        flex-direction:
-        column;
+        flex-direction: column;
 
-        align-items:
-        flex-start;
+    }
+
+    .inventory-item {
+
+        flex-direction: column;
+
+        align-items: flex-start;
 
     }
 
@@ -960,635 +558,568 @@ body::after {
 <body>
 
 
-<!-- =========================================
-     NAVBAR
-========================================= -->
+<div class="background"></div>
 
-<nav class="navbar">
 
-<div class="logo">
+<div class="owner-panel">
 
-Discord
-<span>
-Board
-</span>
-Marketplace
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div>
+
+<h1>
+🔐 Owner Panel
+</h1>
+
+<p>
+Manage your Bots and Hosting products.
+</p>
 
 </div>
 
-
-<div class="nav-actions">
 
 <a
 href="index.html"
-class="nav-btn"
+class="back-button"
 >
 
-🏠 Website
-
-</a>
-
-
-<a
-href="bots.html"
-class="nav-btn"
->
-
-🤖 Bots
-
-</a>
-
-
-<a
-href="hosting.html"
-class="nav-btn"
->
-
-☁️ Hosting
+← Back to Home
 
 </a>
 
 </div>
 
-</nav>
 
 
-<!-- =========================================
-     DASHBOARD
-========================================= -->
+<!-- TABS -->
 
-<div class="dashboard">
-
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-<h3>
-🔐 Owner Panel
-</h3>
+<div class="tabs">
 
 
 <button
-class="menu-btn active"
-onclick="showPage('dashboard',this)"
+class="tab-button active"
+onclick="showTab('bots', this)"
 >
 
-📊 Dashboard
+🤖 Add Bot
 
 </button>
 
 
 <button
-class="menu-btn"
-onclick="showPage('bots',this)"
+class="tab-button"
+onclick="showTab('hosting', this)"
 >
 
-🤖 Manage Bots
+☁️ Add Hosting
 
 </button>
 
 
-<button
-class="menu-btn"
-onclick="showPage('hosting',this)"
->
-
-☁️ Manage Hosting
-
-</button>
+</div>
 
 
-<button
-class="menu-btn"
-onclick="showPage('orders',this)"
->
 
-📦 Orders
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="logout()"
->
-
-🚪 Logout
-
-</button>
-
-</aside>
-
-
-<!-- CONTENT -->
-
-<main class="content">
-
-
-<!-- =========================================
-     DASHBOARD PAGE
-========================================= -->
+<!-- =================================
+     BOT FORM
+================================= -->
 
 <section
-id="dashboard"
-class="page active"
+id="botsForm"
+class="form-section active"
 >
 
-<div class="page-header">
 
-<h1>
-Dashboard
-</h1>
-
-<p>
-Welcome back, Owner.
-</p>
-
-</div>
-
-
-<div class="stats">
-
-
-<div class="stat">
-
-<span>
-Total Bots
-</span>
-
-<strong id="botCount">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<span>
-Hosting Products
-</span>
-
-<strong id="hostingCount">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<span>
-Orders
-</span>
-
-<strong id="orderCount">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<span>
-Revenue
-</span>
-
-<strong>
-€0.00
-</strong>
-
-</div>
-
-
-</div>
-
-
-<div class="panel">
+<div class="form-title">
 
 <h2>
-🚀 Marketplace Status
+🤖 Add New Bot
 </h2>
 
 <p>
-Your Discord Board Marketplace dashboard is ready.
+This product will be saved in DBM_BOTS.
 </p>
 
 </div>
-
-</section>
-
-
-<!-- =========================================
-     BOTS
-========================================= -->
-
-<section
-id="bots"
-class="page"
->
-
-<div class="page-header">
-
-<h1>
-🤖 Manage Bots
-</h1>
-
-<p>
-Add and manage your Discord bots.
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<h2>
-➕ Add New Bot
-</h2>
 
 
 <div class="form-grid">
 
+
+<div class="input-group">
+
+<label>
+Bot Name
+</label>
 
 <input
 id="botName"
-class="input"
-placeholder="Bot Name"
+type="text"
+placeholder="Example: Moderation Bot"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Price (€)
+</label>
 
 <input
 id="botPrice"
-class="input"
 type="number"
-placeholder="Price"
+step="0.01"
+min="0"
+placeholder="9.99"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Stock
+</label>
 
 <input
 id="botStock"
-class="input"
 type="number"
-placeholder="Stock"
+min="0"
+placeholder="10"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Bot ID
+</label>
+
+<input
+id="botId"
+type="text"
+placeholder="Discord Bot ID"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Bot Image URL
+</label>
 
 <input
 id="botImage"
-class="input"
-placeholder="Image URL"
+type="url"
+placeholder="https://example.com/bot.png"
 >
 
+</div>
 
-<input
+
+<div class="input-group full">
+
+<label>
+Bot Description
+</label>
+
+<textarea
 id="botDescription"
-class="input full"
-placeholder="Bot Description"
->
+placeholder="Write a description for your bot..."
+></textarea>
+
+</div>
 
 
 </div>
 
 
 <button
-class="primary"
+class="add-button"
 onclick="addBot()"
 >
 
-Add Bot
+➕ Add Bot to Marketplace
 
 </button>
 
-</div>
-
-
-<div class="panel">
-
-<h2>
-📦 Your Bots
-</h2>
-
-<div
-id="botList"
->
-
-</div>
-
-</div>
 
 </section>
 
 
-<!-- =========================================
-     HOSTING
-========================================= -->
+
+<!-- =================================
+     HOSTING FORM
+================================= -->
 
 <section
-id="hosting"
-class="page"
+id="hostingForm"
+class="form-section"
 >
 
-<div class="page-header">
 
-<h1>
-☁️ Manage Hosting
-</h1>
+<div class="form-title">
+
+<h2>
+☁️ Add New Hosting
+</h2>
 
 <p>
-Manage your hosting products.
+This product will be saved in DBM_HOSTING.
 </p>
 
 </div>
-
-
-<div class="panel">
-
-<h2>
-➕ Add Hosting
-</h2>
 
 
 <div class="form-grid">
 
 
+<div class="input-group">
+
+<label>
+Hosting Name
+</label>
+
 <input
 id="hostingName"
-class="input"
-placeholder="Hosting Name"
+type="text"
+placeholder="Example: Premium Bot Hosting"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Price (€)
+</label>
 
 <input
 id="hostingPrice"
-class="input"
 type="number"
-placeholder="Price"
+step="0.01"
+min="0"
+placeholder="5.99"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Stock
+</label>
 
 <input
 id="hostingStock"
-class="input"
 type="number"
-placeholder="Stock"
+min="0"
+placeholder="20"
 >
 
+</div>
+
+
+<div class="input-group">
+
+<label>
+Hosting ID
+</label>
+
+<input
+id="hostingId"
+type="text"
+placeholder="Hosting Plan ID"
+>
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Hosting Image URL
+</label>
 
 <input
 id="hostingImage"
-class="input"
-placeholder="Image URL"
+type="url"
+placeholder="https://example.com/hosting.png"
 >
 
+</div>
 
-<input
+
+<div class="input-group full">
+
+<label>
+Hosting Description
+</label>
+
+<textarea
 id="hostingDescription"
-class="input full"
-placeholder="Hosting Description"
->
+placeholder="Write a description for your hosting..."
+></textarea>
+
+</div>
 
 
 </div>
 
 
 <button
-class="primary"
+class="add-button"
 onclick="addHosting()"
 >
 
-Add Hosting
+➕ Add Hosting to Marketplace
 
 </button>
 
-</div>
+
+</section>
 
 
-<div class="panel">
+
+<!-- =================================
+     BOT INVENTORY
+================================= -->
+
+<div class="inventory">
 
 <h2>
-📦 Your Hosting
+🤖 Bot Inventory
 </h2>
 
-<div
-id="hostingList"
->
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     ORDERS
-========================================= -->
-
-<section
-id="orders"
-class="page"
->
-
-<div class="page-header">
-
-<h1>
-📦 Orders
-</h1>
-
-<p>
-View marketplace orders.
-</p>
-
-</div>
-
-
-<div class="panel">
 
 <div
-id="orderList"
+id="botInventory"
+class="inventory-list"
 >
 
-<p>
-No orders yet.
-</p>
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     HOSTING INVENTORY
+================================= -->
+
+<div class="inventory">
+
+<h2>
+☁️ Hosting Inventory
+</h2>
+
+
+<div
+id="hostingInventory"
+class="inventory-list"
+>
 
 </div>
 
 </div>
 
-</section>
-
-
-</main>
 
 </div>
+
 
 
 <script>
+
 
 /* =========================================
    DATA
 ========================================= */
 
-let bots =
 
-JSON.parse(
+let bots = JSON.parse(
 
 localStorage.getItem(
-"DBM_BOTS"
+    "DBM_BOTS"
 )
 
 ) || [];
 
 
-let hosting =
-
-JSON.parse(
+let hostingProducts = JSON.parse(
 
 localStorage.getItem(
-"DBM_HOSTING"
+    "DBM_HOSTING"
 )
 
 ) || [];
 
-
-let orders =
-
-JSON.parse(
-
-localStorage.getItem(
-"DBM_ORDERS"
-)
-
-) || [];
 
 
 /* =========================================
-   NAVIGATION
+   TAB SYSTEM
 ========================================= */
 
-function showPage(
-page,
-button
+
+function showTab(
+    tab,
+    button
 ) {
 
+
     document
     .querySelectorAll(
-        ".page"
+        ".form-section"
     )
     .forEach(
+        section => {
 
-        item => {
-
-            item.classList
-            .remove(
+            section.classList.remove(
                 "active"
             );
 
         }
-
-    );
-
-
-    document
-    .getElementById(
-        page
-    )
-    .classList
-    .add(
-        "active"
     );
 
 
     document
     .querySelectorAll(
-        ".menu-btn"
+        ".tab-button"
     )
     .forEach(
+        btn => {
 
-        item => {
-
-            item.classList
-            .remove(
+            btn.classList.remove(
                 "active"
             );
 
         }
-
     );
 
 
-    button.classList
-    .add(
+    if (
+        tab === "bots"
+    ) {
+
+        document
+        .getElementById(
+            "botsForm"
+        )
+        .classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (
+        tab === "hosting"
+    ) {
+
+        document
+        .getElementById(
+            "hostingForm"
+        )
+        .classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.classList.add(
         "active"
     );
 
 }
 
 
+
 /* =========================================
    ADD BOT
 ========================================= */
 
+
 function addBot() {
 
+
     const name =
-    document
-    .getElementById(
-        "botName"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "botName"
+        )
+        .value
+        .trim();
 
 
     const price =
-    Number(
-        document
-        .getElementById(
-            "botPrice"
-        )
-        .value
-    );
+        Number(
+            document
+            .getElementById(
+                "botPrice"
+            )
+            .value
+        );
 
 
     const stock =
-    Number(
+        Number(
+            document
+            .getElementById(
+                "botStock"
+            )
+            .value
+        );
+
+
+    const botId =
         document
         .getElementById(
-            "botStock"
+            "botId"
         )
         .value
-    );
+        .trim();
 
 
     const image =
-    document
-    .getElementById(
-        "botImage"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "botImage"
+        )
+        .value
+        .trim();
 
 
     const description =
-    document
-    .getElementById(
-        "botDescription"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "botDescription"
+        )
+        .value
+        .trim();
+
 
 
     if (
         !name ||
-        price <= 0
+        !botId ||
+        price <= 0 ||
+        stock < 0
     ) {
 
         alert(
-            "Enter bot name and price."
+            "Please complete all required Bot fields."
         );
 
         return;
@@ -1596,22 +1127,40 @@ function addBot() {
     }
 
 
-    bots.push({
+
+    const bot = {
 
         id:
-        Date.now(),
+            Date.now(),
 
-        name,
+        type:
+            "bot",
 
-        price,
+        name:
+            name,
 
-        stock,
+        price:
+            price,
 
-        image,
+        stock:
+            stock,
 
-        description
+        botId:
+            botId,
 
-    });
+        image:
+            image,
+
+        description:
+            description
+
+    };
+
+
+
+    bots.push(
+        bot
+    );
 
 
     localStorage.setItem(
@@ -1625,77 +1174,94 @@ function addBot() {
     );
 
 
+    clearBotForm();
+
+
     renderBots();
 
-    updateStats();
 
     alert(
-        "Bot added successfully!"
+        "✅ Bot added successfully!"
     );
 
 }
+
 
 
 /* =========================================
    ADD HOSTING
 ========================================= */
 
+
 function addHosting() {
 
+
     const name =
-    document
-    .getElementById(
-        "hostingName"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "hostingName"
+        )
+        .value
+        .trim();
 
 
     const price =
-    Number(
-        document
-        .getElementById(
-            "hostingPrice"
-        )
-        .value
-    );
+        Number(
+            document
+            .getElementById(
+                "hostingPrice"
+            )
+            .value
+        );
 
 
     const stock =
-    Number(
+        Number(
+            document
+            .getElementById(
+                "hostingStock"
+            )
+            .value
+        );
+
+
+    const hostingId =
         document
         .getElementById(
-            "hostingStock"
+            "hostingId"
         )
         .value
-    );
+        .trim();
 
 
     const image =
-    document
-    .getElementById(
-        "hostingImage"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "hostingImage"
+        )
+        .value
+        .trim();
 
 
     const description =
-    document
-    .getElementById(
-        "hostingDescription"
-    )
-    .value
-    .trim();
+        document
+        .getElementById(
+            "hostingDescription"
+        )
+        .value
+        .trim();
+
 
 
     if (
         !name ||
-        price <= 0
+        !hostingId ||
+        price <= 0 ||
+        stock < 0
     ) {
 
         alert(
-            "Enter hosting name and price."
+            "Please complete all required Hosting fields."
         );
 
         return;
@@ -1703,22 +1269,40 @@ function addHosting() {
     }
 
 
-    hosting.push({
+
+    const hosting = {
 
         id:
-        Date.now(),
+            Date.now(),
 
-        name,
+        type:
+            "hosting",
 
-        price,
+        name:
+            name,
 
-        stock,
+        price:
+            price,
 
-        image,
+        stock:
+            stock,
 
-        description
+        hostingId:
+            hostingId,
 
-    });
+        image:
+            image,
+
+        description:
+            description
+
+    };
+
+
+
+    hostingProducts.push(
+        hosting
+    );
 
 
     localStorage.setItem(
@@ -1726,38 +1310,148 @@ function addHosting() {
         "DBM_HOSTING",
 
         JSON.stringify(
-            hosting
+            hostingProducts
         )
 
     );
 
 
+    clearHostingForm();
+
+
     renderHosting();
 
-    updateStats();
 
     alert(
-        "Hosting added successfully!"
+        "✅ Hosting added successfully!"
     );
 
 }
+
+
+
+/* =========================================
+   CLEAR BOT FORM
+========================================= */
+
+
+function clearBotForm() {
+
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value = "";
+
+}
+
+
+
+/* =========================================
+   CLEAR HOSTING FORM
+========================================= */
+
+
+function clearHostingForm() {
+
+
+    document
+    .getElementById(
+        "hostingName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "hostingDescription"
+    )
+    .value = "";
+
+}
+
 
 
 /* =========================================
    RENDER BOTS
 ========================================= */
 
+
 function renderBots() {
 
+
     const list =
-    document
-    .getElementById(
-        "botList"
-    );
+        document
+        .getElementById(
+            "botInventory"
+        );
 
 
-    list.innerHTML =
-    "";
+    list.innerHTML = "";
 
 
     if (
@@ -1765,7 +1459,8 @@ function renderBots() {
     ) {
 
         list.innerHTML =
-        "<p>No bots added yet.</p>";
+
+        "<p style='color:#777;'>No bots added yet.</p>";
 
         return;
 
@@ -1773,164 +1468,168 @@ function renderBots() {
 
 
     bots.forEach(
-
         bot => {
 
-            const div =
-            document
-            .createElement(
-                "div"
-            );
+
+            const item =
+                document
+                .createElement(
+                    "div"
+                );
 
 
-            div.className =
-            "product";
+            item.className =
+                "inventory-item";
 
 
-            div.innerHTML = `
+            item.innerHTML = `
 
-                <div class="product-info">
+                <div class="inventory-info">
 
-                    <h3>
-                    🤖 ${escapeHTML(bot.name)}
-                    </h3>
+                    <strong>
+                        🤖 ${escapeHTML(bot.name)}
+                    </strong>
 
-                    <p>
-                    €${bot.price.toFixed(2)}
-                    • Stock: ${bot.stock}
-                    </p>
+                    <span>
+                        €${Number(bot.price).toFixed(2)}
+                        • Stock: ${bot.stock}
+                    </span>
 
                 </div>
 
-                <div class="product-actions">
-
-                    <button
-                    class="small delete"
+                <button
+                    class="delete-button"
                     onclick="deleteBot(${bot.id})"
-                    >
+                >
 
                     🗑️ Delete
 
-                    </button>
-
-                </div>
+                </button>
 
             `;
 
 
             list.appendChild(
-                div
+                item
             );
 
         }
-
     );
 
 }
+
 
 
 /* =========================================
    RENDER HOSTING
 ========================================= */
 
+
 function renderHosting() {
 
+
     const list =
-    document
-    .getElementById(
-        "hostingList"
-    );
+        document
+        .getElementById(
+            "hostingInventory"
+        );
 
 
-    list.innerHTML =
-    "";
+    list.innerHTML = "";
 
 
     if (
-        hosting.length === 0
+        hostingProducts.length === 0
     ) {
 
         list.innerHTML =
-        "<p>No hosting products yet.</p>";
+
+        "<p style='color:#777;'>No hosting products added yet.</p>";
 
         return;
 
     }
 
 
-    hosting.forEach(
-
-        item => {
-
-            const div =
-            document
-            .createElement(
-                "div"
-            );
+    hostingProducts.forEach(
+        hosting => {
 
 
-            div.className =
-            "product";
+            const item =
+                document
+                .createElement(
+                    "div"
+                );
 
 
-            div.innerHTML = `
+            item.className =
+                "inventory-item";
 
-                <div class="product-info">
 
-                    <h3>
-                    ☁️ ${escapeHTML(item.name)}
-                    </h3>
+            item.innerHTML = `
 
-                    <p>
-                    €${item.price.toFixed(2)}
-                    • Stock: ${item.stock}
-                    </p>
+                <div class="inventory-info">
+
+                    <strong>
+                        ☁️ ${escapeHTML(hosting.name)}
+                    </strong>
+
+                    <span>
+                        €${Number(hosting.price).toFixed(2)}
+                        • Stock: ${hosting.stock}
+                    </span>
 
                 </div>
 
-                <div class="product-actions">
-
-                    <button
-                    class="small delete"
-                    onclick="deleteHosting(${item.id})"
-                    >
+                <button
+                    class="delete-button"
+                    onclick="deleteHosting(${hosting.id})"
+                >
 
                     🗑️ Delete
 
-                    </button>
-
-                </div>
+                </button>
 
             `;
 
 
             list.appendChild(
-                div
+                item
             );
 
         }
-
     );
 
 }
+
 
 
 /* =========================================
    DELETE BOT
 ========================================= */
 
+
 function deleteBot(
-id
+    id
 ) {
 
+
+    if (
+        !confirm(
+            "Delete this bot?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
     bots =
-    bots.filter(
-
-        bot =>
-        bot.id !==
-        id
-
-    );
+        bots.filter(
+            bot =>
+                bot.id !== id
+        );
 
 
     localStorage.setItem(
@@ -1946,27 +1645,36 @@ id
 
     renderBots();
 
-    updateStats();
-
 }
+
 
 
 /* =========================================
    DELETE HOSTING
 ========================================= */
 
+
 function deleteHosting(
-id
+    id
 ) {
 
-    hosting =
-    hosting.filter(
 
-        item =>
-        item.id !==
-        id
+    if (
+        !confirm(
+            "Delete this hosting product?"
+        )
+    ) {
 
-    );
+        return;
+
+    }
+
+
+    hostingProducts =
+        hostingProducts.filter(
+            hosting =>
+                hosting.id !== id
+        );
 
 
     localStorage.setItem(
@@ -1974,7 +1682,7 @@ id
         "DBM_HOSTING",
 
         JSON.stringify(
-            hosting
+            hostingProducts
         )
 
     );
@@ -1982,127 +1690,17 @@ id
 
     renderHosting();
 
-    updateStats();
-
 }
 
-
-/* =========================================
-   ORDERS
-========================================= */
-
-function renderOrders() {
-
-    const list =
-    document
-    .getElementById(
-        "orderList"
-    );
-
-
-    list.innerHTML =
-    "";
-
-
-    if (
-        orders.length === 0
-    ) {
-
-        list.innerHTML =
-        "<p>No orders yet.</p>";
-
-        return;
-
-    }
-
-
-    orders.forEach(
-
-        order => {
-
-            const div =
-            document
-            .createElement(
-                "div"
-            );
-
-
-            div.className =
-            "order";
-
-
-            div.innerHTML = `
-
-                <strong>
-                ${escapeHTML(order.id)}
-                </strong>
-
-                <p>
-                Customer:
-                ${escapeHTML(order.customer || "Unknown")}
-                </p>
-
-                <p>
-                Total:
-                €${Number(order.total || 0).toFixed(2)}
-                </p>
-
-                <span class="status">
-                ${escapeHTML(order.status || "Pending")}
-                </span>
-
-            `;
-
-
-            list.appendChild(
-                div
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   STATS
-========================================= */
-
-function updateStats() {
-
-    document
-    .getElementById(
-        "botCount"
-    )
-    .textContent =
-    bots.length;
-
-
-    document
-    .getElementById(
-        "hostingCount"
-    )
-    .textContent =
-    hosting.length;
-
-
-    document
-    .getElementById(
-        "orderCount"
-    )
-    .textContent =
-    orders.length;
-
-}
 
 
 /* =========================================
    ESCAPE HTML
 ========================================= */
 
+
 function escapeHTML(
-text
+    text
 ) {
 
     return String(
@@ -2137,33 +1735,16 @@ text
 }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
-
-function logout() {
-
-    localStorage.removeItem(
-        "DBM_OWNER_LOGIN"
-    );
-
-    window.location.href =
-    "index.html";
-
-}
-
 
 /* =========================================
    START
 ========================================= */
 
+
 renderBots();
 
 renderHosting();
 
-renderOrders();
-
-updateStats();
 
 </script>
 
