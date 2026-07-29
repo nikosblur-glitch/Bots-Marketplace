@@ -1,0 +1,6008 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Discord Board Marketplace
+</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color: white;
+
+    background:
+    #03040a;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   CUSTOM CURSOR GLOW
+===================================================== */
+
+.cursor-glow {
+
+    position: fixed;
+
+    width: 350px;
+
+    height: 350px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(88,101,242,0.16),
+        transparent 70%
+    );
+
+    transform:
+    translate(-50%,-50%);
+
+    filter:
+    blur(20px);
+
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background:
+
+    radial-gradient(
+        circle at 20% 10%,
+        rgba(88,101,242,0.16),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 80% 60%,
+        rgba(139,92,246,0.12),
+        transparent 30%
+    ),
+
+    #03040a;
+
+}
+
+
+/* =====================================================
+   AURORA
+===================================================== */
+
+.aurora {
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    border-radius: 50%;
+
+    filter:
+    blur(130px);
+
+    opacity:
+    0.25;
+
+    animation:
+    auroraMove 18s
+    infinite alternate
+    ease-in-out;
+
+}
+
+
+.aurora-1 {
+
+    top:
+    -350px;
+
+    left:
+    -250px;
+
+    background:
+    #5865f2;
+
+}
+
+
+.aurora-2 {
+
+    right:
+    -350px;
+
+    top:
+    20%;
+
+    background:
+    #8b5cf6;
+
+    animation-delay:
+    4s;
+
+}
+
+
+.aurora-3 {
+
+    bottom:
+    -400px;
+
+    left:
+    35%;
+
+    background:
+    #06b6d4;
+
+    animation-delay:
+    8s;
+
+}
+
+
+@keyframes auroraMove {
+
+    0% {
+
+        transform:
+        translate(0,0)
+        scale(1);
+
+    }
+
+    50% {
+
+        transform:
+        translate(120px,80px)
+        scale(1.2);
+
+    }
+
+    100% {
+
+        transform:
+        translate(-100px,120px)
+        scale(0.9);
+
+    }
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particles {
+
+    position:
+    absolute;
+
+    inset:
+    0;
+
+}
+
+
+.particle {
+
+    position:
+    absolute;
+
+    width:
+    3px;
+
+    height:
+    3px;
+
+    border-radius:
+    50%;
+
+    background:
+    white;
+
+    opacity:
+    0.35;
+
+    box-shadow:
+    0 0 15px
+    rgba(255,255,255,0.5);
+
+    animation:
+    particleMove
+    linear infinite;
+
+}
+
+
+@keyframes particleMove {
+
+    0% {
+
+        transform:
+        translateY(110vh);
+
+        opacity:
+        0;
+
+    }
+
+    15% {
+
+        opacity:
+        0.5;
+
+    }
+
+    80% {
+
+        opacity:
+        0.3;
+
+    }
+
+    100% {
+
+        transform:
+        translateY(-10vh);
+
+        opacity:
+        0;
+
+    }
+
+}
+
+
+.particle:nth-child(1) {
+
+    left:
+    5%;
+
+    animation-duration:
+    14s;
+
+}
+
+
+.particle:nth-child(2) {
+
+    left:
+    15%;
+
+    animation-duration:
+    18s;
+
+    animation-delay:
+    3s;
+
+}
+
+
+.particle:nth-child(3) {
+
+    left:
+    25%;
+
+    animation-duration:
+    12s;
+
+    animation-delay:
+    6s;
+
+}
+
+
+.particle:nth-child(4) {
+
+    left:
+    38%;
+
+    animation-duration:
+    20s;
+
+}
+
+
+.particle:nth-child(5) {
+
+    left:
+    50%;
+
+    animation-duration:
+    16s;
+
+    animation-delay:
+    2s;
+
+}
+
+
+.particle:nth-child(6) {
+
+    left:
+    62%;
+
+    animation-duration:
+    13s;
+
+}
+
+
+.particle:nth-child(7) {
+
+    left:
+    75%;
+
+    animation-duration:
+    19s;
+
+    animation-delay:
+    5s;
+
+}
+
+
+.particle:nth-child(8) {
+
+    left:
+    88%;
+
+    animation-duration:
+    15s;
+
+}
+
+
+/* =====================================================
+   GLASS NAVBAR
+===================================================== */
+
+.navbar {
+
+    position:
+    fixed;
+
+    top:
+    18px;
+
+    left:
+    50%;
+
+    transform:
+    translateX(-50%);
+
+    width:
+    92%;
+
+    max-width:
+    1250px;
+
+    padding:
+    14px 20px;
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    z-index:
+    1000;
+
+    border-radius:
+    20px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px)
+    saturate(150%);
+
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(150%);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(0,0,0,0.35);
+
+}
+
+
+.logo {
+
+    font-size:
+    19px;
+
+    font-weight:
+    900;
+
+    letter-spacing:
+    -0.5px;
+
+}
+
+
+.logo span {
+
+    color:
+    #7280ff;
+
+}
+
+
+.nav-links {
+
+    display:
+    flex;
+
+    gap:
+    5px;
+
+    align-items:
+    center;
+
+}
+
+
+.nav-links a {
+
+    color:
+    rgba(255,255,255,0.65);
+
+    text-decoration:
+    none;
+
+    padding:
+    9px 13px;
+
+    border-radius:
+    10px;
+
+    transition:
+    0.3s;
+
+}
+
+
+.nav-links a:hover {
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.09);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+.cart-button {
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(88,101,242,0.8),
+        rgba(139,92,246,0.8)
+    ) !important;
+
+    color:
+    white !important;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    min-height:
+    100vh;
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    text-align:
+    center;
+
+    padding:
+    150px 20px 80px;
+
+}
+
+
+.hero-content {
+
+    max-width:
+    900px;
+
+    animation:
+    heroIn 1.2s
+    ease forwards;
+
+}
+
+
+@keyframes heroIn {
+
+    from {
+
+        opacity:
+        0;
+
+        transform:
+        translateY(45px)
+        scale(0.96);
+
+    }
+
+    to {
+
+        opacity:
+        1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+}
+
+
+.badge {
+
+    display:
+    inline-flex;
+
+    padding:
+    9px 17px;
+
+    margin-bottom:
+    25px;
+
+    border-radius:
+    50px;
+
+    background:
+    rgba(88,101,242,0.10);
+
+    border:
+    1px solid
+    rgba(114,128,255,0.35);
+
+    color:
+    #b9c0ff;
+
+    box-shadow:
+    0 0 40px
+    rgba(88,101,242,0.12);
+
+    animation:
+    badgePulse 3s
+    infinite;
+
+}
+
+
+@keyframes badgePulse {
+
+    0%,100% {
+
+        box-shadow:
+        0 0 20px
+        rgba(88,101,242,0.05);
+
+    }
+
+    50% {
+
+        box-shadow:
+        0 0 45px
+        rgba(88,101,242,0.25);
+
+    }
+
+}
+
+
+.hero h1 {
+
+    font-size:
+    clamp(
+        48px,
+        8vw,
+        100px
+    );
+
+    line-height:
+    0.95;
+
+    letter-spacing:
+    -5px;
+
+    margin-bottom:
+    28px;
+
+}
+
+
+.hero h1 span {
+
+    color:
+    #7280ff;
+
+    text-shadow:
+    0 0 60px
+    rgba(88,101,242,0.6);
+
+}
+
+
+.hero p {
+
+    max-width:
+    650px;
+
+    margin:
+    auto;
+
+    color:
+    rgba(255,255,255,0.58);
+
+    font-size:
+    18px;
+
+    line-height:
+    1.7;
+
+}
+
+
+.hero-buttons {
+
+    display:
+    flex;
+
+    justify-content:
+    center;
+
+    gap:
+    14px;
+
+    flex-wrap:
+    wrap;
+
+    margin-top:
+    35px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn {
+
+    display:
+    inline-flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    gap:
+    8px;
+
+    padding:
+    14px 23px;
+
+    border-radius:
+    13px;
+
+    text-decoration:
+    none;
+
+    font-weight:
+    750;
+
+    border:
+    none;
+
+    cursor:
+    pointer;
+
+    transition:
+    0.35s;
+
+}
+
+
+.btn-primary {
+
+    color:
+    white;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    box-shadow:
+
+    0 12px 45px
+    rgba(88,101,242,0.3);
+
+}
+
+
+.btn-primary:hover {
+
+    transform:
+    translateY(-5px)
+    scale(1.02);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(88,101,242,0.5);
+
+}
+
+
+.btn-glass {
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.13);
+
+    backdrop-filter:
+    blur(15px);
+
+}
+
+
+.btn-glass:hover {
+
+    background:
+    rgba(255,255,255,0.11);
+
+    transform:
+    translateY(-5px);
+
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section {
+
+    width:
+    92%;
+
+    max-width:
+    1200px;
+
+    margin:
+    auto;
+
+    padding:
+    100px 0;
+
+}
+
+
+.section-title {
+
+    text-align:
+    center;
+
+    margin-bottom:
+    50px;
+
+}
+
+
+.section-title h2 {
+
+    font-size:
+    clamp(
+        32px,
+        5vw,
+        48px
+    );
+
+    margin-bottom:
+    12px;
+
+}
+
+
+.section-title p {
+
+    color:
+    rgba(255,255,255,0.5);
+
+}
+
+
+/* =====================================================
+   GLASS CARDS
+===================================================== */
+
+.cards {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(240px,1fr)
+    );
+
+    gap:
+    20px;
+
+}
+
+
+.card {
+
+    position:
+    relative;
+
+    overflow:
+    hidden;
+
+    padding:
+    32px;
+
+    min-height:
+    260px;
+
+    border-radius:
+    24px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,0.07),
+        rgba(255,255,255,0.025)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(0,0,0,0.25);
+
+    transition:
+    0.45s;
+
+}
+
+
+.card::before {
+
+    content:
+    "";
+
+    position:
+    absolute;
+
+    top:
+    -100px;
+
+    right:
+    -100px;
+
+    width:
+    220px;
+
+    height:
+    220px;
+
+    border-radius:
+    50%;
+
+    background:
+    #5865f2;
+
+    filter:
+    blur(100px);
+
+    opacity:
+    0;
+
+    transition:
+    0.5s;
+
+}
+
+
+.card:hover {
+
+    transform:
+    translateY(-10px);
+
+    border-color:
+    rgba(114,128,255,0.45);
+
+    box-shadow:
+
+    0 30px 90px
+    rgba(0,0,0,0.4);
+
+}
+
+
+.card:hover::before {
+
+    opacity:
+    0.2;
+
+}
+
+
+.card-icon {
+
+    font-size:
+    42px;
+
+    margin-bottom:
+    20px;
+
+}
+
+
+.card h3 {
+
+    font-size:
+    22px;
+
+    margin-bottom:
+    12px;
+
+}
+
+
+.card p {
+
+    color:
+    rgba(255,255,255,0.55);
+
+    line-height:
+    1.65;
+
+    margin-bottom:
+    22px;
+
+}
+
+
+/* =====================================================
+   TRUST
+===================================================== */
+
+.trust-grid {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(200px,1fr)
+    );
+
+    gap:
+    20px;
+
+}
+
+
+.trust-card {
+
+    padding:
+    30px;
+
+    text-align:
+    center;
+
+    border-radius:
+    20px;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    backdrop-filter:
+    blur(20px);
+
+    transition:
+    0.35s;
+
+}
+
+
+.trust-card:hover {
+
+    transform:
+    translateY(-6px);
+
+    background:
+    rgba(255,255,255,0.07);
+
+}
+
+
+.trust-card strong {
+
+    display:
+    block;
+
+    font-size:
+    30px;
+
+    color:
+    #7280ff;
+
+    margin-bottom:
+    8px;
+
+}
+
+
+.trust-card span {
+
+    color:
+    rgba(255,255,255,0.55);
+
+}
+
+
+/* =====================================================
+   OWNER PANEL OVERLAY
+===================================================== */
+
+.owner-overlay {
+
+    position:
+    fixed;
+
+    inset:
+    0;
+
+    z-index:
+    5000;
+
+    display:
+    none;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    padding:
+    20px;
+
+    background:
+    rgba(0,0,0,0.72);
+
+    backdrop-filter:
+    blur(15px);
+
+}
+
+
+.owner-overlay.active {
+
+    display:
+    flex;
+
+}
+
+
+.owner-panel {
+
+    width:
+    100%;
+
+    max-width:
+    900px;
+
+    max-height:
+    90vh;
+
+    overflow-y:
+    auto;
+
+    padding:
+    30px;
+
+    border-radius:
+    25px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(20,22,35,0.92),
+        rgba(10,12,20,0.92)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,0.14);
+
+    backdrop-filter:
+    blur(30px);
+
+    box-shadow:
+
+    0 30px 120px
+    rgba(0,0,0,0.6);
+
+    animation:
+    panelIn 0.35s
+    ease;
+
+}
+
+
+@keyframes panelIn {
+
+    from {
+
+        opacity:
+        0;
+
+        transform:
+        translateY(25px)
+        scale(0.96);
+
+    }
+
+    to {
+
+        opacity:
+        1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+}
+
+
+.owner-header {
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    margin-bottom:
+    25px;
+
+}
+
+
+.owner-header h2 {
+
+    font-size:
+    28px;
+
+}
+
+
+.close-button {
+
+    width:
+    40px;
+
+    height:
+    40px;
+
+    border-radius:
+    10px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    background:
+    rgba(255,255,255,0.06);
+
+    color:
+    white;
+
+    cursor:
+    pointer;
+
+    font-size:
+    20px;
+
+}
+
+
+.owner-form {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        2,
+        1fr
+    );
+
+    gap:
+    12px;
+
+}
+
+
+.owner-input {
+
+    width:
+    100%;
+
+    padding:
+    13px 15px;
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    border-radius:
+    11px;
+
+    outline:
+    none;
+
+}
+
+
+.owner-input:focus {
+
+    border-color:
+    rgba(114,128,255,0.6);
+
+    box-shadow:
+    0 0 25px
+    rgba(88,101,242,0.15);
+
+}
+
+
+.owner-full {
+
+    grid-column:
+    1 / -1;
+
+}
+
+
+.owner-actions {
+
+    margin-top:
+    15px;
+
+}
+
+
+.inventory {
+
+    margin-top:
+    35px;
+
+}
+
+
+.inventory-item {
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    gap:
+    15px;
+
+    padding:
+    18px;
+
+    margin-top:
+    12px;
+
+    border-radius:
+    15px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+}
+
+
+.inventory-info strong {
+
+    display:
+    block;
+
+    margin-bottom:
+    5px;
+
+}
+
+
+.inventory-info span {
+
+    color:
+    rgba(255,255,255,0.5);
+
+    font-size:
+    14px;
+
+}
+
+
+.inventory-actions {
+
+    display:
+    flex;
+
+    gap:
+    8px;
+
+    flex-wrap:
+    wrap;
+
+}
+
+
+.small-button {
+
+    padding:
+    9px 12px;
+
+    border:
+    none;
+
+    border-radius:
+    9px;
+
+    color:
+    white;
+
+    cursor:
+    pointer;
+
+    background:
+    rgba(255,255,255,0.08);
+
+}
+
+
+.small-button:hover {
+
+    background:
+    rgba(255,255,255,0.15);
+
+}
+
+
+.delete {
+
+    background:
+    rgba(220,60,70,0.2);
+
+}
+
+
+.restock {
+
+    background:
+    rgba(40,180,120,0.2);
+
+}
+
+
+/* =====================================================
+   OWNER BUTTON
+===================================================== */
+
+.owner-access {
+
+    position:
+    fixed;
+
+    bottom:
+    20px;
+
+    right:
+    20px;
+
+    z-index:
+    2000;
+
+    padding:
+    11px 16px;
+
+    border-radius:
+    12px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    background:
+    rgba(255,255,255,0.06);
+
+    color:
+    rgba(255,255,255,0.65);
+
+    backdrop-filter:
+    blur(15px);
+
+    cursor:
+    pointer;
+
+    transition:
+    0.3s;
+
+}
+
+
+.owner-access:hover {
+
+    color:
+    white;
+
+    transform:
+    translateY(-3px);
+
+    background:
+    rgba(88,101,242,0.25);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    padding:
+    60px 20px;
+
+    text-align:
+    center;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,0.08);
+
+    background:
+    rgba(255,255,255,0.025);
+
+}
+
+
+footer p {
+
+    color:
+    rgba(255,255,255,0.45);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media
+(max-width: 700px) {
+
+
+    .navbar {
+
+        flex-direction:
+        column;
+
+        gap:
+        12px;
+
+    }
+
+
+    .nav-links {
+
+        flex-wrap:
+        wrap;
+
+        justify-content:
+        center;
+
+    }
+
+
+    .hero h1 {
+
+        letter-spacing:
+        -3px;
+
+    }
+
+
+    .owner-form {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+
+    .owner-full {
+
+        grid-column:
+        auto;
+
+    }
+
+
+    .inventory-item {
+
+        flex-direction:
+        column;
+
+        align-items:
+        flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+
+<div class="background">
+
+
+<div class="aurora aurora-1"></div>
+
+<div class="aurora aurora-2"></div>
+
+<div class="aurora aurora-3"></div>
+
+
+<div class="particles">
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+</div>
+
+
+</div>
+
+
+<div
+class="cursor-glow"
+id="cursorGlow"
+></div>
+
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+Discord
+<span>
+Board
+</span>
+Marketplace
+
+</div>
+
+
+<div class="nav-links">
+
+
+<a href="#home">
+Home
+</a>
+
+
+<a href="#services">
+Services
+</a>
+
+
+<a href="bots.html">
+Bots
+</a>
+
+
+<a href="hosting.html">
+Hosting
+</a>
+
+
+<a href="support.html">
+Support
+</a>
+
+
+<a
+href="cart.html"
+class="cart-button"
+>
+
+🛒 Cart
+
+</a>
+
+
+</div>
+
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+
+<section
+class="hero"
+id="home"
+>
+
+
+<div class="hero-content">
+
+
+<div class="badge">
+
+✦ Premium Discord Marketplace
+
+</div>
+
+
+<h1>
+
+The Future of
+<span>
+Discord
+</span>
+
+</h1>
+
+
+<p>
+
+Discover premium Discord bots,
+hosting solutions and digital
+services built for modern
+communities.
+
+</p>
+
+
+<div class="hero-buttons">
+
+
+<a
+href="bots.html"
+class="btn btn-primary"
+>
+
+🤖 Explore Bots
+
+</a>
+
+
+<a
+href="hosting.html"
+class="btn btn-glass"
+>
+
+☁️ View Hosting
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+
+<section
+class="section"
+id="services"
+>
+
+
+<div class="section-title">
+
+
+<h2>
+
+Everything You Need
+
+</h2>
+
+
+<p>
+
+One modern marketplace for your
+Discord community.
+
+</p>
+
+
+</div>
+
+
+
+<div class="cards">
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🤖
+</div>
+
+
+<h3>
+Discord Bots
+</h3>
+
+
+<p>
+
+Premium bots for moderation,
+automation and community management.
+
+</p>
+
+
+<a
+href="bots.html"
+class="btn btn-glass"
+>
+
+Browse Bots
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+☁️
+</div>
+
+
+<h3>
+Bot Hosting
+</h3>
+
+
+<p>
+
+Reliable hosting options for
+your Discord projects and bots.
+
+</p>
+
+
+<a
+href="hosting.html"
+class="btn btn-glass"
+>
+
+View Hosting
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🎧
+</div>
+
+
+<h3>
+Support Center
+</h3>
+
+
+<p>
+
+Need help?
+Our support center is here
+for you.
+
+</p>
+
+
+<a
+href="support.html"
+class="btn btn-glass"
+>
+
+Get Support
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🛒
+</div>
+
+
+<h3>
+Marketplace
+</h3>
+
+
+<p>
+
+Add your favorite products
+to your cart and checkout.
+
+</p>
+
+
+<a
+href="cart.html"
+class="btn btn-glass"
+>
+
+Open Cart
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST
+===================================================== -->
+
+
+<section
+class="section"
+>
+
+
+<div class="section-title">
+
+
+<h2>
+
+Why Choose Us?
+
+</h2>
+
+
+<p>
+
+Built for modern Discord communities.
+
+</p>
+
+
+</div>
+
+
+
+<div class="trust-grid">
+
+
+<div class="trust-card">
+
+<strong>
+100%
+</strong>
+
+<span>
+Premium Quality
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+24/7
+</strong>
+
+<span>
+Support
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+Fast
+</strong>
+
+<span>
+Digital Delivery
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+Secure
+</strong>
+
+<span>
+Checkout
+</span>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     OWNER ACCESS
+===================================================== -->
+
+
+<button
+class="owner-access"
+onclick="openOwnerPanel()"
+>
+
+🔐 Owner Panel
+
+</button>
+
+
+
+<!-- =====================================================
+     OWNER PANEL
+===================================================== -->
+
+
+<div
+class="owner-overlay"
+id="ownerOverlay"
+>
+
+
+<div class="owner-panel">
+
+
+<div class="owner-header">
+
+
+<h2>
+🔐 Owner Panel
+</h2>
+
+
+<button
+class="close-button"
+onclick="closeOwnerPanel()"
+>
+
+×
+
+</button>
+
+
+</div>
+
+
+
+<h3>
+Add New Bot
+</h3>
+
+
+<br>
+
+
+
+<div class="owner-form">
+
+
+<input
+id="botName"
+class="owner-input"
+placeholder="Bot Name"
+>
+
+
+<input
+id="botPrice"
+class="owner-input"
+type="number"
+step="0.01"
+placeholder="Price"
+>
+
+
+<input
+id="botStock"
+class="owner-input"
+type="number"
+min="0"
+placeholder="Stock"
+>
+
+
+<input
+id="botId"
+class="owner-input"
+placeholder="Bot ID"
+>
+
+
+<input
+id="botImage"
+class="owner-input owner-full"
+placeholder="Bot Image URL"
+>
+
+
+<input
+id="botDescription"
+class="owner-input owner-full"
+placeholder="Bot Description"
+>
+
+
+</div>
+
+
+
+<div class="owner-actions">
+
+
+<button
+class="btn btn-primary"
+onclick="addBot()"
+>
+
+➕ Add Bot
+
+</button>
+
+
+</div>
+
+
+
+<div class="inventory">
+
+
+<h3>
+
+📦 Inventory
+
+</h3>
+
+
+<div
+id="inventoryList"
+>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script>
+
+
+/* =====================================================
+   CURSOR GLOW
+===================================================== */
+
+
+const cursorGlow =
+
+document.getElementById(
+    "cursorGlow"
+);
+
+
+document.addEventListener(
+
+    "mousemove",
+
+    function(event) {
+
+
+        cursorGlow.style.left =
+
+        event.clientX + "px";
+
+
+        cursorGlow.style.top =
+
+        event.clientY + "px";
+
+
+    }
+
+);
+
+
+
+/* =====================================================
+   OWNER DATA
+===================================================== */
+
+
+let bots =
+
+JSON.parse(
+
+    localStorage.getItem(
+        "DBM_BOTS"
+    )
+
+) || [];
+
+
+
+/* =====================================================
+   OPEN OWNER PANEL
+===================================================== */
+
+
+function openOwnerPanel() {
+
+
+    const password =
+
+    prompt(
+        "Enter Owner Password"
+    );
+
+
+    if (
+        password !==
+        "CHANGE_THIS_PASSWORD"
+    ) {
+
+
+        alert(
+            "Access denied."
+        );
+
+
+        return;
+
+    }
+
+
+    document
+
+    .getElementById(
+        "ownerOverlay"
+    )
+
+    .classList
+
+    .add(
+        "active"
+    );
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   CLOSE OWNER PANEL
+===================================================== */
+
+
+function closeOwnerPanel() {
+
+
+    document
+
+    .getElementById(
+        "ownerOverlay"
+    )
+
+    .classList
+
+    .remove(
+        "active"
+    );
+
+}
+
+
+
+/* =====================================================
+   ADD BOT
+===================================================== */
+
+
+function addBot() {
+
+
+    const name =
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value
+    .trim();
+
+
+    const price =
+
+    Number(
+
+        document
+        .getElementById(
+            "botPrice"
+        )
+        .value
+
+    );
+
+
+    const stock =
+
+    Number(
+
+        document
+        .getElementById(
+            "botStock"
+        )
+        .value
+
+    );
+
+
+    const botId =
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value
+    .trim();
+
+
+    const image =
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value
+    .trim();
+
+
+    const description =
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value
+    .trim();
+
+
+
+    if (
+
+        !name ||
+
+        !botId ||
+
+        price <= 0 ||
+
+        stock < 0
+
+    ) {
+
+
+        alert(
+            "Please complete the required fields."
+        );
+
+
+        return;
+
+    }
+
+
+
+    const bot = {
+
+
+        id:
+        Date.now(),
+
+
+        name:
+        name,
+
+
+        price:
+        price,
+
+
+        stock:
+        stock,
+
+
+        botId:
+        botId,
+
+
+        image:
+        image,
+
+
+        description:
+        description
+
+
+    };
+
+
+
+    bots.push(
+        bot
+    );
+
+
+    saveBots();
+
+
+    renderBots();
+
+
+    clearForm();
+
+
+    alert(
+        "Bot added successfully!"
+    );
+
+}
+
+
+
+/* =====================================================
+   RESTOCK
+===================================================== */
+
+
+function restockBot(
+    id
+) {
+
+
+    const amount =
+
+    Number(
+
+        prompt(
+            "How many units do you want to add?"
+        )
+
+    );
+
+
+    if (
+
+        !Number.isInteger(
+            amount
+        ) ||
+
+        amount <= 0
+
+    ) {
+
+
+        alert(
+            "Invalid amount."
+        );
+
+
+        return;
+
+    }
+
+
+
+    const bot =
+
+    bots.find(
+
+        item =>
+
+        item.id ===
+        id
+
+    );
+
+
+    if (!bot) {
+
+        return;
+
+    }
+
+
+
+    bot.stock +=
+    amount;
+
+
+    saveBots();
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   DELETE BOT
+===================================================== */
+
+
+function deleteBot(
+    id
+) {
+
+
+    if (
+
+        !confirm(
+            "Delete this bot?"
+        )
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    bots =
+
+    bots.filter(
+
+        bot =>
+
+        bot.id !==
+        id
+
+    );
+
+
+    saveBots();
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+
+function saveBots() {
+
+
+    localStorage.setItem(
+
+        "DBM_BOTS",
+
+        JSON.stringify(
+            bots
+        )
+
+    );
+
+}
+
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+
+function renderBots() {
+
+
+    const list =
+
+    document
+    .getElementById(
+        "inventoryList"
+    );
+
+
+    list.innerHTML = "";
+
+
+
+    if (
+        bots.length === 0
+    ) {
+
+
+        list.innerHTML =
+
+        "<p style='margin-top:15px;color:#777;'>No bots added yet.</p>";
+
+
+        return;
+
+    }
+
+
+
+    bots.forEach(
+
+        bot => {
+
+
+            const item =
+
+            document
+            .createElement(
+                "div"
+            );
+
+
+            item.className =
+            "inventory-item";
+
+
+            item.innerHTML = `
+
+
+            <div
+            class="inventory-info"
+            >
+
+
+            <strong>
+
+            ${escapeHTML(
+                bot.name
+            )}
+
+            </strong>
+
+
+            <span>
+
+            €${bot.price.toFixed(2)}
+
+            • Stock:
+            ${bot.stock}
+
+            </span>
+
+
+            </div>
+
+
+
+            <div
+            class="inventory-actions"
+            >
+
+
+            <button
+
+            class="small-button restock"
+
+            onclick=
+
+            "restockBot(
+                ${bot.id}
+            )"
+
+            >
+
+            🔄 Restock
+
+            </button>
+
+
+
+            <button
+
+            class="small-button delete"
+
+            onclick=
+
+            "deleteBot(
+                ${bot.id}
+            )"
+
+            >
+
+            🗑️ Delete
+
+            </button>
+
+
+            </div>
+
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+
+function clearForm() {
+
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value = "";
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+
+function escapeHTML(
+    text
+) {
+
+
+    return String(
+        text
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Discord Board Marketplace
+</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color: white;
+
+    background:
+    #03040a;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   CUSTOM CURSOR GLOW
+===================================================== */
+
+.cursor-glow {
+
+    position: fixed;
+
+    width: 350px;
+
+    height: 350px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(88,101,242,0.16),
+        transparent 70%
+    );
+
+    transform:
+    translate(-50%,-50%);
+
+    filter:
+    blur(20px);
+
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background:
+
+    radial-gradient(
+        circle at 20% 10%,
+        rgba(88,101,242,0.16),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 80% 60%,
+        rgba(139,92,246,0.12),
+        transparent 30%
+    ),
+
+    #03040a;
+
+}
+
+
+/* =====================================================
+   AURORA
+===================================================== */
+
+.aurora {
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    border-radius: 50%;
+
+    filter:
+    blur(130px);
+
+    opacity:
+    0.25;
+
+    animation:
+    auroraMove 18s
+    infinite alternate
+    ease-in-out;
+
+}
+
+
+.aurora-1 {
+
+    top:
+    -350px;
+
+    left:
+    -250px;
+
+    background:
+    #5865f2;
+
+}
+
+
+.aurora-2 {
+
+    right:
+    -350px;
+
+    top:
+    20%;
+
+    background:
+    #8b5cf6;
+
+    animation-delay:
+    4s;
+
+}
+
+
+.aurora-3 {
+
+    bottom:
+    -400px;
+
+    left:
+    35%;
+
+    background:
+    #06b6d4;
+
+    animation-delay:
+    8s;
+
+}
+
+
+@keyframes auroraMove {
+
+    0% {
+
+        transform:
+        translate(0,0)
+        scale(1);
+
+    }
+
+    50% {
+
+        transform:
+        translate(120px,80px)
+        scale(1.2);
+
+    }
+
+    100% {
+
+        transform:
+        translate(-100px,120px)
+        scale(0.9);
+
+    }
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particles {
+
+    position:
+    absolute;
+
+    inset:
+    0;
+
+}
+
+
+.particle {
+
+    position:
+    absolute;
+
+    width:
+    3px;
+
+    height:
+    3px;
+
+    border-radius:
+    50%;
+
+    background:
+    white;
+
+    opacity:
+    0.35;
+
+    box-shadow:
+    0 0 15px
+    rgba(255,255,255,0.5);
+
+    animation:
+    particleMove
+    linear infinite;
+
+}
+
+
+@keyframes particleMove {
+
+    0% {
+
+        transform:
+        translateY(110vh);
+
+        opacity:
+        0;
+
+    }
+
+    15% {
+
+        opacity:
+        0.5;
+
+    }
+
+    80% {
+
+        opacity:
+        0.3;
+
+    }
+
+    100% {
+
+        transform:
+        translateY(-10vh);
+
+        opacity:
+        0;
+
+    }
+
+}
+
+
+.particle:nth-child(1) {
+
+    left:
+    5%;
+
+    animation-duration:
+    14s;
+
+}
+
+
+.particle:nth-child(2) {
+
+    left:
+    15%;
+
+    animation-duration:
+    18s;
+
+    animation-delay:
+    3s;
+
+}
+
+
+.particle:nth-child(3) {
+
+    left:
+    25%;
+
+    animation-duration:
+    12s;
+
+    animation-delay:
+    6s;
+
+}
+
+
+.particle:nth-child(4) {
+
+    left:
+    38%;
+
+    animation-duration:
+    20s;
+
+}
+
+
+.particle:nth-child(5) {
+
+    left:
+    50%;
+
+    animation-duration:
+    16s;
+
+    animation-delay:
+    2s;
+
+}
+
+
+.particle:nth-child(6) {
+
+    left:
+    62%;
+
+    animation-duration:
+    13s;
+
+}
+
+
+.particle:nth-child(7) {
+
+    left:
+    75%;
+
+    animation-duration:
+    19s;
+
+    animation-delay:
+    5s;
+
+}
+
+
+.particle:nth-child(8) {
+
+    left:
+    88%;
+
+    animation-duration:
+    15s;
+
+}
+
+
+/* =====================================================
+   GLASS NAVBAR
+===================================================== */
+
+.navbar {
+
+    position:
+    fixed;
+
+    top:
+    18px;
+
+    left:
+    50%;
+
+    transform:
+    translateX(-50%);
+
+    width:
+    92%;
+
+    max-width:
+    1250px;
+
+    padding:
+    14px 20px;
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    z-index:
+    1000;
+
+    border-radius:
+    20px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px)
+    saturate(150%);
+
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(150%);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(0,0,0,0.35);
+
+}
+
+
+.logo {
+
+    font-size:
+    19px;
+
+    font-weight:
+    900;
+
+    letter-spacing:
+    -0.5px;
+
+}
+
+
+.logo span {
+
+    color:
+    #7280ff;
+
+}
+
+
+.nav-links {
+
+    display:
+    flex;
+
+    gap:
+    5px;
+
+    align-items:
+    center;
+
+}
+
+
+.nav-links a {
+
+    color:
+    rgba(255,255,255,0.65);
+
+    text-decoration:
+    none;
+
+    padding:
+    9px 13px;
+
+    border-radius:
+    10px;
+
+    transition:
+    0.3s;
+
+}
+
+
+.nav-links a:hover {
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.09);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+.cart-button {
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(88,101,242,0.8),
+        rgba(139,92,246,0.8)
+    ) !important;
+
+    color:
+    white !important;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    min-height:
+    100vh;
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    text-align:
+    center;
+
+    padding:
+    150px 20px 80px;
+
+}
+
+
+.hero-content {
+
+    max-width:
+    900px;
+
+    animation:
+    heroIn 1.2s
+    ease forwards;
+
+}
+
+
+@keyframes heroIn {
+
+    from {
+
+        opacity:
+        0;
+
+        transform:
+        translateY(45px)
+        scale(0.96);
+
+    }
+
+    to {
+
+        opacity:
+        1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+}
+
+
+.badge {
+
+    display:
+    inline-flex;
+
+    padding:
+    9px 17px;
+
+    margin-bottom:
+    25px;
+
+    border-radius:
+    50px;
+
+    background:
+    rgba(88,101,242,0.10);
+
+    border:
+    1px solid
+    rgba(114,128,255,0.35);
+
+    color:
+    #b9c0ff;
+
+    box-shadow:
+    0 0 40px
+    rgba(88,101,242,0.12);
+
+    animation:
+    badgePulse 3s
+    infinite;
+
+}
+
+
+@keyframes badgePulse {
+
+    0%,100% {
+
+        box-shadow:
+        0 0 20px
+        rgba(88,101,242,0.05);
+
+    }
+
+    50% {
+
+        box-shadow:
+        0 0 45px
+        rgba(88,101,242,0.25);
+
+    }
+
+}
+
+
+.hero h1 {
+
+    font-size:
+    clamp(
+        48px,
+        8vw,
+        100px
+    );
+
+    line-height:
+    0.95;
+
+    letter-spacing:
+    -5px;
+
+    margin-bottom:
+    28px;
+
+}
+
+
+.hero h1 span {
+
+    color:
+    #7280ff;
+
+    text-shadow:
+    0 0 60px
+    rgba(88,101,242,0.6);
+
+}
+
+
+.hero p {
+
+    max-width:
+    650px;
+
+    margin:
+    auto;
+
+    color:
+    rgba(255,255,255,0.58);
+
+    font-size:
+    18px;
+
+    line-height:
+    1.7;
+
+}
+
+
+.hero-buttons {
+
+    display:
+    flex;
+
+    justify-content:
+    center;
+
+    gap:
+    14px;
+
+    flex-wrap:
+    wrap;
+
+    margin-top:
+    35px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn {
+
+    display:
+    inline-flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    gap:
+    8px;
+
+    padding:
+    14px 23px;
+
+    border-radius:
+    13px;
+
+    text-decoration:
+    none;
+
+    font-weight:
+    750;
+
+    border:
+    none;
+
+    cursor:
+    pointer;
+
+    transition:
+    0.35s;
+
+}
+
+
+.btn-primary {
+
+    color:
+    white;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #8b5cf6
+    );
+
+    box-shadow:
+
+    0 12px 45px
+    rgba(88,101,242,0.3);
+
+}
+
+
+.btn-primary:hover {
+
+    transform:
+    translateY(-5px)
+    scale(1.02);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(88,101,242,0.5);
+
+}
+
+
+.btn-glass {
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.13);
+
+    backdrop-filter:
+    blur(15px);
+
+}
+
+
+.btn-glass:hover {
+
+    background:
+    rgba(255,255,255,0.11);
+
+    transform:
+    translateY(-5px);
+
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section {
+
+    width:
+    92%;
+
+    max-width:
+    1200px;
+
+    margin:
+    auto;
+
+    padding:
+    100px 0;
+
+}
+
+
+.section-title {
+
+    text-align:
+    center;
+
+    margin-bottom:
+    50px;
+
+}
+
+
+.section-title h2 {
+
+    font-size:
+    clamp(
+        32px,
+        5vw,
+        48px
+    );
+
+    margin-bottom:
+    12px;
+
+}
+
+
+.section-title p {
+
+    color:
+    rgba(255,255,255,0.5);
+
+}
+
+
+/* =====================================================
+   GLASS CARDS
+===================================================== */
+
+.cards {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(240px,1fr)
+    );
+
+    gap:
+    20px;
+
+}
+
+
+.card {
+
+    position:
+    relative;
+
+    overflow:
+    hidden;
+
+    padding:
+    32px;
+
+    min-height:
+    260px;
+
+    border-radius:
+    24px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,0.07),
+        rgba(255,255,255,0.025)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    -webkit-backdrop-filter:
+    blur(25px)
+    saturate(140%);
+
+    box-shadow:
+
+    0 20px 70px
+    rgba(0,0,0,0.25);
+
+    transition:
+    0.45s;
+
+}
+
+
+.card::before {
+
+    content:
+    "";
+
+    position:
+    absolute;
+
+    top:
+    -100px;
+
+    right:
+    -100px;
+
+    width:
+    220px;
+
+    height:
+    220px;
+
+    border-radius:
+    50%;
+
+    background:
+    #5865f2;
+
+    filter:
+    blur(100px);
+
+    opacity:
+    0;
+
+    transition:
+    0.5s;
+
+}
+
+
+.card:hover {
+
+    transform:
+    translateY(-10px);
+
+    border-color:
+    rgba(114,128,255,0.45);
+
+    box-shadow:
+
+    0 30px 90px
+    rgba(0,0,0,0.4);
+
+}
+
+
+.card:hover::before {
+
+    opacity:
+    0.2;
+
+}
+
+
+.card-icon {
+
+    font-size:
+    42px;
+
+    margin-bottom:
+    20px;
+
+}
+
+
+.card h3 {
+
+    font-size:
+    22px;
+
+    margin-bottom:
+    12px;
+
+}
+
+
+.card p {
+
+    color:
+    rgba(255,255,255,0.55);
+
+    line-height:
+    1.65;
+
+    margin-bottom:
+    22px;
+
+}
+
+
+/* =====================================================
+   TRUST
+===================================================== */
+
+.trust-grid {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(200px,1fr)
+    );
+
+    gap:
+    20px;
+
+}
+
+
+.trust-card {
+
+    padding:
+    30px;
+
+    text-align:
+    center;
+
+    border-radius:
+    20px;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    backdrop-filter:
+    blur(20px);
+
+    transition:
+    0.35s;
+
+}
+
+
+.trust-card:hover {
+
+    transform:
+    translateY(-6px);
+
+    background:
+    rgba(255,255,255,0.07);
+
+}
+
+
+.trust-card strong {
+
+    display:
+    block;
+
+    font-size:
+    30px;
+
+    color:
+    #7280ff;
+
+    margin-bottom:
+    8px;
+
+}
+
+
+.trust-card span {
+
+    color:
+    rgba(255,255,255,0.55);
+
+}
+
+
+/* =====================================================
+   OWNER PANEL OVERLAY
+===================================================== */
+
+.owner-overlay {
+
+    position:
+    fixed;
+
+    inset:
+    0;
+
+    z-index:
+    5000;
+
+    display:
+    none;
+
+    align-items:
+    center;
+
+    justify-content:
+    center;
+
+    padding:
+    20px;
+
+    background:
+    rgba(0,0,0,0.72);
+
+    backdrop-filter:
+    blur(15px);
+
+}
+
+
+.owner-overlay.active {
+
+    display:
+    flex;
+
+}
+
+
+.owner-panel {
+
+    width:
+    100%;
+
+    max-width:
+    900px;
+
+    max-height:
+    90vh;
+
+    overflow-y:
+    auto;
+
+    padding:
+    30px;
+
+    border-radius:
+    25px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(20,22,35,0.92),
+        rgba(10,12,20,0.92)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,0.14);
+
+    backdrop-filter:
+    blur(30px);
+
+    box-shadow:
+
+    0 30px 120px
+    rgba(0,0,0,0.6);
+
+    animation:
+    panelIn 0.35s
+    ease;
+
+}
+
+
+@keyframes panelIn {
+
+    from {
+
+        opacity:
+        0;
+
+        transform:
+        translateY(25px)
+        scale(0.96);
+
+    }
+
+    to {
+
+        opacity:
+        1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+    }
+
+}
+
+
+.owner-header {
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    margin-bottom:
+    25px;
+
+}
+
+
+.owner-header h2 {
+
+    font-size:
+    28px;
+
+}
+
+
+.close-button {
+
+    width:
+    40px;
+
+    height:
+    40px;
+
+    border-radius:
+    10px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    background:
+    rgba(255,255,255,0.06);
+
+    color:
+    white;
+
+    cursor:
+    pointer;
+
+    font-size:
+    20px;
+
+}
+
+
+.owner-form {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(
+        2,
+        1fr
+    );
+
+    gap:
+    12px;
+
+}
+
+
+.owner-input {
+
+    width:
+    100%;
+
+    padding:
+    13px 15px;
+
+    color:
+    white;
+
+    background:
+    rgba(255,255,255,0.055);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+    border-radius:
+    11px;
+
+    outline:
+    none;
+
+}
+
+
+.owner-input:focus {
+
+    border-color:
+    rgba(114,128,255,0.6);
+
+    box-shadow:
+    0 0 25px
+    rgba(88,101,242,0.15);
+
+}
+
+
+.owner-full {
+
+    grid-column:
+    1 / -1;
+
+}
+
+
+.owner-actions {
+
+    margin-top:
+    15px;
+
+}
+
+
+.inventory {
+
+    margin-top:
+    35px;
+
+}
+
+
+.inventory-item {
+
+    display:
+    flex;
+
+    align-items:
+    center;
+
+    justify-content:
+    space-between;
+
+    gap:
+    15px;
+
+    padding:
+    18px;
+
+    margin-top:
+    12px;
+
+    border-radius:
+    15px;
+
+    background:
+    rgba(255,255,255,0.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+}
+
+
+.inventory-info strong {
+
+    display:
+    block;
+
+    margin-bottom:
+    5px;
+
+}
+
+
+.inventory-info span {
+
+    color:
+    rgba(255,255,255,0.5);
+
+    font-size:
+    14px;
+
+}
+
+
+.inventory-actions {
+
+    display:
+    flex;
+
+    gap:
+    8px;
+
+    flex-wrap:
+    wrap;
+
+}
+
+
+.small-button {
+
+    padding:
+    9px 12px;
+
+    border:
+    none;
+
+    border-radius:
+    9px;
+
+    color:
+    white;
+
+    cursor:
+    pointer;
+
+    background:
+    rgba(255,255,255,0.08);
+
+}
+
+
+.small-button:hover {
+
+    background:
+    rgba(255,255,255,0.15);
+
+}
+
+
+.delete {
+
+    background:
+    rgba(220,60,70,0.2);
+
+}
+
+
+.restock {
+
+    background:
+    rgba(40,180,120,0.2);
+
+}
+
+
+/* =====================================================
+   OWNER BUTTON
+===================================================== */
+
+.owner-access {
+
+    position:
+    fixed;
+
+    bottom:
+    20px;
+
+    right:
+    20px;
+
+    z-index:
+    2000;
+
+    padding:
+    11px 16px;
+
+    border-radius:
+    12px;
+
+    border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+    background:
+    rgba(255,255,255,0.06);
+
+    color:
+    rgba(255,255,255,0.65);
+
+    backdrop-filter:
+    blur(15px);
+
+    cursor:
+    pointer;
+
+    transition:
+    0.3s;
+
+}
+
+
+.owner-access:hover {
+
+    color:
+    white;
+
+    transform:
+    translateY(-3px);
+
+    background:
+    rgba(88,101,242,0.25);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    padding:
+    60px 20px;
+
+    text-align:
+    center;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,0.08);
+
+    background:
+    rgba(255,255,255,0.025);
+
+}
+
+
+footer p {
+
+    color:
+    rgba(255,255,255,0.45);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media
+(max-width: 700px) {
+
+
+    .navbar {
+
+        flex-direction:
+        column;
+
+        gap:
+        12px;
+
+    }
+
+
+    .nav-links {
+
+        flex-wrap:
+        wrap;
+
+        justify-content:
+        center;
+
+    }
+
+
+    .hero h1 {
+
+        letter-spacing:
+        -3px;
+
+    }
+
+
+    .owner-form {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+
+    .owner-full {
+
+        grid-column:
+        auto;
+
+    }
+
+
+    .inventory-item {
+
+        flex-direction:
+        column;
+
+        align-items:
+        flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+
+<div class="background">
+
+
+<div class="aurora aurora-1"></div>
+
+<div class="aurora aurora-2"></div>
+
+<div class="aurora aurora-3"></div>
+
+
+<div class="particles">
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+<div class="particle"></div>
+
+</div>
+
+
+</div>
+
+
+<div
+class="cursor-glow"
+id="cursorGlow"
+></div>
+
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+Discord
+<span>
+Board
+</span>
+Marketplace
+
+</div>
+
+
+<div class="nav-links">
+
+
+<a href="#home">
+Home
+</a>
+
+
+<a href="#services">
+Services
+</a>
+
+
+<a href="bots.html">
+Bots
+</a>
+
+
+<a href="hosting.html">
+Hosting
+</a>
+
+
+<a href="support.html">
+Support
+</a>
+
+
+<a
+href="cart.html"
+class="cart-button"
+>
+
+🛒 Cart
+
+</a>
+
+
+</div>
+
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+
+<section
+class="hero"
+id="home"
+>
+
+
+<div class="hero-content">
+
+
+<div class="badge">
+
+✦ Premium Discord Marketplace
+
+</div>
+
+
+<h1>
+
+The Future of
+<span>
+Discord
+</span>
+
+</h1>
+
+
+<p>
+
+Discover premium Discord bots,
+hosting solutions and digital
+services built for modern
+communities.
+
+</p>
+
+
+<div class="hero-buttons">
+
+
+<a
+href="bots.html"
+class="btn btn-primary"
+>
+
+🤖 Explore Bots
+
+</a>
+
+
+<a
+href="hosting.html"
+class="btn btn-glass"
+>
+
+☁️ View Hosting
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+
+<section
+class="section"
+id="services"
+>
+
+
+<div class="section-title">
+
+
+<h2>
+
+Everything You Need
+
+</h2>
+
+
+<p>
+
+One modern marketplace for your
+Discord community.
+
+</p>
+
+
+</div>
+
+
+
+<div class="cards">
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🤖
+</div>
+
+
+<h3>
+Discord Bots
+</h3>
+
+
+<p>
+
+Premium bots for moderation,
+automation and community management.
+
+</p>
+
+
+<a
+href="bots.html"
+class="btn btn-glass"
+>
+
+Browse Bots
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+☁️
+</div>
+
+
+<h3>
+Bot Hosting
+</h3>
+
+
+<p>
+
+Reliable hosting options for
+your Discord projects and bots.
+
+</p>
+
+
+<a
+href="hosting.html"
+class="btn btn-glass"
+>
+
+View Hosting
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🎧
+</div>
+
+
+<h3>
+Support Center
+</h3>
+
+
+<p>
+
+Need help?
+Our support center is here
+for you.
+
+</p>
+
+
+<a
+href="support.html"
+class="btn btn-glass"
+>
+
+Get Support
+
+</a>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<div class="card-icon">
+🛒
+</div>
+
+
+<h3>
+Marketplace
+</h3>
+
+
+<p>
+
+Add your favorite products
+to your cart and checkout.
+
+</p>
+
+
+<a
+href="cart.html"
+class="btn btn-glass"
+>
+
+Open Cart
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST
+===================================================== -->
+
+
+<section
+class="section"
+>
+
+
+<div class="section-title">
+
+
+<h2>
+
+Why Choose Us?
+
+</h2>
+
+
+<p>
+
+Built for modern Discord communities.
+
+</p>
+
+
+</div>
+
+
+
+<div class="trust-grid">
+
+
+<div class="trust-card">
+
+<strong>
+100%
+</strong>
+
+<span>
+Premium Quality
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+24/7
+</strong>
+
+<span>
+Support
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+Fast
+</strong>
+
+<span>
+Digital Delivery
+</span>
+
+</div>
+
+
+<div class="trust-card">
+
+<strong>
+Secure
+</strong>
+
+<span>
+Checkout
+</span>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     OWNER ACCESS
+===================================================== -->
+
+
+<button
+class="owner-access"
+onclick="openOwnerPanel()"
+>
+
+🔐 Owner Panel
+
+</button>
+
+
+
+<!-- =====================================================
+     OWNER PANEL
+===================================================== -->
+
+
+<div
+class="owner-overlay"
+id="ownerOverlay"
+>
+
+
+<div class="owner-panel">
+
+
+<div class="owner-header">
+
+
+<h2>
+🔐 Owner Panel
+</h2>
+
+
+<button
+class="close-button"
+onclick="closeOwnerPanel()"
+>
+
+×
+
+</button>
+
+
+</div>
+
+
+
+<h3>
+Add New Bot
+</h3>
+
+
+<br>
+
+
+
+<div class="owner-form">
+
+
+<input
+id="botName"
+class="owner-input"
+placeholder="Bot Name"
+>
+
+
+<input
+id="botPrice"
+class="owner-input"
+type="number"
+step="0.01"
+placeholder="Price"
+>
+
+
+<input
+id="botStock"
+class="owner-input"
+type="number"
+min="0"
+placeholder="Stock"
+>
+
+
+<input
+id="botId"
+class="owner-input"
+placeholder="Bot ID"
+>
+
+
+<input
+id="botImage"
+class="owner-input owner-full"
+placeholder="Bot Image URL"
+>
+
+
+<input
+id="botDescription"
+class="owner-input owner-full"
+placeholder="Bot Description"
+>
+
+
+</div>
+
+
+
+<div class="owner-actions">
+
+
+<button
+class="btn btn-primary"
+onclick="addBot()"
+>
+
+➕ Add Bot
+
+</button>
+
+
+</div>
+
+
+
+<div class="inventory">
+
+
+<h3>
+
+📦 Inventory
+
+</h3>
+
+
+<div
+id="inventoryList"
+>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script>
+
+
+/* =====================================================
+   CURSOR GLOW
+===================================================== */
+
+
+const cursorGlow =
+
+document.getElementById(
+    "cursorGlow"
+);
+
+
+document.addEventListener(
+
+    "mousemove",
+
+    function(event) {
+
+
+        cursorGlow.style.left =
+
+        event.clientX + "px";
+
+
+        cursorGlow.style.top =
+
+        event.clientY + "px";
+
+
+    }
+
+);
+
+
+
+/* =====================================================
+   OWNER DATA
+===================================================== */
+
+
+let bots =
+
+JSON.parse(
+
+    localStorage.getItem(
+        "DBM_BOTS"
+    )
+
+) || [];
+
+
+
+/* =====================================================
+   OPEN OWNER PANEL
+===================================================== */
+
+
+function openOwnerPanel() {
+
+
+    const password =
+
+    prompt(
+        "Enter Owner Password"
+    );
+
+
+    if (
+        password !==
+        "CHANGE_THIS_PASSWORD"
+    ) {
+
+
+        alert(
+            "Access denied."
+        );
+
+
+        return;
+
+    }
+
+
+    document
+
+    .getElementById(
+        "ownerOverlay"
+    )
+
+    .classList
+
+    .add(
+        "active"
+    );
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   CLOSE OWNER PANEL
+===================================================== */
+
+
+function closeOwnerPanel() {
+
+
+    document
+
+    .getElementById(
+        "ownerOverlay"
+    )
+
+    .classList
+
+    .remove(
+        "active"
+    );
+
+}
+
+
+
+/* =====================================================
+   ADD BOT
+===================================================== */
+
+
+function addBot() {
+
+
+    const name =
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value
+    .trim();
+
+
+    const price =
+
+    Number(
+
+        document
+        .getElementById(
+            "botPrice"
+        )
+        .value
+
+    );
+
+
+    const stock =
+
+    Number(
+
+        document
+        .getElementById(
+            "botStock"
+        )
+        .value
+
+    );
+
+
+    const botId =
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value
+    .trim();
+
+
+    const image =
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value
+    .trim();
+
+
+    const description =
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value
+    .trim();
+
+
+
+    if (
+
+        !name ||
+
+        !botId ||
+
+        price <= 0 ||
+
+        stock < 0
+
+    ) {
+
+
+        alert(
+            "Please complete the required fields."
+        );
+
+
+        return;
+
+    }
+
+
+
+    const bot = {
+
+
+        id:
+        Date.now(),
+
+
+        name:
+        name,
+
+
+        price:
+        price,
+
+
+        stock:
+        stock,
+
+
+        botId:
+        botId,
+
+
+        image:
+        image,
+
+
+        description:
+        description
+
+
+    };
+
+
+
+    bots.push(
+        bot
+    );
+
+
+    saveBots();
+
+
+    renderBots();
+
+
+    clearForm();
+
+
+    alert(
+        "Bot added successfully!"
+    );
+
+}
+
+
+
+/* =====================================================
+   RESTOCK
+===================================================== */
+
+
+function restockBot(
+    id
+) {
+
+
+    const amount =
+
+    Number(
+
+        prompt(
+            "How many units do you want to add?"
+        )
+
+    );
+
+
+    if (
+
+        !Number.isInteger(
+            amount
+        ) ||
+
+        amount <= 0
+
+    ) {
+
+
+        alert(
+            "Invalid amount."
+        );
+
+
+        return;
+
+    }
+
+
+
+    const bot =
+
+    bots.find(
+
+        item =>
+
+        item.id ===
+        id
+
+    );
+
+
+    if (!bot) {
+
+        return;
+
+    }
+
+
+
+    bot.stock +=
+    amount;
+
+
+    saveBots();
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   DELETE BOT
+===================================================== */
+
+
+function deleteBot(
+    id
+) {
+
+
+    if (
+
+        !confirm(
+            "Delete this bot?"
+        )
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    bots =
+
+    bots.filter(
+
+        bot =>
+
+        bot.id !==
+        id
+
+    );
+
+
+    saveBots();
+
+
+    renderBots();
+
+}
+
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+
+function saveBots() {
+
+
+    localStorage.setItem(
+
+        "DBM_BOTS",
+
+        JSON.stringify(
+            bots
+        )
+
+    );
+
+}
+
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+
+function renderBots() {
+
+
+    const list =
+
+    document
+    .getElementById(
+        "inventoryList"
+    );
+
+
+    list.innerHTML = "";
+
+
+
+    if (
+        bots.length === 0
+    ) {
+
+
+        list.innerHTML =
+
+        "<p style='margin-top:15px;color:#777;'>No bots added yet.</p>";
+
+
+        return;
+
+    }
+
+
+
+    bots.forEach(
+
+        bot => {
+
+
+            const item =
+
+            document
+            .createElement(
+                "div"
+            );
+
+
+            item.className =
+            "inventory-item";
+
+
+            item.innerHTML = `
+
+
+            <div
+            class="inventory-info"
+            >
+
+
+            <strong>
+
+            ${escapeHTML(
+                bot.name
+            )}
+
+            </strong>
+
+
+            <span>
+
+            €${bot.price.toFixed(2)}
+
+            • Stock:
+            ${bot.stock}
+
+            </span>
+
+
+            </div>
+
+
+
+            <div
+            class="inventory-actions"
+            >
+
+
+            <button
+
+            class="small-button restock"
+
+            onclick=
+
+            "restockBot(
+                ${bot.id}
+            )"
+
+            >
+
+            🔄 Restock
+
+            </button>
+
+
+
+            <button
+
+            class="small-button delete"
+
+            onclick=
+
+            "deleteBot(
+                ${bot.id}
+            )"
+
+            >
+
+            🗑️ Delete
+
+            </button>
+
+
+            </div>
+
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+
+function clearForm() {
+
+
+    document
+    .getElementById(
+        "botName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botPrice"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botStock"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botId"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botImage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "botDescription"
+    )
+    .value = "";
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+
+function escapeHTML(
+    text
+) {
+
+
+    return String(
+        text
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+```
